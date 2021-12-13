@@ -1,0 +1,23 @@
+#服务名称
+spring:
+  application:
+    name: eureka
+#注册中心默认端口非8761时配置
+server:
+  port: 8001
+eureka:
+  client:
+    #以下两个均默认为true
+    #当前服务为注册中心，所以不需要对自己进行注册
+    register-with-eureka: false
+    #非集群版eureka是不需要同步其他节点数据，当前项目只有一个eureka所以需要设置为false
+    fetch-registry: false
+    #注册中心服务的请求地址
+    service-url:
+      #当注册中心端口号改变时，该字段必须写
+      defaultZone: http://localhost:${server.port}/eureka/
+      #其他主机的注册中心的地址，非本机注册中心地址，多个用逗号隔开
+    #        defaultZone: http://eurekaserver2:8005/eureka/,http://eurekaserver3:8006/eureka/
+    #  instance:
+    #比如配置文件名为application-eurekaserver1.yml，集群注册中心配置文件必须这样命名
+#    hostname: eurekaserver1
