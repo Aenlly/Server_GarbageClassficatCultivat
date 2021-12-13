@@ -13,15 +13,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * VIEW
+ *
  * @author aenlly
- * @since 2021-12-11
+ * @since 2021-12-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "公益视频对象", description = "")
-public class Video implements Serializable {
+@ApiModel(value = "VideoUserView对象", description = "VIEW")
+public class VideoUserView implements Serializable {
 
-  private static final long serialVersionUID = 9198257600849363799L;
+  private static final long serialVersionUID = 216547385307142585L;
 
   @ApiModelProperty(value = "视频标识")
   @TableId("video_id")
@@ -47,9 +49,17 @@ public class Video implements Serializable {
   @TableField("video_points")
   private String videoPoints;
 
-  @ApiModelProperty(value = "视频状态")
+  @ApiModelProperty(value = "视频状态,待发布，已发布，置顶")
   @TableField("video_check")
   private String videoCheck;
+
+  @ApiModelProperty(value = "分享总数")
+  @TableField("share_count")
+  private Long shareCount;
+
+  @ApiModelProperty(value = "版本号，用于乐观锁")
+  @Version
+  private Integer version;
 
   @ApiModelProperty(value = "插入时间")
   @TableField("create_time")
@@ -63,8 +73,4 @@ public class Video implements Serializable {
   @TableField("delete_flag")
   @TableLogic
   private Boolean deleteFlag;
-
-  @ApiModelProperty(value = "版本号，用于乐观锁")
-  @Version
-  private Integer version;
 }

@@ -124,4 +124,27 @@ public class QueryWrapperUtil {
         .eq("data_id", dataId);
     return queryWrapper;
   }
+
+  /**
+   * 获得用户首页视频查询对象
+   *
+   * @return 查询对象
+   */
+  public static QueryWrapper<VideoUserView> getByChekTop() {
+    QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("video_url").eq("video_check", "置顶");
+    return queryWrapper;
+  }
+
+  /**
+   * 获得用户服务-公益视频根据标题查询对象
+   *
+   * @param title 标题
+   * @return 查询对象
+   */
+  public static QueryWrapper<VideoUserView> getVideoByTitleList(String title) {
+    QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
+    queryWrapper.likeRight("video_title", title);
+    return queryWrapper;
+  }
 }

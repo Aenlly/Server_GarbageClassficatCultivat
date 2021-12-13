@@ -52,7 +52,7 @@ public class HotInfoUserView implements Serializable {
   @TableField("hot_info_state")
   private String hotInfoState;
 
-  @ApiModelProperty(value = "来源")
-  @TableField("source_text")
-  private String sourceText;
+  @ApiModelProperty(value = "分享总数")
+  @TableField("share_count")
+  private Long shareCount;
 }

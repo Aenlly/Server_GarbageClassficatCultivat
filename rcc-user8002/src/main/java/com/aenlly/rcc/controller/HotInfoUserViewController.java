@@ -56,7 +56,7 @@ public class HotInfoUserViewController {
   @ApiOperation(value = "请求用户服务热门资讯单个信息详情", httpMethod = "GET")
   @GetMapping("/getById")
   public CommonResult<HotInfoUserView> getHotInfoUserById(
-      @Param(value = "资讯标题") Integer hotInfoId) {
+      @Param(value = "资讯编号") Integer hotInfoId) {
     HotInfoUserView data = hotInfoUserViewService.getById(hotInfoId);
     return resultOkOne(data);
   }
