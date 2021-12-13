@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.aenlly</groupId>
+	<artifactId>RefuseClassificationCultivate</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<!-- 管理所有jar包的版本 -->
+	<properties>
+		<project.build.soureEncoding>UTF-8</project.build.soureEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+
+		<mybatis-plus-boot-starter.version>3.4.3.2</mybatis-plus-boot-starter.version>
+		<mybatis-plus-generator.version>3.5.0</mybatis-plus-generator.version>
+
+		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<cloud-alibaba.version>2.1.0.RELEASE</cloud-alibaba.version>
+		<springfox.version>3.0.0</springfox.version>
+		<druid.version>1.2.8</druid.version>
+		<log4j.version>1.2.12</log4j.version>
+		<spring.boot.version>2.5.6</spring.boot.version>
+		<junit.version>4.12</junit.version>
+		<devtools.version>2.5.5</devtools.version>
+		<aenlly.version>1.0-SNAPSHOT</aenlly.version>
+	</properties>
+
+	<modules>
+		<module>rcc-eureka8001</module>
+		<module>rcc-user8002</module>
+		<module>rcc-resource8004</module>
+		<module>rcc-api-commons</module>
+	</modules>
+
+	<!-- 锁定版本编号，子模块不需要写version和groupId -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.aenlly</groupId>
+				<artifactId>rcc-api-commons</artifactId>
+				<version>${aenlly.version}</version>
+			</dependency>
+
+			<!-- 因为maven是单继承，所以需要使用type标注，使其跟parent效果一样，所有springboot的版本 -->
+			<!-- 官方springboot版本-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- 因为maven是单继承，所以需要使用type标注，使其跟parent效果一样，所以springCloud的版本 -->
+			<!-- 官方springCloud版本-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- 热部署依赖 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-devtools</artifactId>
+				<version>${devtools.version}</version>
+			</dependency>
+			<!-- swagger与springboot集成 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-boot-starter</artifactId>
+				<version>${springfox.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus-boot-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>${mybatis-plus-generator.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity-engine-core</artifactId>
+				<version>2.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+			</dependency>
+
+			<!-- 测试所需的依赖 -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+</project>
