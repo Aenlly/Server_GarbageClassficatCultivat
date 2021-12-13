@@ -1,27 +1,27 @@
 package com.aenlly.rcc.service;
 
-import com.aenlly.rcc.entity.LikeEntity;
+import com.aenlly.rcc.entity.CollectEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * 服务类
  *
  * @author aenlly
- * @since 2021-12-12
+ * @since 2021-12-13
  */
-public interface ILikeEntityService extends IService<LikeEntity> {
+public interface ICollectEntityService extends IService<CollectEntity> {
 
   /**
-   * 根据数据id与点赞实体统计点赞总数
+   * 根据数据id与收藏实体统计点赞总数
    *
-   * @param entityName 点赞的实体名称
+   * @param entityName 收藏的实体名称
    * @param dataId 数据id
    * @return 统计值
    */
   long getCountByDataId(String entityName, String dataId);
 
   /**
-   * 根据用户id，数据id，实体名称查询是否点赞
+   * 根据用户id，数据id，实体名称查询是否收藏
    *
    * @param userId 用户id
    * @param entityName 实体名称

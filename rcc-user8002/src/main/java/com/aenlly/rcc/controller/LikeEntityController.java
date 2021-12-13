@@ -28,7 +28,7 @@ public class LikeEntityController {
   @ApiOperation(value = "请求数据点赞量", httpMethod = "GET")
   @GetMapping("/getCountByDataId")
   public CommonResult<Long> getCountByDataId(
-      @Param(value = "收藏的实体名称") String entityName, @Param("点赞数据ID") String dataId) {
+      @Param(value = "点赞的实体名称") String entityName, @Param("点赞数据ID") String dataId) {
     long count = likeEntityService.getCountByDataId(entityName, dataId);
     return resultOkOne(count);
   }
@@ -93,7 +93,7 @@ public class LikeEntityController {
   @DeleteMapping("/likeCancel/{userId}/{entityName}/{dataId}")
   public CommonResult<Boolean> likeCancel(
       @Param(value = "用户唯一标识") @PathVariable("userId") String userId,
-      @Param(value = "收藏的实体") @PathVariable("entityName") String entityName,
+      @Param(value = "点赞的实体") @PathVariable("entityName") String entityName,
       @Param("点赞数据ID") @PathVariable("dataId") String dataId) {
     // 查询id进行删除
     Integer id = likeEntityService.getIdBy(userId, entityName, dataId);

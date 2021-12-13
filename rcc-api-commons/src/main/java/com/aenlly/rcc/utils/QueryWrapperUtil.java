@@ -1,9 +1,6 @@
 package com.aenlly.rcc.utils;
 
-import com.aenlly.rcc.entity.Garbage;
-import com.aenlly.rcc.entity.GarbageList;
-import com.aenlly.rcc.entity.HotInfoUserView;
-import com.aenlly.rcc.entity.LikeEntity;
+import com.aenlly.rcc.entity.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 /**
@@ -78,7 +75,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<LikeEntity> getCountByDataId(String entityName, String dataId) {
+  public static QueryWrapper<LikeEntity> getLikeCountByDataId(String entityName, String dataId) {
     QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("like_id").eq("entity_name", entityName).eq("data_id", dataId);
     return queryWrapper;
@@ -89,11 +86,39 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<LikeEntity> getIsByUserId(
+  public static QueryWrapper<LikeEntity> getIsLikeByUserId(
       String userId, String entityName, String dataId) {
     QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper
         .select("like_id")
+        .eq("user_id", userId)
+        .eq("entity_name", entityName)
+        .eq("data_id", dataId);
+    return queryWrapper;
+  }
+
+  /**
+   * 根据实体名称与数据id获得查询收藏操作对象
+   *
+   * @return 查询对象
+   */
+  public static QueryWrapper<CollectEntity> getCollectCountByDataId(
+      String entityName, String dataId) {
+    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("collect_id").eq("entity_name", entityName).eq("data_id", dataId);
+    return queryWrapper;
+  }
+
+  /**
+   * 根据用户id，实体名称与数据id 获得判断是否收藏操作对象
+   *
+   * @return 查询对象
+   */
+  public static QueryWrapper<CollectEntity> getIsCollectByUserId(
+      String userId, String entityName, String dataId) {
+    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select("collect_id")
         .eq("user_id", userId)
         .eq("entity_name", entityName)
         .eq("data_id", dataId);
