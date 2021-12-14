@@ -3,7 +3,8 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.HotInfoUserView;
 import com.aenlly.rcc.mapper.HotInfoUserViewMapper;
 import com.aenlly.rcc.service.IHotInfoUserViewService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class HotInfoUserViewServiceImpl extends ServiceImpl<HotInfoUserViewMappe
    */
   @Override
   public List<HotInfoUserView> list() {
-    QueryWrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.queryHotInfoUserList();
+    Wrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.queryHotInfoUserList();
     return baseMapper.selectList(queryWrapper);
   }
 
@@ -37,7 +38,7 @@ public class HotInfoUserViewServiceImpl extends ServiceImpl<HotInfoUserViewMappe
    */
   @Override
   public List<HotInfoUserView> getHotInfoUserByTitleList(String title) {
-    QueryWrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.getHotInfoUserByTitleList(title);
+    Wrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.getHotInfoUserByTitleList(title);
     return baseMapper.selectList(queryWrapper);
   }
 }

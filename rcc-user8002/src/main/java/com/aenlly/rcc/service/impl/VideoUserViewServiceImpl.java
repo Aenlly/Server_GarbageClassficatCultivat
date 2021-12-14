@@ -3,7 +3,8 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.VideoUserView;
 import com.aenlly.rcc.mapper.VideoUserViewMapper;
 import com.aenlly.rcc.service.IVideoUserViewService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class VideoUserViewServiceImpl extends ServiceImpl<VideoUserViewMapper, V
    */
   @Override
   public VideoUserView getByChekTop() {
-    QueryWrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getByChekTop();
+    Wrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getByChekTop();
     return baseMapper.selectOne(queryWrapper);
   }
 
@@ -38,7 +39,7 @@ public class VideoUserViewServiceImpl extends ServiceImpl<VideoUserViewMapper, V
    */
   @Override
   public List<VideoUserView> getByTitleList(String title) {
-    QueryWrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getVideoByTitleList(title);
+    Wrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getVideoByTitleList(title);
     return baseMapper.selectList(queryWrapper);
   }
 

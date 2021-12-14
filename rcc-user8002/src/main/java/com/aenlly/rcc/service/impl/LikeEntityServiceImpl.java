@@ -3,7 +3,8 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.LikeEntity;
 import com.aenlly.rcc.mapper.LikeEntityMapper;
 import com.aenlly.rcc.service.ILikeEntityService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,7 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
 
   @Override
   public long getCountByDataId(String entityName, String dataId) {
-    QueryWrapper<LikeEntity> queryWrapper =
-        QueryWrapperUtil.getLikeCountByDataId(entityName, dataId);
+    Wrapper<LikeEntity> queryWrapper = QueryWrapperUtil.getLikeCountByDataId(entityName, dataId);
     return baseMapper.selectCount(queryWrapper);
   }
 
@@ -38,7 +38,7 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
     if (StringUtils.isNotBlank(userId)
         && StringUtils.isNotBlank(entityName)
         && StringUtils.isNotBlank(dataId)) {
-      QueryWrapper<LikeEntity> queryWrapper =
+      Wrapper<LikeEntity> queryWrapper =
           QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
       return baseMapper.selectCount(queryWrapper) > 0;
     }
@@ -58,7 +58,7 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
     if (StringUtils.isNotBlank(userId)
         && StringUtils.isNotBlank(entityName)
         && StringUtils.isNotBlank(dataId)) {
-      QueryWrapper<LikeEntity> queryWrapper =
+      Wrapper<LikeEntity> queryWrapper =
           QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
       return baseMapper.selectOne(queryWrapper).getLikeId();
     }

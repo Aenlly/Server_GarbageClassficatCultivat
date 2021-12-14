@@ -20,9 +20,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "GarbageLibrary对象", description = "")
 public class GarbageLibrary implements Serializable {
-    
-    private static final long serialVersionUID = -2089535698007728855L;
-    @ApiModelProperty(value = "编号")
+
+  private static final long serialVersionUID = -2089535698007728855L;
+
+  @ApiModelProperty(value = "编号")
   @TableId(value = "id", type = IdType.AUTO)
   private Integer id;
 

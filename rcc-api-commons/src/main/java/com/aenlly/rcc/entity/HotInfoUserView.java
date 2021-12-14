@@ -51,8 +51,4 @@ public class HotInfoUserView implements Serializable {
   @ApiModelProperty(value = "资讯状态，待发布、已发布、已下线")
   @TableField("hot_info_state")
   private String hotInfoState;
-
-  @ApiModelProperty(value = "分享总数")
-  @TableField("share_count")
-  private Long shareCount;
 }

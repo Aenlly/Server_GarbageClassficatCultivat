@@ -1,6 +1,8 @@
 package com.aenlly.rcc.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,7 +24,7 @@ public class CarouselUserView implements Serializable {
   private static final long serialVersionUID = 656188386967454576L;
 
   @ApiModelProperty(value = "标识字段")
-  @TableField("carousel_id")
+  @TableId(value = "carousel_id", type = IdType.AUTO)
   private Integer carouselId;
 
   @ApiModelProperty(value = "轮播名称")

@@ -3,8 +3,10 @@ package com.aenlly.rcc.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,23 +16,29 @@ import java.time.LocalDateTime;
  * @since 2021-12-14
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "用户搜索记录对象", description = "")
 public class UserSearch implements Serializable {
 
   private static final long serialVersionUID = 8406083679967308845L;
 
+  @ApiModelProperty(value = "自增标识")
   @TableId(value = "search_id", type = IdType.AUTO)
   private Integer searchId;
 
   @ApiModelProperty(value = "搜索的垃圾名称")
+  @TableField("name")
   private String name;
 
   @ApiModelProperty(value = "搜索类型，文本搜索，语音搜索，图片识别")
+  @TableField("type")
   private String type;
 
+  @ApiModelProperty(value = "用户编号")
   @TableField("user_id")
-  private Integer userId;
+  private String userId;
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField("create_time")
@@ -49,5 +57,9 @@ public class UserSearch implements Serializable {
   @Version
   private Integer version;
 
-  public UserSearch(String name, String userId) {}
+  public UserSearch(String name, String type, String userId) {
+    this.name = name;
+    this.type = type;
+    this.userId = userId;
+  }
 }

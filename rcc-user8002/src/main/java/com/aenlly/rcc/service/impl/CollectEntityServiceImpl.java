@@ -3,7 +3,8 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.CollectEntity;
 import com.aenlly.rcc.mapper.CollectEntityMapper;
 import com.aenlly.rcc.service.ICollectEntityService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
    */
   @Override
   public long getCountByDataId(String entityName, String dataId) {
-    QueryWrapper<CollectEntity> queryWrapper =
+    Wrapper<CollectEntity> queryWrapper =
         QueryWrapperUtil.getCollectCountByDataId(entityName, dataId);
     return baseMapper.selectCount(queryWrapper);
   }
@@ -45,7 +46,7 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
     if (StringUtils.isNotBlank(userId)
         && StringUtils.isNotBlank(entityName)
         && StringUtils.isNotBlank(dataId)) {
-      QueryWrapper<CollectEntity> queryWrapper =
+      Wrapper<CollectEntity> queryWrapper =
           QueryWrapperUtil.getIsCollectByUserId(userId, entityName, dataId);
       return baseMapper.selectCount(queryWrapper) > 0;
     }
@@ -65,7 +66,7 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
     if (StringUtils.isNotBlank(userId)
         && StringUtils.isNotBlank(entityName)
         && StringUtils.isNotBlank(dataId)) {
-      QueryWrapper<CollectEntity> queryWrapper =
+      Wrapper<CollectEntity> queryWrapper =
           QueryWrapperUtil.getIsCollectByUserId(userId, entityName, dataId);
       return baseMapper.selectOne(queryWrapper).getCollectId();
     }

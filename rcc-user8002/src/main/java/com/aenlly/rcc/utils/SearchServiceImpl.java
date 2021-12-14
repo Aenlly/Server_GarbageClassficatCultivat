@@ -7,7 +7,7 @@ import com.aenlly.rcc.entity.GarbageLibrary;
 import com.aenlly.rcc.entity.UserSearch;
 import com.aenlly.rcc.service.IGarbageLibraryService;
 import com.aenlly.rcc.service.IUserSearchService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 import static com.aenlly.rcc.utils.SearchApi.TEXT_API;
+import static com.aenlly.rcc.utils.SearchType.SEARCH_TEXT;
 
 /**
  * @author Aenlly
@@ -30,6 +31,9 @@ public class SearchServiceImpl implements SearchService {
   @Resource private RestTemplate template;
   /** 用户搜索服务对象 */
   @Resource private IUserSearchService userSearchService;
+  /** 插入数据库未拥有的数据对象 */
+  @Resource private GarbageLibraryAdd garbageLibraryAdd;
+
   /**
    * 垃圾类型文本搜索
    *
@@ -39,10 +43,9 @@ public class SearchServiceImpl implements SearchService {
    */
   @Override
   public Collection<GarbageLibrary> searchText(String name, String userId) {
-
     // 增加搜索记录
     if (StringUtils.isNotBlank(userId)) {
-      UserSearch userSearch = new UserSearch(name, userId);
+      UserSearch userSearch = new UserSearch(name, SEARCH_TEXT.getValue(), userId);
       boolean save = userSearchService.save(userSearch);
       if (!save) {
         return null;
@@ -52,7 +55,7 @@ public class SearchServiceImpl implements SearchService {
     char[] chars = name.toCharArray();
     Map<Integer, GarbageLibrary> map = new HashMap<>();
     for (char c : chars) {
-      QueryWrapper<GarbageLibrary> queryWrapper = QueryWrapperUtil.getSearchText(c);
+      Wrapper<GarbageLibrary> queryWrapper = QueryWrapperUtil.getSearchText(c);
       List<GarbageLibrary> list = garbageLibraryService.list(queryWrapper);
       for (GarbageLibrary garbageLibrary : list) {
         map.put(garbageLibrary.getId(), garbageLibrary);
@@ -87,6 +90,49 @@ public class SearchServiceImpl implements SearchService {
   }
 
   /**
+   * 查询用户搜索记录
+   *
+   * @param userId 用户编号
+   * @return 搜索记录列表
+   */
+  @Override
+  public List<UserSearch> getSearchList(String userId) {
+    isNotUserId(userId);
+    Wrapper<UserSearch> queryWrapper = QueryWrapperUtil.getSearchList(userId);
+    return userSearchService.list(queryWrapper);
+  }
+
+  /**
+   * 查询用户搜索记录
+   *
+   * @param userId 用户编号
+   * @param name 搜索名称
+   * @return 结果集
+   */
+  @Override
+  public List<UserSearch> getSearchByName(String userId, String name) {
+    isNotUserId(userId);
+    if (StringUtils.isNotBlank(name)) {
+      Wrapper<UserSearch> queryWrapper = QueryWrapperUtil.getSearchByName(userId, name);
+      return userSearchService.list(queryWrapper);
+    } else {
+      return getSearchList(userId);
+    }
+  }
+
+  /**
+   * 判断用户编号是否为空 为空则抛出异常
+   *
+   * @param userId 用户编号
+   */
+  public void isNotUserId(String userId) {
+    if (!StringUtils.isNotBlank(userId)) {
+      // 抛出空异常
+      throw new NullPointerException();
+    }
+  }
+
+  /**
    * 调用文本搜索垃圾分类API
    *
    * @param name 垃圾名称
@@ -94,6 +140,8 @@ public class SearchServiceImpl implements SearchService {
    */
   public Collection<GarbageLibrary> transferTextApi(String name) {
     List<GarbageLibrary> list = new ArrayList<>();
+    // 拼接url,使用的api天行
+    // TODO:更换调用API：TEXT_API.getValue()：http://api.tianapi.com/lajifenlei/index?key=接口key&word=%s
     String format = String.format(TEXT_API.getValue(), name);
     String result = template.getForObject(format, String.class);
     JSONObject json = JSONUtil.parseObj(result);
@@ -125,6 +173,16 @@ public class SearchServiceImpl implements SearchService {
             list.add(library);
           }
         }
+        garbageLibraryAdd.GarbageLibraryAdd(list);
+
+        // 垃圾分类库增加记录线程,线程插入数据库中不存在的数据
+        // new Thread(
+        //         () -> {
+        //           System.out.println("操作数据库");
+        //           boolean save = garbageLibraryService.saveBatch(list);
+        //           System.out.println("-------" + save);
+        //         })
+        //     .start();
         return list;
       }
     }

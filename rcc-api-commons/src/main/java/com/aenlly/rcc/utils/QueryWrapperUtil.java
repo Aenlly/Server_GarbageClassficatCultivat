@@ -1,6 +1,7 @@
 package com.aenlly.rcc.utils;
 
 import com.aenlly.rcc.entity.*;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 /**
@@ -17,7 +18,7 @@ public class QueryWrapperUtil {
    * @param garbageType 垃圾类型
    * @return 查询对象
    */
-  public static QueryWrapper<Garbage> queryByGarbageType(String garbageType) {
+  public static Wrapper<Garbage> queryByGarbageType(String garbageType) {
     QueryWrapper<Garbage> queryWrapper = new QueryWrapper<>();
     queryWrapper
         .select(
@@ -40,7 +41,7 @@ public class QueryWrapperUtil {
    * @param garbageId 垃圾类型所属编号类型
    * @return 查询对象
    */
-  public static QueryWrapper<GarbageList> queryByGarbageId(Integer garbageId) {
+  public static Wrapper<GarbageList> queryByGarbageId(Integer garbageId) {
     QueryWrapper<GarbageList> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("id", "garbage_name", "img_url").eq("garbage_id", garbageId);
     return queryWrapper;
@@ -51,7 +52,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<HotInfoUserView> queryHotInfoUserList() {
+  public static Wrapper<HotInfoUserView> queryHotInfoUserList() {
     QueryWrapper<HotInfoUserView> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("hot_info_id", "img_url", "hot_info_title", "hot_info_desc");
     return queryWrapper;
@@ -62,7 +63,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<HotInfoUserView> getHotInfoUserByTitleList(String title) {
+  public static Wrapper<HotInfoUserView> getHotInfoUserByTitleList(String title) {
     QueryWrapper<HotInfoUserView> queryWrapper = new QueryWrapper<>();
     queryWrapper
         .select("hot_info_id", "img_url", "hot_info_title", "hot_info_desc")
@@ -75,7 +76,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<LikeEntity> getLikeCountByDataId(String entityName, String dataId) {
+  public static Wrapper<LikeEntity> getLikeCountByDataId(String entityName, String dataId) {
     QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("like_id").eq("entity_name", entityName).eq("data_id", dataId);
     return queryWrapper;
@@ -86,7 +87,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<LikeEntity> getIsLikeByUserId(
+  public static Wrapper<LikeEntity> getIsLikeByUserId(
       String userId, String entityName, String dataId) {
     QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper
@@ -102,8 +103,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<CollectEntity> getCollectCountByDataId(
-      String entityName, String dataId) {
+  public static Wrapper<CollectEntity> getCollectCountByDataId(String entityName, String dataId) {
     QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("collect_id").eq("entity_name", entityName).eq("data_id", dataId);
     return queryWrapper;
@@ -114,7 +114,7 @@ public class QueryWrapperUtil {
    *
    * @return 查询对象
    */
-  public static QueryWrapper<CollectEntity> getIsCollectByUserId(
+  public static Wrapper<CollectEntity> getIsCollectByUserId(
       String userId, String entityName, String dataId) {
     QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
     queryWrapper
@@ -126,31 +126,66 @@ public class QueryWrapperUtil {
   }
 
   /**
-   * 获得用户首页视频查询对象
+   * 用户首页视频获得操作对象
    *
    * @return 查询对象
    */
-  public static QueryWrapper<VideoUserView> getByChekTop() {
+  public static Wrapper<VideoUserView> getByChekTop() {
     QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
     queryWrapper.select("video_url").eq("video_check", "置顶");
     return queryWrapper;
   }
 
   /**
-   * 获得用户服务-公益视频根据标题查询对象
+   * 用户服务-公益视频根据标题获得操作对象
    *
    * @param title 标题
    * @return 查询对象
    */
-  public static QueryWrapper<VideoUserView> getVideoByTitleList(String title) {
+  public static Wrapper<VideoUserView> getVideoByTitleList(String title) {
     QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
     queryWrapper.likeRight("video_title", title);
     return queryWrapper;
   }
 
-  public static QueryWrapper<GarbageLibrary> getSearchText(char c) {
+  /**
+   * 获得用户首页-文本搜索根据文本查询对象
+   *
+   * @param c 搜索文本
+   * @return 查询对象
+   */
+  public static Wrapper<GarbageLibrary> getSearchText(char c) {
     QueryWrapper<GarbageLibrary> queryWrapper = new QueryWrapper<>();
     queryWrapper.likeRight("name", String.valueOf(c));
+    return queryWrapper;
+  }
+
+  /**
+   * 用户首页-搜索记录，根据用户id获得操作对象
+   *
+   * @param userId 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<UserSearch> getSearchList(String userId) {
+    QueryWrapper<UserSearch> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
+    return queryWrapper;
+  }
+
+  /**
+   * 用户首页-搜索记录，根据用户id与搜索垃圾名称获得操作对象
+   *
+   * @param userId 用户编号
+   * @param name 搜索垃圾名称
+   * @return 查询对象
+   */
+  public static Wrapper<UserSearch> getSearchByName(String userId, String name) {
+    QueryWrapper<UserSearch> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select("name", "type")
+        .eq("user_id", userId)
+        .likeRight("name", name)
+        .orderBy(true, false, "create_time");
     return queryWrapper;
   }
 }

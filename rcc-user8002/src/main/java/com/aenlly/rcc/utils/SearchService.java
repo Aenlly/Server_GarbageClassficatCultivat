@@ -1,8 +1,10 @@
 package com.aenlly.rcc.utils;
 
 import com.aenlly.rcc.entity.GarbageLibrary;
+import com.aenlly.rcc.entity.UserSearch;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Aenlly
@@ -32,4 +34,21 @@ public interface SearchService {
    * @return 搜索的垃圾所属类型集合
    */
   Collection<GarbageLibrary> searchPicture();
+
+  /**
+   * 查询用户搜索记录
+   *
+   * @param userId 用户编号
+   * @return 搜索记录列表
+   */
+  List<UserSearch> getSearchList(String userId);
+
+  /**
+   * 查询用户搜索记录
+   *
+   * @param userId 用户编号
+   * @param name 搜索名称
+   * @return 结果集
+   */
+  List<UserSearch> getSearchByName(String userId, String name);
 }
