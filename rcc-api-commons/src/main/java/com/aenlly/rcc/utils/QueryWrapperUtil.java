@@ -147,4 +147,10 @@ public class QueryWrapperUtil {
     queryWrapper.likeRight("video_title", title);
     return queryWrapper;
   }
+
+  public static QueryWrapper<GarbageLibrary> getSearchText(char c) {
+    QueryWrapper<GarbageLibrary> queryWrapper = new QueryWrapper<>();
+    queryWrapper.likeRight("name", String.valueOf(c));
+    return queryWrapper;
+  }
 }
