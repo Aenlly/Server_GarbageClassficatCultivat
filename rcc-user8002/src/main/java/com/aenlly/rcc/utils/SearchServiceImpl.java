@@ -4,7 +4,9 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.entity.GarbageLibrary;
+import com.aenlly.rcc.entity.UserSearch;
 import com.aenlly.rcc.service.IGarbageLibraryService;
+import com.aenlly.rcc.service.IUserSearchService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,12 @@ import static com.aenlly.rcc.utils.SearchApi.TEXT_API;
  */
 @Service
 public class SearchServiceImpl implements SearchService {
+  /** 垃圾分类库的服务 */
   @Resource private IGarbageLibraryService garbageLibraryService;
+  /** http请求对象 */
   @Resource private RestTemplate template;
+  /** 用户搜索服务对象 */
+  @Resource private IUserSearchService userSearchService;
   /**
    * 垃圾类型文本搜索
    *
@@ -34,8 +40,15 @@ public class SearchServiceImpl implements SearchService {
   @Override
   public Collection<GarbageLibrary> searchText(String name, String userId) {
 
-    if (StringUtils.isNotBlank(userId)) {}
-
+    // 增加搜索记录
+    if (StringUtils.isNotBlank(userId)) {
+      UserSearch userSearch = new UserSearch(name, userId);
+      boolean save = userSearchService.save(userSearch);
+      if (!save) {
+        return null;
+      }
+    }
+    // 下列进行搜索，单个查询，然后进行去重
     char[] chars = name.toCharArray();
     Map<Integer, GarbageLibrary> map = new HashMap<>();
     for (char c : chars) {
@@ -45,9 +58,11 @@ public class SearchServiceImpl implements SearchService {
         map.put(garbageLibrary.getId(), garbageLibrary);
       }
     }
+    // 在服务器库中存在垃圾分类的记录，则返回
     if (map.values().size() > 0) {
       return map.values();
     }
+    // 在服务器库中未找到记录，则进行第三方api查询
     return transferTextApi(name);
   }
 
