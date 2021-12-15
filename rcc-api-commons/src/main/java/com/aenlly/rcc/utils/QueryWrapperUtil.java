@@ -267,4 +267,17 @@ public class QueryWrapperUtil {
     queryWrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
     return queryWrapper;
   }
+
+  /**
+   * 根据用户编号与订单状态获得操作对象
+   *
+   * @param userId 用户编号
+   * @param state 操作对象
+   * @return 查询对象
+   */
+  public static Wrapper<OrderUserView> getOrderUserList(String userId, String state) {
+    QueryWrapper<OrderUserView> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("user_id", userId).eq("state", state).orderByDesc("create_time");
+    return queryWrapper;
+  }
 }
