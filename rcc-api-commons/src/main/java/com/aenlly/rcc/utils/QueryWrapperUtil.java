@@ -240,4 +240,31 @@ public class QueryWrapperUtil {
         .like("data_title", name);
     return queryWrapper;
   }
+
+  /**
+   * 根据礼品名称、类型获得操作对象
+   *
+   * @param name 礼品名称
+   * @param type 礼品类型
+   * @return 查询对象
+   */
+  public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
+    QueryWrapper<GiftListView> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("gift_id", "name", "img_url", "point", "price").like("name", name);
+    if (type != -1) {
+      queryWrapper.eq("type_id", type);
+    }
+    return queryWrapper;
+  }
+
+  /**
+   * 获得用户积分礼品显示的类型内容操作对象
+   *
+   * @return 查询对象
+   */
+  public static Wrapper<GiftType> getUserGiftTypeList() {
+    QueryWrapper<GiftType> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
+    return queryWrapper;
+  }
 }
