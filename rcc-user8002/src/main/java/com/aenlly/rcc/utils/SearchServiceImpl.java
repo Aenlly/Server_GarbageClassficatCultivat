@@ -175,14 +175,6 @@ public class SearchServiceImpl implements SearchService {
         }
         garbageLibraryAdd.GarbageLibraryAdd(list);
 
-        // 垃圾分类库增加记录线程,线程插入数据库中不存在的数据
-        // new Thread(
-        //         () -> {
-        //           System.out.println("操作数据库");
-        //           boolean save = garbageLibraryService.saveBatch(list);
-        //           System.out.println("-------" + save);
-        //         })
-        //     .start();
         return list;
       }
     }

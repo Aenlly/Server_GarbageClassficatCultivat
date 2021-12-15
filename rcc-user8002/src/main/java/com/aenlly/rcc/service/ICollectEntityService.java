@@ -3,6 +3,8 @@ package com.aenlly.rcc.service;
 import com.aenlly.rcc.entity.CollectEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * 服务类
  *
@@ -39,4 +41,13 @@ public interface ICollectEntityService extends IService<CollectEntity> {
    * @return 主键标识
    */
   Integer getIdBy(String userId, String entityName, String dataId);
+
+  /**
+   * 用户服务-收藏根据条件进行查询
+   *
+   * @param userId 用户编号
+   * @param name 搜索内容
+   * @return 结果集合
+   */
+  List<CollectEntity> getListByUserId(String userId, String name);
 }

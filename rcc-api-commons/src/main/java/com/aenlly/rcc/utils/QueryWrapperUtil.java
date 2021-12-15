@@ -4,6 +4,8 @@ import com.aenlly.rcc.entity.*;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import java.io.Serializable;
+
 /**
  * @author Aenlly
  * @create by date 2021/12/12 14:15
@@ -11,6 +13,40 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
  */
 public class QueryWrapperUtil {
   private QueryWrapperUtil() {}
+
+  /**
+   * 根据用户id获得操作对象
+   *
+   * @param id 用户id
+   * @return 查询对象
+   */
+  public static Wrapper<User> getUserById(Serializable id) {
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select(
+            "user_id",
+            "nick_name",
+            "avatar_url",
+            "accumulative_points",
+            "remaining_points",
+            "answer_points",
+            "points_id")
+        .eq("user_id", id);
+    return queryWrapper;
+  }
+
+  /**
+   * 获得用户信息根据积分排序的操作对象
+   *
+   * @return 查询对象
+   */
+  public static Wrapper<User> getUserListByPoint() {
+    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select("nick_name", "avatar_url", "accumulative_points")
+        .orderByDesc("accumulative_points");
+    return queryWrapper;
+  }
 
   /**
    * 获得根据垃圾类型查询操作对象
@@ -186,6 +222,22 @@ public class QueryWrapperUtil {
         .eq("user_id", userId)
         .likeRight("name", name)
         .orderBy(true, false, "create_time");
+    return queryWrapper;
+  }
+
+  /**
+   * 根据用户id与查询标题来获得操作对象
+   *
+   * @param userId 用户id
+   * @param name 查询标题
+   * @return 查询对象
+   */
+  public static Wrapper<CollectEntity> getUserCollectListBy(String userId, String name) {
+    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select("collect_id", "data_title", "data_desc", "data_id", "img_url", "entity_name")
+        .eq("user_id", userId)
+        .like("data_title", name);
     return queryWrapper;
   }
 }
