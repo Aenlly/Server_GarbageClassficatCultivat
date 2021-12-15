@@ -280,4 +280,19 @@ public class QueryWrapperUtil {
     queryWrapper.eq("user_id", userId).eq("state", state).orderByDesc("create_time");
     return queryWrapper;
   }
+
+  /**
+   * 根据累积积分获得操作对象
+   *
+   * @param points 累积积分
+   * @return 查询对象
+   */
+  public static Wrapper<Points> getNextLevel(Integer points) {
+    QueryWrapper<Points> queryWrapper = new QueryWrapper<>();
+    queryWrapper
+        .select("points_name", "points_require")
+        .gt("points_require", points)
+        .last("limit 1");
+    return queryWrapper;
+  }
 }

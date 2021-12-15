@@ -29,8 +29,8 @@ public class Points implements Serializable {
   private String pointsName;
 
   @ApiModelProperty(value = "所需积分")
-  @TableField("points_requir")
-  private Integer pointsRequir;
+  @TableField("points_require")
+  private Integer pointsRequire;
 
   @ApiModelProperty(value = "创建时间")
   @TableField("create_time")
