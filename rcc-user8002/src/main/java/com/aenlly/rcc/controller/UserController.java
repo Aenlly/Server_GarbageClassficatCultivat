@@ -43,6 +43,17 @@ public class UserController {
     }
   }
 
+  @ApiOperation(value = "服务-知识测验-排行", httpMethod = "GET")
+  @GetMapping("/getByAnswerPoints")
+  public CommonResult<List<User>> getUserListByAnswerPoints() {
+    try {
+      List<User> list = userService.getUserListByAnswerPoints();
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
   @ApiOperation(value = "用户信息请求", httpMethod = "GET")
   @GetMapping("/getById")
   public CommonResult<User> getById(@Param("用户编号") @RequestParam("userId") String userId) {

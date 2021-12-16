@@ -50,6 +50,17 @@ public class QueryWrapperUtil {
   }
 
   /**
+   * 获得用户信息根据答题积分排序的操作对象
+   *
+   * @return 查询对象
+   */
+  public static Wrapper<User> getUserListByAnswerPoints() {
+    QueryWrapper<User> wrapper = new QueryWrapper<>();
+    wrapper.select("nick_name", "avatar_url", "answer_points").orderByDesc("answer_points");
+    return wrapper;
+  }
+
+  /**
    * 获得根据垃圾类型查询操作对象
    *
    * @param garbageType 垃圾类型

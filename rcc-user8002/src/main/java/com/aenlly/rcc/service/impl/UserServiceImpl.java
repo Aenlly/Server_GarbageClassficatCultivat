@@ -41,4 +41,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     Wrapper<User> wrapper = QueryWrapperUtil.getUserListByPoint();
     return baseMapper.selectList(wrapper);
   }
+
+  /**
+   * 用户服务-知识测验-答题积分排名
+   *
+   * @return 列表
+   */
+  @Override
+  public List<User> getUserListByAnswerPoints() {
+    Wrapper<User> wrapper = QueryWrapperUtil.getUserListByAnswerPoints();
+    return baseMapper.selectList(wrapper);
+  }
 }

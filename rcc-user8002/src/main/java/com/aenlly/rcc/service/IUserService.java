@@ -28,4 +28,11 @@ public interface IUserService extends IService<User> {
    * @return 列表
    */
   List<User> getUserListByPoint();
+
+  /**
+   * 用户服务-知识测验-答题积分排名
+   *
+   * @return 列表
+   */
+  List<User> getUserListByAnswerPoints();
 }
