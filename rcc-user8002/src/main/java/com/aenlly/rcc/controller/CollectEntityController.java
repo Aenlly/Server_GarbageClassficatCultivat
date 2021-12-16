@@ -2,9 +2,7 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.CollectEntity;
 import com.aenlly.rcc.service.ICollectEntityService;
-import com.aenlly.rcc.utils.CodeResult;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.MessageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.aenlly.rcc.utils.ResultUtil.resultError;
+import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 
 /**
  * 前端控制器
@@ -26,7 +27,7 @@ public class CollectEntityController {
 
   @Resource ICollectEntityService collectEntityService;
 
-  @ApiOperation("用户请求收藏列表")
+  @ApiOperation(value = "用户收藏-列表请求", httpMethod = "GET")
   @GetMapping("/getByUserId")
   public CommonResult<List<CollectEntity>> getListByUserId(
       @Param("用户编号") @RequestParam("userId") String userId,
@@ -57,19 +58,9 @@ public class CollectEntityController {
       Boolean isCollect = collectEntityService.getIsByUserId(userId, entityName, dataId);
       return resultOk(isCollect);
     } catch (Exception e) {
-      resultErrorOne();
+      resultError();
     }
-    return resultErrorOne();
-  }
-
-  /**
-   * 操作成功统一返回单个内容构造操作
-   *
-   * @param isLike 是否存在
-   * @return 返回内容
-   */
-  private CommonResult<Boolean> resultOk(boolean isLike) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, isLike);
+    return resultError();
   }
 
   @ApiOperation(value = "请求收藏创建", httpMethod = "POST")
@@ -89,9 +80,9 @@ public class CollectEntityController {
         }
       }
     } catch (Exception e) {
-      return resultErrorOne();
+      return resultError();
     }
-    return resultErrorOne();
+    return resultError();
   }
 
   @ApiOperation(value = "取消收藏请求", httpMethod = "DELETE")
@@ -110,37 +101,8 @@ public class CollectEntityController {
         }
       }
     } catch (Exception e) {
-      return resultErrorOne();
+      return resultError();
     }
-    return resultErrorOne();
-  }
-
-  /**
-   * 操作成功统一返回单个内容构造操作
-   *
-   * @param count 统计数量
-   * @return 返回内容
-   */
-  private CommonResult<Long> resultOk(Long count) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, count);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<Boolean> resultErrorOne() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
-  }
-
-  /**
-   * 操作成功统一返回列表内容构造操作
-   *
-   * @param list 列表内容
-   * @return 返回内容
-   */
-  private CommonResult<List<CollectEntity>> resultOk(List<CollectEntity> list) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, list);
+    return resultError();
   }
 }

@@ -6,9 +6,7 @@ import com.aenlly.rcc.entity.Points;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.service.IPointsService;
 import com.aenlly.rcc.service.IUserService;
-import com.aenlly.rcc.utils.CodeResult;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.MessageResult;
 import com.aenlly.rcc.utils.WxParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+
+import static com.aenlly.rcc.utils.ResultUtil.resultError;
+import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 
 /**
  * @author Aenlly
@@ -40,27 +41,31 @@ public class LoginController {
       @Param(value = "用户临时登录凭证") String code,
       @Param(value = "用户昵称") String nickName,
       @Param(value = "头像地址") String avatarUrl) {
-    // 使用临时登录凭证换取微信唯一标识openid
-    String user_id = getOpenIdByCode(code);
-    // 查询库中是否有该用户
-    User user = userService.getById(user_id);
-    // 是否存在该用户
-    if (user == null) {
-      // 创建用户
-      boolean b = create(user_id, nickName, avatarUrl);
-      // 判断是否创建成功该用户
-      if (b) {
-        // 查询用户信息
-        user = userService.getById(user_id);
-      } else {
-        return resultErrorOne();
+    try {
+      // 使用临时登录凭证换取微信唯一标识openid
+      String user_id = getOpenIdByCode(code);
+      // 查询库中是否有该用户
+      User user = userService.getById(user_id);
+      // 是否存在该用户
+      if (user == null) {
+        // 创建用户
+        boolean b = create(user_id, nickName, avatarUrl);
+        // 判断是否创建成功该用户
+        if (b) {
+          // 查询用户信息
+          user = userService.getById(user_id);
+        } else {
+          return resultError();
+        }
       }
+      // 获得积分头衔
+      Points points = pointsService.getById(user.getPointsId());
+      // 设置积分头衔对象
+      user.setPoints(points);
+      return resultOk(user);
+    } catch (Exception e) {
+      return resultError();
     }
-    // 获得积分头衔
-    Points points = pointsService.getById(user.getPointsId());
-    // 设置积分头衔对象
-    user.setPoints(points);
-    return resultOkOne(user);
   }
 
   /**
@@ -108,24 +113,5 @@ public class LoginController {
     user.setNickName(nickName);
     user.setAvatarUrl(avatarUrl);
     return userService.save(user);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<User> resultErrorOne() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
-  }
-
-  /**
-   * 操作成功统一返回单个内容构造操作
-   *
-   * @param user 单一实体内容
-   * @return 返回内容
-   */
-  private CommonResult<User> resultOkOne(User user) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, user);
   }
 }

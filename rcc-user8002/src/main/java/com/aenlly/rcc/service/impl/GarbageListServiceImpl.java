@@ -28,7 +28,7 @@ public class GarbageListServiceImpl extends ServiceImpl<GarbageListMapper, Garba
    */
   @Override
   public List<GarbageList> getByGarbageId(Integer garbageId) {
-    Wrapper<GarbageList> queryWrapper = QueryWrapperUtil.queryByGarbageId(garbageId);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<GarbageList> wrapper = QueryWrapperUtil.queryByGarbageId(garbageId);
+    return baseMapper.selectList(wrapper);
   }
 }

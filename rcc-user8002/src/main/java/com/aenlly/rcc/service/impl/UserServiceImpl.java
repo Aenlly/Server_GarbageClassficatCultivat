@@ -27,8 +27,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
    */
   @Override
   public User getById(Serializable id) {
-    Wrapper<User> queryWrapper = QueryWrapperUtil.getUserById(id);
-    return baseMapper.selectOne(queryWrapper);
+    Wrapper<User> wrapper = QueryWrapperUtil.getUserById(id);
+    return baseMapper.selectOne(wrapper);
   }
 
   /**
@@ -38,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
    */
   @Override
   public List<User> getUserListByPoint() {
-    Wrapper<User> queryWrapper = QueryWrapperUtil.getUserListByPoint();
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<User> wrapper = QueryWrapperUtil.getUserListByPoint();
+    return baseMapper.selectList(wrapper);
   }
 }

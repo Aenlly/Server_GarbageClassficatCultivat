@@ -2,9 +2,7 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.HotInfoUserView;
 import com.aenlly.rcc.service.IHotInfoUserViewService;
-import com.aenlly.rcc.utils.CodeResult;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.MessageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.aenlly.rcc.utils.ResultUtil.resultError;
+import static com.aenlly.rcc.utils.ResultUtil.resultOk;
+
 /**
  * VIEW 前端控制器
  *
@@ -23,69 +24,43 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/hot-info-user-view")
-@Api(tags = "热门资讯控制")
+@Api(tags = "热门资讯管理控制器")
 public class HotInfoUserViewController {
 
   @Resource IHotInfoUserViewService hotInfoUserViewService;
 
-  @ApiOperation(value = "请求用户服务热门资讯", httpMethod = "GET")
+  @ApiOperation(value = "用户服务-热门资讯-请求", httpMethod = "GET")
   @GetMapping("/get")
   public CommonResult<List<HotInfoUserView>> getHotInfoUser() {
-    List<HotInfoUserView> list = hotInfoUserViewService.list();
-    return resultOkList(list);
+    try {
+      List<HotInfoUserView> list = hotInfoUserViewService.list();
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
   }
 
-  /**
-   * 操作成功统一返回列表内容构造操作执行方法
-   *
-   * @param list 列表内容
-   * @return 返回内容
-   */
-  private CommonResult<List<HotInfoUserView>> resultOkList(List<HotInfoUserView> list) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, list);
-  }
-
-  @ApiOperation(value = "请求用户服务热门资讯搜索查询", httpMethod = "GET")
+  @ApiOperation(value = "用户服务-热门资讯-搜索请求", httpMethod = "GET")
   @GetMapping("/getByTitle")
   public CommonResult<List<HotInfoUserView>> getHotInfoUserByTitle(
       @Param(value = "资讯标题") String title) {
-    List<HotInfoUserView> list = hotInfoUserViewService.getHotInfoUserByTitleList(title);
-    return resultOkList(list);
+    try {
+      List<HotInfoUserView> list = hotInfoUserViewService.getHotInfoUserByTitleList(title);
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
   }
 
-  @ApiOperation(value = "请求用户服务热门资讯单个信息详情", httpMethod = "GET")
+  @ApiOperation(value = "用户服务-热门资讯-信息详情请求", httpMethod = "GET")
   @GetMapping("/getById")
   public CommonResult<HotInfoUserView> getHotInfoUserById(
       @Param(value = "资讯编号") Integer hotInfoId) {
-    HotInfoUserView data = hotInfoUserViewService.getById(hotInfoId);
-    return resultOkOne(data);
-  }
-
-  /**
-   * 操作成功统一返回单个内容构造操作
-   *
-   * @param hotInfoUserView 单一实体内容
-   * @return 返回内容
-   */
-  private CommonResult<HotInfoUserView> resultOkOne(HotInfoUserView hotInfoUserView) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, hotInfoUserView);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<List<HotInfoUserView>> resultErrorList() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<HotInfoUserView> resultErrorOne() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
+    try {
+      HotInfoUserView data = hotInfoUserViewService.getById(hotInfoId);
+      return resultOk(data);
+    } catch (Exception e) {
+      return resultError();
+    }
   }
 }

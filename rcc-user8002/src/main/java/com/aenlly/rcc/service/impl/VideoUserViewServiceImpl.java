@@ -27,8 +27,8 @@ public class VideoUserViewServiceImpl extends ServiceImpl<VideoUserViewMapper, V
    */
   @Override
   public VideoUserView getByChekTop() {
-    Wrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getByChekTop();
-    return baseMapper.selectOne(queryWrapper);
+    Wrapper<VideoUserView> wrapper = QueryWrapperUtil.getByChekTop();
+    return baseMapper.selectOne(wrapper);
   }
 
   /**
@@ -39,8 +39,8 @@ public class VideoUserViewServiceImpl extends ServiceImpl<VideoUserViewMapper, V
    */
   @Override
   public List<VideoUserView> getByTitleList(String title) {
-    Wrapper<VideoUserView> queryWrapper = QueryWrapperUtil.getVideoByTitleList(title);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<VideoUserView> wrapper = QueryWrapperUtil.getVideoByTitleList(title);
+    return baseMapper.selectList(wrapper);
   }
 
   /**

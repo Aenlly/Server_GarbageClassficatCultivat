@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public enum CodeResult {
+public enum CodeMessageResultEnum {
   /** 成功 */
-  OK(200),
+  OK(200, "请求成功！"),
   /** 失败 */
-  ERROR(444);
+  ERROR(444, "请求失败！");
 
   private int code;
+
+  private String message;
 }

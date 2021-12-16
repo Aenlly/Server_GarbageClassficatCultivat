@@ -2,9 +2,8 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.CarouselUserView;
 import com.aenlly.rcc.service.ICarouselUserViewService;
-import com.aenlly.rcc.utils.CodeResult;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.MessageResult;
+import com.aenlly.rcc.utils.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,17 +29,11 @@ public class CarouselUserViewController {
   @ApiOperation(value = "首页轮播图列表请求", httpMethod = "GET")
   @GetMapping(value = "/get")
   public CommonResult<List<CarouselUserView>> getCarouselUserList() {
-    List<CarouselUserView> list = carouselUserService.list();
-    return resultOkList(list);
-  }
-
-  /**
-   * 操作成功统一返回列表内容构造操作执行方法
-   *
-   * @param list 列表内容
-   * @return 返回内容
-   */
-  public CommonResult<List<CarouselUserView>> resultOkList(List<CarouselUserView> list) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, list);
+    try {
+      List<CarouselUserView> list = carouselUserService.list();
+      return ResultUtil.resultOk(list);
+    } catch (Exception e) {
+      return ResultUtil.resultError();
+    }
   }
 }

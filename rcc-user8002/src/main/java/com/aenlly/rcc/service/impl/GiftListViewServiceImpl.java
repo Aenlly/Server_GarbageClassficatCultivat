@@ -29,7 +29,7 @@ public class GiftListViewServiceImpl extends ServiceImpl<GiftListViewMapper, Gif
    */
   @Override
   public List<GiftListView> getUserGiftList(String name, Integer type) {
-    Wrapper<GiftListView> queryWrapper = QueryWrapperUtil.getUserGiftList(name, type);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<GiftListView> wrapper = QueryWrapperUtil.getUserGiftList(name, type);
+    return baseMapper.selectList(wrapper);
   }
 }

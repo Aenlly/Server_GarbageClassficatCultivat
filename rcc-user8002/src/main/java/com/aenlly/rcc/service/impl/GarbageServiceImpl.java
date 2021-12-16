@@ -26,7 +26,7 @@ public class GarbageServiceImpl extends ServiceImpl<GarbageMapper, Garbage>
    */
   @Override
   public Garbage getByType(String garbageType) {
-    Wrapper<Garbage> queryWrapper = QueryWrapperUtil.queryByGarbageType(garbageType);
-    return baseMapper.selectOne(queryWrapper);
+    Wrapper<Garbage> wrapper = QueryWrapperUtil.queryByGarbageType(garbageType);
+    return baseMapper.selectOne(wrapper);
   }
 }

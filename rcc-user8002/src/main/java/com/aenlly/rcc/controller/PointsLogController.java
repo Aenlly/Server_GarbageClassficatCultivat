@@ -2,9 +2,7 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.PointsLog;
 import com.aenlly.rcc.service.IPointsLogService;
-import com.aenlly.rcc.utils.CodeResult;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.MessageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.aenlly.rcc.utils.ResultUtil.resultError;
+import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 
 /**
  * 前端控制器
@@ -29,7 +30,7 @@ public class PointsLogController {
 
   @Resource IPointsLogService pointsLogService;
 
-  @ApiOperation("根据编号与积分记录类型获得积分记录")
+  @ApiOperation(value = "积分记录请求", httpMethod = "GET")
   @GetMapping("/getByUserIdAndType")
   public CommonResult<List<PointsLog>> getPointsLogByUserIdList(
       @Param("用户编号") @RequestParam("userId") String userId,
@@ -38,45 +39,7 @@ public class PointsLogController {
       List<PointsLog> list = pointsLogService.getPointsLogByUserIdList(userId, type);
       return resultOk(list);
     } catch (Exception e) {
-      return resultErrorList();
+      return resultError();
     }
-  }
-
-  /**
-   * 操作成功统一返回单个内容构造操作
-   *
-   * @param entity 单一实体内容
-   * @return 返回内容
-   */
-  private CommonResult<PointsLog> resultOk(PointsLog entity) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, entity);
-  }
-
-  /**
-   * 操作成功统一返回列表内容构造操作
-   *
-   * @param list 列表实体内容
-   * @return 返回内容
-   */
-  private CommonResult<List<PointsLog>> resultOk(List<PointsLog> list) {
-    return new CommonResult<>(CodeResult.OK, MessageResult.OK, list);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<List<PointsLog>> resultErrorList() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
-  }
-
-  /**
-   * 操作失败执行方法
-   *
-   * @return 返回内容
-   */
-  private CommonResult<PointsLog> resultErrorOne() {
-    return new CommonResult<>(CodeResult.ERROR, MessageResult.ERROR, null);
   }
 }

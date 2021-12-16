@@ -21,8 +21,8 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<User> getUserById(Serializable id) {
-    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<User> wrapper = new QueryWrapper<>();
+    wrapper
         .select(
             "user_id",
             "nick_name",
@@ -32,7 +32,7 @@ public class QueryWrapperUtil {
             "answer_points",
             "points_id")
         .eq("user_id", id);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -41,11 +41,11 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<User> getUserListByPoint() {
-    QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<User> wrapper = new QueryWrapper<>();
+    wrapper
         .select("nick_name", "avatar_url", "accumulative_points")
         .orderByDesc("accumulative_points");
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -55,8 +55,8 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<Garbage> queryByGarbageType(String garbageType) {
-    QueryWrapper<Garbage> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<Garbage> wrapper = new QueryWrapper<>();
+    wrapper
         .select(
             "garbage_id",
             "video_url",
@@ -68,7 +68,7 @@ public class QueryWrapperUtil {
             "text_desc",
             "bg_color")
         .eq("garbage_type", garbageType);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -78,9 +78,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<GarbageList> queryByGarbageId(Integer garbageId) {
-    QueryWrapper<GarbageList> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("id", "garbage_name", "img_url").eq("garbage_id", garbageId);
-    return queryWrapper;
+    QueryWrapper<GarbageList> wrapper = new QueryWrapper<>();
+    wrapper.select("id", "garbage_name", "img_url").eq("garbage_id", garbageId);
+    return wrapper;
   }
 
   /**
@@ -89,9 +89,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<HotInfoUserView> queryHotInfoUserList() {
-    QueryWrapper<HotInfoUserView> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("hot_info_id", "img_url", "hot_info_title", "hot_info_desc");
-    return queryWrapper;
+    QueryWrapper<HotInfoUserView> wrapper = new QueryWrapper<>();
+    wrapper.select("hot_info_id", "img_url", "hot_info_title", "hot_info_desc");
+    return wrapper;
   }
 
   /**
@@ -100,11 +100,11 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<HotInfoUserView> getHotInfoUserByTitleList(String title) {
-    QueryWrapper<HotInfoUserView> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<HotInfoUserView> wrapper = new QueryWrapper<>();
+    wrapper
         .select("hot_info_id", "img_url", "hot_info_title", "hot_info_desc")
         .likeRight("hot_info_title", title);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -113,9 +113,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<LikeEntity> getLikeCountByDataId(String entityName, String dataId) {
-    QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("like_id").eq("entity_name", entityName).eq("data_id", dataId);
-    return queryWrapper;
+    QueryWrapper<LikeEntity> wrapper = new QueryWrapper<>();
+    wrapper.select("like_id").eq("entity_name", entityName).eq("data_id", dataId);
+    return wrapper;
   }
 
   /**
@@ -125,13 +125,13 @@ public class QueryWrapperUtil {
    */
   public static Wrapper<LikeEntity> getIsLikeByUserId(
       String userId, String entityName, String dataId) {
-    QueryWrapper<LikeEntity> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<LikeEntity> wrapper = new QueryWrapper<>();
+    wrapper
         .select("like_id")
         .eq("user_id", userId)
         .eq("entity_name", entityName)
         .eq("data_id", dataId);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -140,9 +140,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<CollectEntity> getCollectCountByDataId(String entityName, String dataId) {
-    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("collect_id").eq("entity_name", entityName).eq("data_id", dataId);
-    return queryWrapper;
+    QueryWrapper<CollectEntity> wrapper = new QueryWrapper<>();
+    wrapper.select("collect_id").eq("entity_name", entityName).eq("data_id", dataId);
+    return wrapper;
   }
 
   /**
@@ -152,13 +152,13 @@ public class QueryWrapperUtil {
    */
   public static Wrapper<CollectEntity> getIsCollectByUserId(
       String userId, String entityName, String dataId) {
-    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<CollectEntity> wrapper = new QueryWrapper<>();
+    wrapper
         .select("collect_id")
         .eq("user_id", userId)
         .eq("entity_name", entityName)
         .eq("data_id", dataId);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -167,9 +167,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<VideoUserView> getByChekTop() {
-    QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("video_url").eq("video_check", "置顶");
-    return queryWrapper;
+    QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
+    wrapper.select("video_url").eq("video_check", "置顶");
+    return wrapper;
   }
 
   /**
@@ -179,9 +179,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<VideoUserView> getVideoByTitleList(String title) {
-    QueryWrapper<VideoUserView> queryWrapper = new QueryWrapper<>();
-    queryWrapper.likeRight("video_title", title);
-    return queryWrapper;
+    QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
+    wrapper.likeRight("video_title", title);
+    return wrapper;
   }
 
   /**
@@ -191,9 +191,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<GarbageLibrary> getSearchText(char c) {
-    QueryWrapper<GarbageLibrary> queryWrapper = new QueryWrapper<>();
-    queryWrapper.likeRight("name", String.valueOf(c));
-    return queryWrapper;
+    QueryWrapper<GarbageLibrary> wrapper = new QueryWrapper<>();
+    wrapper.likeRight("name", String.valueOf(c));
+    return wrapper;
   }
 
   /**
@@ -203,9 +203,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<UserSearch> getSearchList(String userId) {
-    QueryWrapper<UserSearch> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
-    return queryWrapper;
+    QueryWrapper<UserSearch> wrapper = new QueryWrapper<>();
+    wrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
+    return wrapper;
   }
 
   /**
@@ -216,13 +216,13 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<UserSearch> getSearchByName(String userId, String name) {
-    QueryWrapper<UserSearch> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<UserSearch> wrapper = new QueryWrapper<>();
+    wrapper
         .select("name", "type")
         .eq("user_id", userId)
         .likeRight("name", name)
         .orderBy(true, false, "create_time");
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -233,12 +233,12 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<CollectEntity> getUserCollectListBy(String userId, String name) {
-    QueryWrapper<CollectEntity> queryWrapper = new QueryWrapper<>();
-    queryWrapper
+    QueryWrapper<CollectEntity> wrapper = new QueryWrapper<>();
+    wrapper
         .select("collect_id", "data_title", "data_desc", "data_id", "img_url", "entity_name")
         .eq("user_id", userId)
         .like("data_title", name);
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -249,12 +249,12 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
-    QueryWrapper<GiftListView> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("gift_id", "name", "img_url", "point", "price").like("name", name);
+    QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
+    wrapper.select("gift_id", "name", "img_url", "point", "price").like("name", name);
     if (type != -1) {
-      queryWrapper.eq("type_id", type);
+      wrapper.eq("type_id", type);
     }
-    return queryWrapper;
+    return wrapper;
   }
 
   /**
@@ -263,9 +263,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<GiftType> getUserGiftTypeList() {
-    QueryWrapper<GiftType> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
-    return queryWrapper;
+    QueryWrapper<GiftType> wrapper = new QueryWrapper<>();
+    wrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
+    return wrapper;
   }
 
   /**
@@ -276,9 +276,9 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<OrderUserView> getOrderUserList(String userId, String state) {
-    QueryWrapper<OrderUserView> queryWrapper = new QueryWrapper<>();
-    queryWrapper.eq("user_id", userId).eq("state", state).orderByDesc("create_time");
-    return queryWrapper;
+    QueryWrapper<OrderUserView> wrapper = new QueryWrapper<>();
+    wrapper.eq("user_id", userId).eq("state", state).orderByDesc("create_time");
+    return wrapper;
   }
 
   /**
@@ -288,20 +288,17 @@ public class QueryWrapperUtil {
    * @return 查询对象
    */
   public static Wrapper<Points> getNextLevel(Integer points) {
-    QueryWrapper<Points> queryWrapper = new QueryWrapper<>();
-    queryWrapper
-        .select("points_name", "points_require")
-        .gt("points_require", points)
-        .last("limit 1");
-    return queryWrapper;
+    QueryWrapper<Points> wrapper = new QueryWrapper<>();
+    wrapper.select("points_name", "points_require").gt("points_require", points).last("limit 1");
+    return wrapper;
   }
 
   public static Wrapper<PointsLog> getPointsLogBy(String userId, Integer type) {
-    QueryWrapper<PointsLog> queryWrapper = new QueryWrapper<>();
-    queryWrapper.select("log_desc", "number", "type", "create_time").eq("user_id", userId);
+    QueryWrapper<PointsLog> wrapper = new QueryWrapper<>();
+    wrapper.select("log_desc", "number", "type", "create_time").eq("user_id", userId);
     if (type != 0) {
-      queryWrapper.eq("type", type);
+      wrapper.eq("type", type);
     }
-    return queryWrapper;
+    return wrapper;
   }
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
+ * 微信小程序所需参数
+ *
  * @author Aenlly
  * @create by date 2021/12/11 17:57
  * @projectName RefuseClassificationCultivate

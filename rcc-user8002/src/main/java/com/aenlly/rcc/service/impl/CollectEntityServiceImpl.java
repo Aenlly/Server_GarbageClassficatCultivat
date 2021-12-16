@@ -30,9 +30,8 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
    */
   @Override
   public long getCountByDataId(String entityName, String dataId) {
-    Wrapper<CollectEntity> queryWrapper =
-        QueryWrapperUtil.getCollectCountByDataId(entityName, dataId);
-    return baseMapper.selectCount(queryWrapper);
+    Wrapper<CollectEntity> wrapper = QueryWrapperUtil.getCollectCountByDataId(entityName, dataId);
+    return baseMapper.selectCount(wrapper);
   }
 
   /**
@@ -46,9 +45,9 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
   @Override
   public Boolean getIsByUserId(String userId, String entityName, String dataId) {
     isParams(userId, entityName, dataId);
-    Wrapper<CollectEntity> queryWrapper =
+    Wrapper<CollectEntity> wrapper =
         QueryWrapperUtil.getIsCollectByUserId(userId, entityName, dataId);
-    return baseMapper.selectCount(queryWrapper) > 0;
+    return baseMapper.selectCount(wrapper) > 0;
   }
 
   /**
@@ -62,9 +61,9 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
   @Override
   public Integer getIdBy(String userId, String entityName, String dataId) {
     isParams(userId, entityName, dataId);
-    Wrapper<CollectEntity> queryWrapper =
+    Wrapper<CollectEntity> wrapper =
         QueryWrapperUtil.getIsCollectByUserId(userId, entityName, dataId);
-    return baseMapper.selectOne(queryWrapper).getCollectId();
+    return baseMapper.selectOne(wrapper).getCollectId();
   }
 
   /**
@@ -77,8 +76,8 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
   @Override
   public List<CollectEntity> getListByUserId(String userId, String name) {
     isParams(userId, "1", "1");
-    Wrapper<CollectEntity> queryWrapper = QueryWrapperUtil.getUserCollectListBy(userId, name);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<CollectEntity> wrapper = QueryWrapperUtil.getUserCollectListBy(userId, name);
+    return baseMapper.selectList(wrapper);
   }
 
   /**

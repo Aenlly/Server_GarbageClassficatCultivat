@@ -5,15 +5,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 兑换码生成类,只能使用静态方法
+ * 兑换码生成根据类,只能使用静态方法
  *
  * @author Aenlly
  * @create by date 2021/12/15 19:48
  * @projectName RefuseClassificationCultivate
  */
-public class RedemptionCode {
+public class RedemptionCodeUtil {
 
-  private RedemptionCode() {}
+  private RedemptionCodeUtil() {}
 
   private static final String[] chars =
       new String[] {

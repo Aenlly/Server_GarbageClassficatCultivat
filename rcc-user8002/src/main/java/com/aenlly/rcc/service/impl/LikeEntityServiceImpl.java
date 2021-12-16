@@ -21,8 +21,8 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
 
   @Override
   public long getCountByDataId(String entityName, String dataId) {
-    Wrapper<LikeEntity> queryWrapper = QueryWrapperUtil.getLikeCountByDataId(entityName, dataId);
-    return baseMapper.selectCount(queryWrapper);
+    Wrapper<LikeEntity> wrapper = QueryWrapperUtil.getLikeCountByDataId(entityName, dataId);
+    return baseMapper.selectCount(wrapper);
   }
 
   /**
@@ -35,14 +35,10 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
    */
   @Override
   public Boolean getIsByUserId(String userId, String entityName, String dataId) {
-    if (StringUtils.isNotBlank(userId)
-        && StringUtils.isNotBlank(entityName)
-        && StringUtils.isNotBlank(dataId)) {
-      Wrapper<LikeEntity> queryWrapper =
-          QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
-      return baseMapper.selectCount(queryWrapper) > 0;
-    }
-    return false;
+    isParams(userId, entityName, dataId);
+    Wrapper<LikeEntity> queryWrapper =
+        QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
+    return baseMapper.selectCount(queryWrapper) > 0;
   }
 
   /**
@@ -55,13 +51,23 @@ public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEnt
    */
   @Override
   public Integer getIdBy(String userId, String entityName, String dataId) {
-    if (StringUtils.isNotBlank(userId)
-        && StringUtils.isNotBlank(entityName)
-        && StringUtils.isNotBlank(dataId)) {
-      Wrapper<LikeEntity> queryWrapper =
-          QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
-      return baseMapper.selectOne(queryWrapper).getLikeId();
+    isParams(userId, entityName, dataId);
+    Wrapper<LikeEntity> wrapper = QueryWrapperUtil.getIsLikeByUserId(userId, entityName, dataId);
+    return baseMapper.selectOne(wrapper).getLikeId();
+  }
+
+  /**
+   * 判断参数是否为空
+   *
+   * @param userId 用户编号
+   * @param entityName 实体名称
+   * @param dataId 数据id
+   */
+  public void isParams(String userId, String entityName, String dataId) {
+    if (!StringUtils.isNotBlank(userId)
+        || !StringUtils.isNotBlank(entityName)
+        || !StringUtils.isNotBlank(dataId)) {
+      throw new NullPointerException();
     }
-    return null;
   }
 }

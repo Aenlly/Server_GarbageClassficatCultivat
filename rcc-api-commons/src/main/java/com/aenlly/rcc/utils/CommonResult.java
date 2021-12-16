@@ -29,14 +29,25 @@ public class CommonResult<T> implements Serializable {
   @ApiModelProperty(example = "返回内容")
   private T data;
 
-  private CommonResult(CodeResult code, MessageResult message) {
-    this.code = code.getCode();
-    this.message = message.getMsg();
+  /**
+   * 错误时使用
+   *
+   * @param messageResultEnum 返回类型
+   */
+  public CommonResult(CodeMessageResultEnum messageResultEnum) {
+    this.code = messageResultEnum.getCode();
+    this.message = messageResultEnum.getMessage();
   }
 
-  public CommonResult(CodeResult code, MessageResult message, T data) {
-    this.code = code.getCode();
-    this.message = message.getMsg();
+  /**
+   * 正确时使用
+   *
+   * @param messageResultEnum 返回类型
+   * @param data 返回内容
+   */
+  public CommonResult(CodeMessageResultEnum messageResultEnum, T data) {
+    this.code = messageResultEnum.getCode();
+    this.message = messageResultEnum.getMessage();
     this.data = data;
   }
 }

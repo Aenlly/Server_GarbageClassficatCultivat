@@ -24,7 +24,7 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
    */
   @Override
   public Points getNextLevel(Integer points) {
-    Wrapper<Points> queryWrapper = QueryWrapperUtil.getNextLevel(points);
-    return baseMapper.selectOne(queryWrapper);
+    Wrapper<Points> wrapper = QueryWrapperUtil.getNextLevel(points);
+    return baseMapper.selectOne(wrapper);
   }
 }

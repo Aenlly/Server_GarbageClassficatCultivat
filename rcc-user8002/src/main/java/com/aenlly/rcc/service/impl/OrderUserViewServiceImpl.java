@@ -29,7 +29,7 @@ public class OrderUserViewServiceImpl extends ServiceImpl<OrderUserViewMapper, O
    */
   @Override
   public List<OrderUserView> getOrderUserList(String userId, String state) {
-    Wrapper<OrderUserView> queryWrapper = QueryWrapperUtil.getOrderUserList(userId, state);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<OrderUserView> wrapper = QueryWrapperUtil.getOrderUserList(userId, state);
+    return baseMapper.selectList(wrapper);
   }
 }

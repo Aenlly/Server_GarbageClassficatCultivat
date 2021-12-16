@@ -27,8 +27,8 @@ public class HotInfoUserViewServiceImpl extends ServiceImpl<HotInfoUserViewMappe
    */
   @Override
   public List<HotInfoUserView> list() {
-    Wrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.queryHotInfoUserList();
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<HotInfoUserView> wrapper = QueryWrapperUtil.queryHotInfoUserList();
+    return baseMapper.selectList(wrapper);
   }
 
   /**
@@ -38,7 +38,7 @@ public class HotInfoUserViewServiceImpl extends ServiceImpl<HotInfoUserViewMappe
    */
   @Override
   public List<HotInfoUserView> getHotInfoUserByTitleList(String title) {
-    Wrapper<HotInfoUserView> queryWrapper = QueryWrapperUtil.getHotInfoUserByTitleList(title);
-    return baseMapper.selectList(queryWrapper);
+    Wrapper<HotInfoUserView> wrapper = QueryWrapperUtil.getHotInfoUserByTitleList(title);
+    return baseMapper.selectList(wrapper);
   }
 }
