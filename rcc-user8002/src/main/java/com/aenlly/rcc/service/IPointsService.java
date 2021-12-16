@@ -17,4 +17,12 @@ public interface IPointsService extends IService<Points> {
    * @return 下一等级实体信息
    */
   Points getNextLevel(Integer points);
+
+  /**
+   * 根据累积积分查询当前等级
+   *
+   * @param points 累积积分
+   * @return 当前等级
+   */
+  Points getCurrentLevel(Integer points);
 }

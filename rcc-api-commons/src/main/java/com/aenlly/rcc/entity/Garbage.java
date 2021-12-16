@@ -58,11 +58,11 @@ public class Garbage implements Serializable {
   private String bgColor;
 
   @ApiModelProperty(value = "信息创建时间")
-  @TableField("create_time")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
-  @TableField("update_time")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")

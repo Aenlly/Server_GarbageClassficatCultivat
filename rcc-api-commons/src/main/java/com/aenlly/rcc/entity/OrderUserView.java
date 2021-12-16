@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,9 +20,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "用户订单记录视图对象", description = "VIEW")
 public class OrderUserView implements Serializable {
-    
-    private static final long serialVersionUID = 2693134616569639583L;
-    @ApiModelProperty(value = "订单编号")
+
+  private static final long serialVersionUID = 2693134616569639583L;
+
+  @ApiModelProperty(value = "订单编号")
   @TableField("order_id")
   private Long orderId;
 
@@ -39,6 +41,6 @@ public class OrderUserView implements Serializable {
   private String state;
 
   @ApiModelProperty(value = "信息插入时间")
-  @TableField("create_time")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 }

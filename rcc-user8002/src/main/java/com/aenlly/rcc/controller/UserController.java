@@ -6,8 +6,10 @@ import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -31,11 +33,22 @@ public class UserController {
   @Resource private IUserService userService;
 
   @ApiOperation(value = "用户积分信息列表请求,积分排行", httpMethod = "GET")
-  @GetMapping(value = "/getByPoint")
+  @GetMapping("/getByPoint")
   public CommonResult<List<User>> getUserListByPoint() {
     try {
       List<User> list = userService.getUserListByPoint();
       return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "用户信息请求", httpMethod = "GET")
+  @GetMapping("/getById")
+  public CommonResult<User> getById(@Param("用户编号") @RequestParam("userId") String userId) {
+    try {
+      User user = userService.getById(userId);
+      return resultOk(user);
     } catch (Exception e) {
       return resultError();
     }

@@ -1,6 +1,7 @@
 package com.aenlly.rcc.utils;
 
 import com.aenlly.rcc.entity.*;
+import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -282,14 +283,33 @@ public class QueryWrapperUtil {
   }
 
   /**
-   * 根据累积积分获得操作对象
+   * 根据累积积分获得下一等级操作对象
    *
    * @param points 累积积分
    * @return 查询对象
    */
   public static Wrapper<Points> getNextLevel(Integer points) {
     QueryWrapper<Points> wrapper = new QueryWrapper<>();
-    wrapper.select("points_name", "points_require").gt("points_require", points).last("limit 1");
+    wrapper
+        .select("points_id", "points_name", "points_require")
+        .gt("points_require", points)
+        .last("limit 1");
+    return wrapper;
+  }
+
+  /**
+   * 根据累积积分获得当前等级操作对象
+   *
+   * @param points 累积积分
+   * @return 查询对象
+   */
+  public static Wrapper<Points> getCurrentLevel(Integer points) {
+    QueryWrapper<Points> wrapper = new QueryWrapper<>();
+    wrapper
+        .select("points_id", "points_name", "points_require")
+        .le("points_require", points)
+        .orderByDesc("points_require")
+        .last("limit 1");
     return wrapper;
   }
 
@@ -299,6 +319,21 @@ public class QueryWrapperUtil {
     if (type != 0) {
       wrapper.eq("type", type);
     }
+    return wrapper;
+  }
+
+  /**
+   * 签到前根据用户编号判断是否已签到，获得操作对象
+   *
+   * @param userId 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<PointsLog> isDailyCheck(String userId) {
+    QueryWrapper<PointsLog> wrapper = new QueryWrapper<>();
+    wrapper
+        .eq("user_id", userId)
+        .apply("TO_DAYS(create_time) = TO_DAYS(NOW())") // 查询当天的数据
+        .eq("log_desc", PointsLogDescEnum.DAILY_CHECK.getValue());
     return wrapper;
   }
 }

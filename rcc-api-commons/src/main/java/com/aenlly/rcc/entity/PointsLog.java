@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
  * @since 2021-12-16
  */
 @Data
+@Component
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "积分记录实体对象", description = "")
 public class PointsLog implements Serializable {
@@ -41,12 +43,12 @@ public class PointsLog implements Serializable {
   @TableField("user_id")
   private String userId;
 
-  @ApiModelProperty(value = "信息插入时间")
-  @TableField("create_time")
+  @ApiModelProperty(value = "信息创建时间")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
-  @TableField("update_time")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")

@@ -11,7 +11,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum PointsLogDescEnum {
-  DAILY_CHECK("每日签到");
+  /** 每日签到 */
+  DAILY_CHECK("每日签到", 2),
+  /** 每日答题,计算时需要得分除该数 */
+  DAILY_ANSWER("每日答题", 10),
+  /** 分类小考,计算时需要得分除该数 */
+  CLASS_QUIZ("分类小考", 2);
 
   private String value;
+  private Integer points;
 }

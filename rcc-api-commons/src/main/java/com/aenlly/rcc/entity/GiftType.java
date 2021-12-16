@@ -17,9 +17,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "礼品类型实体对象", description = "")
 public class GiftType implements Serializable {
-    
-    private static final long serialVersionUID = -3000496852084582776L;
-    @ApiModelProperty(value = "自增标识")
+
+  private static final long serialVersionUID = -3000496852084582776L;
+
+  @ApiModelProperty(value = "自增标识")
   @TableId(value = "id", type = IdType.AUTO)
   private Integer id;
 
@@ -35,12 +36,12 @@ public class GiftType implements Serializable {
   @TableField("gift_show")
   private Integer giftShow;
 
-  @ApiModelProperty(value = "信息插入时间")
-  @TableField("create_time")
+  @ApiModelProperty(value = "信息创建时间")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
-  @TableField("update_time")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")

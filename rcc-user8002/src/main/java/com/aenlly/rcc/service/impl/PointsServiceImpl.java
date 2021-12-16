@@ -27,4 +27,16 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
     Wrapper<Points> wrapper = QueryWrapperUtil.getNextLevel(points);
     return baseMapper.selectOne(wrapper);
   }
+
+  /**
+   * 根据累积积分查询当前等级
+   *
+   * @param points 累积积分
+   * @return 当前等级
+   */
+  @Override
+  public Points getCurrentLevel(Integer points) {
+    Wrapper<Points> wrapper = QueryWrapperUtil.getCurrentLevel(points);
+    return baseMapper.selectOne(wrapper);
+  }
 }

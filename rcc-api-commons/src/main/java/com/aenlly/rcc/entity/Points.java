@@ -32,12 +32,12 @@ public class Points implements Serializable {
   @TableField("points_require")
   private Integer pointsRequire;
 
-  @ApiModelProperty(value = "创建时间")
-  @TableField("create_time")
+  @ApiModelProperty(value = "信息创建时间")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
-  @ApiModelProperty(value = "更新时间")
-  @TableField("update_time")
+  @ApiModelProperty(value = "信息更新时间")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除")

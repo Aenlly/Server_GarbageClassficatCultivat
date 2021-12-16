@@ -21,4 +21,12 @@ public interface IPointsLogService extends IService<PointsLog> {
    * @return 积分记录列表
    */
   List<PointsLog> getPointsLogByUserIdList(String userId, Integer type);
+
+  /**
+   * 每日签到服务
+   *
+   * @param userId 用户编号
+   * @return 是否签到成功
+   */
+  boolean dailyCheck(String userId);
 }

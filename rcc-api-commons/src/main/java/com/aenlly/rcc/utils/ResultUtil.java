@@ -37,4 +37,18 @@ public class ResultUtil {
   public static <T> CommonResult<T> resultError() {
     return new CommonResult<T>(CodeMessageResultEnum.ERROR);
   }
+
+  /**
+   * 插入数据时，已存在内容
+   *
+   * <p>统一返回方法执行
+   *
+   * <p>统一返回内容方法执行方法
+   *
+   * @param <T> 推断类型，不需要
+   * @return 公共错误返回内容
+   */
+  public static <T> CommonResult<T> resultExist() {
+    return new CommonResult<T>(CodeMessageResultEnum.EXIST);
+  }
 }
