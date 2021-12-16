@@ -295,4 +295,13 @@ public class QueryWrapperUtil {
         .last("limit 1");
     return queryWrapper;
   }
+
+  public static Wrapper<PointsLog> getPointsLogBy(String userId, Integer type) {
+    QueryWrapper<PointsLog> queryWrapper = new QueryWrapper<>();
+    queryWrapper.select("log_desc", "number", "type", "create_time").eq("user_id", userId);
+    if (type != 0) {
+      queryWrapper.eq("type", type);
+    }
+    return queryWrapper;
+  }
 }

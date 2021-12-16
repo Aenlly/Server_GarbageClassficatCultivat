@@ -26,3 +26,4 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 输出日志
   type-aliases-package: com.aenlly.rcc.entity
+  type-enums-package: com.aenlly.rcc.enums #扫描枚举
