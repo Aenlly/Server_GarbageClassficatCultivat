@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务实现类
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  * @since 2021-12-12
  */
 @Service
+@Transactional
 public class LikeEntityServiceImpl extends ServiceImpl<LikeEntityMapper, LikeEntity>
     implements ILikeEntityService {
 

@@ -43,7 +43,6 @@ public class PointsLogController {
   @PutMapping("/dailyCheck")
   public CommonResult<Boolean> dailyCheck(@Param("用户编号") @RequestParam("userId") String userId) {
     try {
-
       boolean save = pointsLogService.dailyCheck(userId);
       System.out.println(save);
       if (save) {

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 2021-12-13
  */
 @Service
+@Transactional
 public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, CollectEntity>
     implements ICollectEntityService {
 
