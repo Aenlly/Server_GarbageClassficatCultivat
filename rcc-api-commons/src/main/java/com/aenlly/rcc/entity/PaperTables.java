@@ -56,7 +56,7 @@ public class PaperTables implements Serializable {
 
   @ApiModelProperty(value = "用户编号")
   @TableField("user_id")
-  private Integer userId;
+  private String userId;
 
   @ApiModelProperty(value = "信息插入时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)

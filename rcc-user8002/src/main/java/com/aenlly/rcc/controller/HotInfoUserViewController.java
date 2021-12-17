@@ -23,8 +23,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-12
  */
 @RestController
-@RequestMapping("/hot-info-user-view")
 @Api(tags = "热门资讯管理控制器")
+@RequestMapping("/hot-info-user-view")
 public class HotInfoUserViewController {
 
   @Resource IHotInfoUserViewService hotInfoUserViewService;

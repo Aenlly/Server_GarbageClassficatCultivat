@@ -1,4 +1,4 @@
-package com.aenlly.rcc.utils;
+package com.aenlly.rcc.utils.impl;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
@@ -7,6 +7,9 @@ import com.aenlly.rcc.entity.GarbageLibrary;
 import com.aenlly.rcc.entity.UserSearch;
 import com.aenlly.rcc.service.IGarbageLibraryService;
 import com.aenlly.rcc.service.IUserSearchService;
+import com.aenlly.rcc.utils.GarbageLibraryAdd;
+import com.aenlly.rcc.utils.SearchService;
+import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -173,7 +176,7 @@ public class SearchServiceImpl implements SearchService {
             list.add(library);
           }
         }
-        garbageLibraryAdd.GarbageLibraryAdd(list);
+        garbageLibraryAdd.garbageLibraryAdd(list);
 
         return list;
       }

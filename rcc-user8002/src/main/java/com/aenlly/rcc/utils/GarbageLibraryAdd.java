@@ -23,7 +23,7 @@ public class GarbageLibraryAdd {
    *
    * @param list 数据集合
    */
-  public void GarbageLibraryAdd(List<GarbageLibrary> list) {
+  public void garbageLibraryAdd(List<GarbageLibrary> list) {
     new Thread(
             () -> {
               service.saveBatch(list);

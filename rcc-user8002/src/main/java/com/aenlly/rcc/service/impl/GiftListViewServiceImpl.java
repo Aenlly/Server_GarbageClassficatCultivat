@@ -3,7 +3,7 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.GiftListView;
 import com.aenlly.rcc.mapper.GiftListViewMapper;
 import com.aenlly.rcc.service.IGiftListViewService;
-import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

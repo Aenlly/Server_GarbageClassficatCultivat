@@ -1,0 +1,84 @@
+package com.aenlly.rcc.utils.wrapper;
+
+import com.aenlly.rcc.entity.*;
+import com.aenlly.rcc.enums.WeekNumberEnum;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+/**
+ * 知识测试查询对象获取类
+ *
+ * @author Aenlly
+ * @create by date 2021/12/17 20:56
+ * @projectName RefuseClassificationCultivate
+ */
+public class QuizWrapperUtil {
+
+  /**
+   * 根据问卷名称 获得操作对象
+   *
+   * @param naireName 问卷名称
+   * @return 查询对象
+   */
+  public static Wrapper<Questionnaire> getQuestionnaireByName(String naireName) {
+    QueryWrapper<Questionnaire> wrapper = new QueryWrapper<>();
+    wrapper.eq("questionnaire_name", naireName);
+    return wrapper;
+  }
+
+  /**
+   * 根据用户编号，问卷编号来获得操作对象
+   *
+   * @param userId 用户编号
+   * @param questionnaireId 问卷编号
+   * @param weekNumber 每周可答题的次数，1或者7
+   * @return 查询对象
+   */
+  public static Wrapper<PaperTables> getPaperTablesExist(
+      String userId, Long questionnaireId, Integer weekNumber) {
+    QueryWrapper<PaperTables> wrapper = new QueryWrapper<>();
+    wrapper.eq("user_id", userId).eq("belong_questionnaire_id", questionnaireId);
+    if (weekNumber.equals(WeekNumberEnum.DAILY.getWeekNumber())) {
+      wrapper.apply("TO_DAYS(create_time) = TO_DAYS(NOW())");
+    } else if (weekNumber.equals(WeekNumberEnum.WEEK.getWeekNumber())) {
+      wrapper.apply("YEARWEEK(create_time) = YEARWEEK(now()");
+    }
+    return wrapper;
+  }
+
+  /**
+   * 根据随机组卷批次号 获得操作对象
+   *
+   * @param randomBatchIndex 随机组卷批次号
+   * @return 查询对象
+   */
+  public static Wrapper<QuestionnaireTopics> getTopicByRandomBatchIndex(String randomBatchIndex) {
+    QueryWrapper<QuestionnaireTopics> wrapper = new QueryWrapper<>();
+    wrapper.eq("random_batch_index", randomBatchIndex).eq("state", 0);
+    return wrapper;
+  }
+
+  /**
+   * 根据题库id,随机取10个数据条 获得操作对象
+   *
+   * @param databankId 题库id
+   * @return 查询对象
+   */
+  public static Wrapper<SubjectTable> getSubjectTableLimitTen(int databankId) {
+    QueryWrapper<SubjectTable> wrapper = new QueryWrapper<>();
+    wrapper.eq("databank_id", databankId).last("ORDER BY  RAND() LIMIT 10");
+    return wrapper;
+  }
+
+  /**
+   * 根据题目id 获得操作对象
+   *
+   * @param id 题目id
+   * @return 查询对象
+   */
+  public static Wrapper<OptionsTable> getOptionsTableListBySubjectId(Long id) {
+    QueryWrapper<OptionsTable> wrapper = new QueryWrapper<>();
+    wrapper.select("id", "option_name", "belong_topic_id").eq("belong_topic_id", id);
+    return wrapper;
+  }
+}

@@ -1,5 +1,6 @@
 package com.aenlly.rcc.utils;
 
+import com.aenlly.rcc.enums.CodeMessageResultEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

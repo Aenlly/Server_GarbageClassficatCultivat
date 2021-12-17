@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.WeekNumberEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,6 +42,10 @@ public class Questionnaire implements Serializable {
   @ApiModelProperty(value = "题库编号")
   @TableField("databank_id")
   private Integer databankId;
+
+  @ApiModelProperty(value = "每周可答次数，1或者7")
+  @TableField("week_number")
+  private WeekNumberEnum weekNumber;
 
   @ApiModelProperty(value = "信息插入时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)

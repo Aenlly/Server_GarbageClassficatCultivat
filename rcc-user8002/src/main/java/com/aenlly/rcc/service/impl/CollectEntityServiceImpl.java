@@ -3,7 +3,7 @@ package com.aenlly.rcc.service.impl;
 import com.aenlly.rcc.entity.CollectEntity;
 import com.aenlly.rcc.mapper.CollectEntityMapper;
 import com.aenlly.rcc.service.ICollectEntityService;
-import com.aenlly.rcc.utils.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;

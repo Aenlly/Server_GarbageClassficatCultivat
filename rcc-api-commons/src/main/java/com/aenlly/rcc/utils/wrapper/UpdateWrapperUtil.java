@@ -1,4 +1,4 @@
-package com.aenlly.rcc.utils;
+package com.aenlly.rcc.utils.wrapper;
 
 /**
  * @author Aenlly
