@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 积分描述常用常量
+ *
  * @author Aenlly
  * @create by date 2021/12/16 15:22
  * @projectName RefuseClassificationCultivate

@@ -6,21 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 答题对应表的题目状态
+ * 视频审核状态
  *
  * @author Aenlly
- * @create by date 2021/12/17 21:22
+ * @create by date 2021/12/18 20:54
  * @projectName RefuseClassificationCultivate
  */
 @Getter
 @AllArgsConstructor
-public enum TopicStateEnum {
-  /** 未答，数据库插入0，默认值 */
-  UN_ANSWERED(0, "未答"),
-  /** 已答，数据库插入1 */
-  ANSWERED(1, "已答");
+public enum AuditEnum {
+  /** 待审核，数据库插入0 */
+  TO_AUDIT(0, "待审核"),
+  /** 已通过，数据库插入1 */
+  THROUGH(1, "已通过"),
+  /** 未通过，数据库插入2 */
+  Not_THROUGH(-1, "未通过"),
+  /** 已下架，数据库插入3 */
+  OFF(2, "已下架");
+
   /** 标记数据库中的值 */
-  @EnumValue private Integer state;
+  @EnumValue private Integer audit;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

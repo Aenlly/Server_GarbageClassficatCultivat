@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 答卷表提交状态
+ *
  * @author Aenlly
  * @create by date 2021/12/18 13:44
  * @projectName RefuseClassificationCultivate
