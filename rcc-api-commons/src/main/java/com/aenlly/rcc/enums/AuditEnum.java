@@ -15,12 +15,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuditEnum {
+  /** 未通过，数据库插入2 */
+  Not_THROUGH(-1, "未通过"),
   /** 待审核，数据库插入0 */
   TO_AUDIT(0, "待审核"),
   /** 已通过，数据库插入1 */
   THROUGH(1, "已通过"),
-  /** 未通过，数据库插入2 */
-  Not_THROUGH(-1, "未通过"),
   /** 已下架，数据库插入3 */
   OFF(2, "已下架");
 
