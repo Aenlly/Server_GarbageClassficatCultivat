@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.PaperStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,6 +54,14 @@ public class PaperTables implements Serializable {
   @ApiModelProperty(value = "随机组卷批次号")
   @TableField("random_batch_index")
   private String randomBatchIndex;
+
+  @ApiModelProperty(value = "答卷状态，0未提交，1已提交")
+  @TableField("state")
+  private PaperStateEnum state;
+
+  @ApiModelProperty(value = "答卷提交时间")
+  @TableField("submit_time")
+  private LocalDateTime submitTime;
 
   @ApiModelProperty(value = "用户编号")
   @TableField("user_id")

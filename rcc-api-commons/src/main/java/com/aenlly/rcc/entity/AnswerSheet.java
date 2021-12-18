@@ -33,14 +33,14 @@ public class AnswerSheet implements Serializable {
 
   @ApiModelProperty(value = "所选选项id")
   @TableField("selected_option_id")
-  private Integer selectedOptionId;
+  private Long selectedOptionId;
 
   @ApiModelProperty(value = "答题结果,正确/错误")
   @TableField("answer_results")
   private CorrectlyOrNotEnum answerResults;
 
   @ApiModelProperty(value = "得分")
-  private String score;
+  private Integer score;
 
   @ApiModelProperty(value = "所属题目名称")
   @TableField("belong_topic_name")

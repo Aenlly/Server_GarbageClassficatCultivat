@@ -31,25 +31,29 @@ public class UpdateUserPointsUtils {
 
   @Transactional
   public Boolean dailyCheck(String userId) {
-    pointsLog.setId(null);
+    // 设置积分记录描述
     pointsLog.setLogDesc(PointsLogDescEnum.DAILY_CHECK.getValue());
-    pointsLog.setNumber(PointsLogDescEnum.DAILY_CHECK.getPoints());
-    pointsLog.setUserId(userId);
-    pointsLog.setType(PointsLogTypeEnum.ADD);
-    boolean b = pointsLogService.save(pointsLog);
+
+    boolean b = pointsLogAdd(userId, PointsLogDescEnum.DAILY_CHECK.getPoints());
     if (b) {
-      return updateUser(userId, PointsLogDescEnum.DAILY_CHECK.getPoints());
+      User user = userService.getById(userId);
+      return updateUser(user, PointsLogDescEnum.DAILY_CHECK.getPoints());
     }
     throw new NullPointerException();
   }
 
-  private Boolean updateUser(String userId, Integer points) {
-    User user = userService.getById(userId);
+  /**
+   * 更新下一等级
+   *
+   * @param user 用户对象
+   * @param points 积分
+   * @return 是否成功
+   */
+  private Boolean updateUser(User user, Integer points) {
     // 剩余积分
     user.setRemainingPoints(user.getRemainingPoints() + points);
     // 累积积分
     user.setAccumulativePoints(user.getAccumulativePoints() + points);
-
     // 查询下一等级
     Points level = pointsService.getCurrentLevel(user.getAccumulativePoints());
     // 不为空时设置下一等级
@@ -57,5 +61,62 @@ public class UpdateUserPointsUtils {
       user.setPointsId(level.getPointsId());
     }
     return userService.updateById(user);
+  }
+
+  /**
+   * 答题增加积分记录等
+   *
+   * @param userId 用户编号
+   * @param points 积分
+   * @param pointsLogDescEnum 记录描述
+   */
+  @Transactional
+  public boolean answerQuestion(
+      String userId, Integer points, PointsLogDescEnum pointsLogDescEnum) {
+    // 设置积分记录描述
+    pointsLog.setLogDesc(pointsLogDescEnum.getValue());
+
+    boolean save = pointsLogAdd(userId, points);
+
+    // 获取用户信息
+    User user = userService.getById(userId);
+    // 增加用户答题积分
+    user.setRemainingPoints(user.getRemainingPoints() + points);
+    // 更新用户信息
+    Boolean updateUser = updateUser(user, points);
+
+    if (!updateUser || !save) {
+      throw new NullPointerException();
+    }
+    return true;
+  }
+
+  /**
+   * 增加积分执行
+   *
+   * @param userId 用户编号
+   * @param points 积分
+   */
+  private boolean pointsLogAdd(String userId, Integer points) {
+    // 设置积分记录类型
+    pointsLog.setType(PointsLogTypeEnum.ADD);
+    return savePointsLog(userId, points);
+  }
+
+  /**
+   * 增加与减少的公共代码执行方法
+   *
+   * @param userId 用户编号
+   * @param points 积分
+   */
+  @Transactional
+  private boolean savePointsLog(String userId, Integer points) {
+    pointsLog.setId(null);
+    // 设置积分值
+    pointsLog.setNumber(points);
+    // 设置用户编号
+    pointsLog.setUserId(userId);
+    // 创建积分记录信息
+    return pointsLogService.save(pointsLog);
   }
 }

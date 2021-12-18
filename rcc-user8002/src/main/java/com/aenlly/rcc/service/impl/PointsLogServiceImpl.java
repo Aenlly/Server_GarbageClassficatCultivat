@@ -1,6 +1,7 @@
 package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.PointsLog;
+import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.mapper.PointsLogMapper;
 import com.aenlly.rcc.service.IPointsLogService;
 import com.aenlly.rcc.utils.UpdateUserPointsUtils;
@@ -54,5 +55,19 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
       return userPointsUtils.dailyCheck(userId);
     }
     return false;
+  }
+
+  /**
+   * 答题增加积分服务
+   *
+   * @param userId 用户编号
+   * @param points 增加积分
+   * @param pointsLogDescEnum 积分描述类型
+   * @return 是否增加成功
+   */
+  @Override
+  public boolean answerQuestion(
+      String userId, Integer points, PointsLogDescEnum pointsLogDescEnum) {
+    return userPointsUtils.answerQuestion(userId, points, pointsLogDescEnum);
   }
 }

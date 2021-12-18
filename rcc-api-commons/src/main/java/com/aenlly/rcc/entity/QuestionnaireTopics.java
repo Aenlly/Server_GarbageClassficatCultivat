@@ -46,8 +46,8 @@ public class QuestionnaireTopics implements Serializable {
 
   /** 所属题目名称，必填 */
   @ApiModelProperty(value = "所属题目名称")
-  @TableField("belong_topic")
-  private String belongTopic;
+  @TableField("belong_topic_name")
+  private String belongTopicName;
 
   /** 所属题目id，必填 */
   @ApiModelProperty(value = "所属题目id")

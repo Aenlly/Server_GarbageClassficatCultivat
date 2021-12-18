@@ -1,14 +1,12 @@
 package com.aenlly.rcc.controller;
 
+import com.aenlly.rcc.entity.PaperTables;
 import com.aenlly.rcc.entity.QuestionnaireTopics;
 import com.aenlly.rcc.utils.AnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -53,9 +51,50 @@ public class AnswerQuestionController {
   @GetMapping("/getTopics")
   public CommonResult<List<QuestionnaireTopics>> getTopics(
       @Param("用户编号") @RequestParam("userId") String userId,
-      @Param("问卷名称") @RequestParam("randomIndex") String randomIndex) {
+      @Param("随机组卷批次号") @RequestParam("randomIndex") String randomIndex) {
     try {
       List<QuestionnaireTopics> list = answerQuestionService.getTopics(userId, randomIndex);
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "判断是否正确答案请求", httpMethod = "POST")
+  @PostMapping("/isCorrect")
+  public CommonResult<Long> isCorrect(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("题目编号") @RequestParam("topicId") Long topicId,
+      @Param("选项编号") @RequestParam("optionId") Long optionId,
+      @Param("随机组卷批次号") @RequestParam("randomIndex") String randomIndex) {
+    try {
+      optionId = answerQuestionService.isCorrect(userId, topicId, optionId, randomIndex);
+      return resultOk(optionId);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "交卷请求", httpMethod = "POST")
+  @PostMapping("/submitPaper")
+  public CommonResult<Boolean> submitPaper(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("随机组卷批次号") @RequestParam("randomIndex") String randomIndex) {
+    try {
+      Boolean submitPaper = answerQuestionService.submitPaper(userId, randomIndex);
+      return resultOk(submitPaper);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "请求答题记录", httpMethod = "GET")
+  @GetMapping("/getPaperTablesLog")
+  public CommonResult<List<PaperTables>> getPaperTablesLog(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("答题类型") @RequestParam("questionnaireName") String questionnaireName) {
+    try {
+      List<PaperTables> list = answerQuestionService.getPaperTablesLog(userId, questionnaireName);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
