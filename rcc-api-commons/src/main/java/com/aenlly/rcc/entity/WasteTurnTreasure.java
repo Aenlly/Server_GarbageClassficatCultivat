@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.AuditEnum;
+import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
@@ -21,9 +22,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "WasteTurnTreasure对象", description = "变废为宝表")
 public class WasteTurnTreasure implements Serializable {
-    
-    private static final long serialVersionUID = 7774823841079931305L;
-    @ApiModelProperty(value = "自增标识")
+
+  private static final long serialVersionUID = 7774823841079931305L;
+
+  @ApiModelProperty(value = "自增标识")
   @TableId(value = "id", type = IdType.AUTO)
   private Long id;
 
@@ -51,7 +53,7 @@ public class WasteTurnTreasure implements Serializable {
 
   @ApiModelProperty(value = "是用户上传，0不是，1是")
   @TableField("is_user_upload")
-  private String isUserUpload;
+  private UserUploadEnum isUserUpload;
 
   @TableField("admin_id")
   private Integer adminId;
@@ -79,4 +81,8 @@ public class WasteTurnTreasure implements Serializable {
   @ApiModelProperty(value = "版本号，用于乐观锁")
   @Version
   private Integer version;
+
+  @ApiModelProperty("发布者信息")
+  @TableField(exist = false) // 非数据库字段
+  private User user;
 }

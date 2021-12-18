@@ -15,7 +15,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultError;
 import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 
 /**
- * VIEW 前端控制器
+ * 用户公益视频视图 VIEW 前端控制器
  *
  * @author aenlly
  * @since 2021-12-13

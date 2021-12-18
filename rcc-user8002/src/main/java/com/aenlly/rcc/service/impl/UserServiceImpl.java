@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 服务实现类
+ * 用户表 服务实现类
  *
  * @author aenlly
  * @since 2021-12-11
@@ -51,5 +51,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
   public List<User> getUserListByAnswerPoints() {
     Wrapper<User> wrapper = QueryWrapperUtil.getUserListByAnswerPoints();
     return baseMapper.selectList(wrapper);
+  }
+
+  /**
+   * 根据用户编号 获取昵称与头像
+   *
+   * @param id 用户编号
+   * @return 用户信息
+   */
+  @Override
+  public User getNameAndAvatarById(String id) {
+    Wrapper<User> wrapper = QueryWrapperUtil.getNameAndAvatarById(id);
+    return baseMapper.selectOne(wrapper);
   }
 }

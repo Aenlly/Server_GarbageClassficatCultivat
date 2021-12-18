@@ -347,4 +347,16 @@ public class QueryWrapperUtil {
         .eq("log_desc", PointsLogDescEnum.DAILY_CHECK.getValue());
     return wrapper;
   }
+
+  /**
+   * 根据用户编号 只获取昵称与头像操作对象
+   *
+   * @param id 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<User> getNameAndAvatarById(String id) {
+    QueryWrapper<User> wrapper = new QueryWrapper<>();
+    wrapper.select("nick_name", "avatar_url").eq("user_id", id);
+    return wrapper;
+  }
 }

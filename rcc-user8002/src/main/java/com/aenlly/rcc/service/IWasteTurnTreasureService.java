@@ -28,4 +28,12 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @return 信息集合
    */
   List<WasteTurnTreasure> getListSearchByTitle(String title);
+
+  /**
+   * 通过编号，增加分享量
+   *
+   * @param id 编号
+   * @return 是否成功
+   */
+  Boolean upShareCount(Long id);
 }

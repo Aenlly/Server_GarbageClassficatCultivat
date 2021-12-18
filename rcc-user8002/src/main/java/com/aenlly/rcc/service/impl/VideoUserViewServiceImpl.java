@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * VIEW 服务实现类
+ * 用户公益视频视图 VIEW 服务实现类
  *
  * @author aenlly
  * @since 2021-12-13

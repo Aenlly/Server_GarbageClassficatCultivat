@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 服务类
+ * 用户表 服务类
  *
  * @author aenlly
  * @since 2021-12-11
@@ -35,4 +35,12 @@ public interface IUserService extends IService<User> {
    * @return 列表
    */
   List<User> getUserListByAnswerPoints();
+
+  /**
+   * 根据用户编号 获取昵称与头像
+   *
+   * @param id 用户编号
+   * @return 用户信息
+   */
+  User getNameAndAvatarById(String id);
 }

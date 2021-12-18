@@ -44,4 +44,17 @@ public class WasteTurnTreasureServiceImpl
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTitle(title);
     return baseMapper.selectList(wrapper);
   }
+
+  /**
+   * 通过编号，增加分享量
+   *
+   * @param id 编号
+   * @return 是否成功
+   */
+  @Override
+  public Boolean upShareCount(Long id) {
+    WasteTurnTreasure view = baseMapper.selectById(id);
+    view.setShareCount(view.getShareCount() + 1);
+    return baseMapper.updateById(view) > 0;
+  }
 }
