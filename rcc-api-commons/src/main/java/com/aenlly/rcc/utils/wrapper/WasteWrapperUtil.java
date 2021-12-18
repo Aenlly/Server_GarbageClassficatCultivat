@@ -26,4 +26,16 @@ public class WasteWrapperUtil {
         .eq("audit", AuditEnum.THROUGH.getAudit());
     return wrapper;
   }
+
+  /**
+   * 根据标题 获取操作对象
+   *
+   * @param title 标题
+   * @return 查询对象
+   */
+  public static Wrapper<WasteTurnTreasure> getListByTitle(String title) {
+    QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
+    wrapper.select("id", "text").eq("audit", AuditEnum.THROUGH.getAudit()).like("text", title);
+    return wrapper;
+  }
 }

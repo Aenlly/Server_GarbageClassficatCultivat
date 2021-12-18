@@ -30,13 +30,25 @@ public class WasteTurnTreasureController {
   /** 变废为宝表-服务对象 */
   @Resource IWasteTurnTreasureService wasteTurnTreasureService;
 
-  @ApiOperation(value = "根据标签获取变废为宝通过的信息列表", httpMethod = "GET")
+  @ApiOperation(value = "用户服务-变废为宝-初始请求-根据标签搜索，获取信息请求", httpMethod = "GET")
   @GetMapping("/getListByTag/{tag}")
   @JsonCreator
   public CommonResult<List<WasteTurnTreasure>> getListByTag(
       @Param("标签") @PathVariable("tag") Integer tag) {
     try {
       List<WasteTurnTreasure> list = wasteTurnTreasureService.getListByTag(tag);
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "用户服务-变废为宝-根据标题搜索，获取信息请求", httpMethod = "GET")
+  @GetMapping("/getListSearchByTitle/{title}")
+  public CommonResult<List<WasteTurnTreasure>> getListSearchByTitle(
+      @Param("标题") @PathVariable("title") String title) {
+    try {
+      List<WasteTurnTreasure> list = wasteTurnTreasureService.getListSearchByTitle(title);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();

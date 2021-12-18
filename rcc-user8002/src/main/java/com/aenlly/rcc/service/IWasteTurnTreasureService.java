@@ -20,4 +20,12 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @return 信息集合
    */
   List<WasteTurnTreasure> getListByTag(Integer tag);
+
+  /**
+   * 根据标题 获取变废为宝信息
+   *
+   * @param title 标题
+   * @return 信息集合
+   */
+  List<WasteTurnTreasure> getListSearchByTitle(String title);
 }

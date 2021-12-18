@@ -32,4 +32,16 @@ public class WasteTurnTreasureServiceImpl
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTag(tag);
     return baseMapper.selectList(wrapper);
   }
+
+  /**
+   * 根据标题 获取变废为宝信息
+   *
+   * @param title 标题
+   * @return 信息集合
+   */
+  @Override
+  public List<WasteTurnTreasure> getListSearchByTitle(String title) {
+    Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTitle(title);
+    return baseMapper.selectList(wrapper);
+  }
 }
