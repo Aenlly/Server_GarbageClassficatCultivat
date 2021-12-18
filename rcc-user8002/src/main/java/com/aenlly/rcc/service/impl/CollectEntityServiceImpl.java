@@ -78,7 +78,24 @@ public class CollectEntityServiceImpl extends ServiceImpl<CollectEntityMapper, C
   @Override
   public List<CollectEntity> getListByUserId(String userId, String name) {
     isParams(userId, "1", "1");
-    Wrapper<CollectEntity> wrapper = QueryWrapperUtil.getUserCollectListBy(userId, name);
+    Wrapper<CollectEntity> wrapper = QueryWrapperUtil.getUserCollectListBy(userId, name, null);
+    return baseMapper.selectList(wrapper);
+  }
+
+  /**
+   * 用户服务-收藏根据条件进行查询
+   *
+   * @param userId 用户编号
+   * @param name 搜索内容
+   * @param entityName 实体名称
+   * @return 结果集合
+   */
+  @Override
+  public List<CollectEntity> getByUserIdAndEntityName(
+      String userId, String name, String entityName) {
+    isParams(userId, entityName, "1");
+    Wrapper<CollectEntity> wrapper =
+        QueryWrapperUtil.getUserCollectListBy(userId, name, entityName);
     return baseMapper.selectList(wrapper);
   }
 

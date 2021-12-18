@@ -48,6 +48,10 @@ public class CollectEntity implements Serializable {
   @TableField("data_desc")
   private String dataDesc;
 
+  @ApiModelProperty(value = "标签，好用，好看，好玩，收藏变废为宝时使用")
+  @TableField("text_tag")
+  private String textTag;
+
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;

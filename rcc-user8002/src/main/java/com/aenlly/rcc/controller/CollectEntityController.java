@@ -40,6 +40,21 @@ public class CollectEntityController {
     }
   }
 
+  @ApiOperation(value = "用户服务-变废为宝-收藏-列表请求", httpMethod = "GET")
+  @GetMapping("/getByUserIdAndEntityName")
+  public CommonResult<List<CollectEntity>> getByUserIdAndEntityName(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("搜索内容，用于搜索时使用") @RequestParam("name") String name,
+      @Param("搜索实体名称") @RequestParam("entityName") String entityName) {
+    try {
+      List<CollectEntity> list =
+          collectEntityService.getByUserIdAndEntityName(userId, name, entityName);
+      return resultOk(list);
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
   @ApiOperation(value = "请求数据点赞量", httpMethod = "GET")
   @GetMapping("/getCountByDataId")
   public CommonResult<Long> getCountByDataId(
@@ -66,7 +81,6 @@ public class CollectEntityController {
   @ApiOperation(value = "请求收藏创建", httpMethod = "POST")
   @PostMapping("/createCollect")
   public CommonResult<Boolean> createLike(@Param("收藏接收实体") CollectEntity collectEntity) {
-
     try {
       // 判断是否存在点赞实体
       Boolean isCollect =

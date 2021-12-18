@@ -50,4 +50,14 @@ public interface ICollectEntityService extends IService<CollectEntity> {
    * @return 结果集合
    */
   List<CollectEntity> getListByUserId(String userId, String name);
+
+  /**
+   * 用户服务-收藏根据条件进行查询
+   *
+   * @param userId 用户编号
+   * @param name 搜索内容
+   * @param entityName 实体名称
+   * @return 结果集合
+   */
+  List<CollectEntity> getByUserIdAndEntityName(String userId, String name, String entityName);
 }

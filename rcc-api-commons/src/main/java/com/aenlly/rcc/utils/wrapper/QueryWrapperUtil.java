@@ -4,6 +4,7 @@ import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -238,18 +239,30 @@ public class QueryWrapperUtil {
   }
 
   /**
-   * 根据用户id与查询标题来获得操作对象
+   * 根据用户id与查询标题 变废为宝的收藏需要加上实体名称 来获得操作对象
    *
    * @param userId 用户id
    * @param name 查询标题
+   * @param entityName 实体名称，可为空
    * @return 查询对象
    */
-  public static Wrapper<CollectEntity> getUserCollectListBy(String userId, String name) {
+  public static Wrapper<CollectEntity> getUserCollectListBy(
+      String userId, String name, String entityName) {
     QueryWrapper<CollectEntity> wrapper = new QueryWrapper<>();
     wrapper
-        .select("collect_id", "data_title", "data_desc", "data_id", "img_url", "entity_name")
+        .select(
+            "collect_id",
+            "data_title",
+            "data_desc",
+            "data_id",
+            "img_url",
+            "entity_name",
+            "text_tag")
         .eq("user_id", userId)
         .like("data_title", name);
+    if (StringUtils.isNotBlank(entityName)) {
+      wrapper.eq("entity_name", entityName);
+    }
     return wrapper;
   }
 
