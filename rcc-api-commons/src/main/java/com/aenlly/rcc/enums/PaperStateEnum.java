@@ -14,13 +14,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PaperStateEnum {
+public enum PaperStateEnum implements BaseEnum {
   /** 未提交，数据库插入0，默认值 */
   NOT_SUBMITTED(0, "未提交"),
   /** 已提交，数据库插入1 */
   SUBMITTED(1, "已提交");
   /** 标记数据库中的值 */
-  @EnumValue private Integer state;
+  @EnumValue private Integer name;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

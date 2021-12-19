@@ -14,18 +14,19 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CorrectlyOrNotEnum {
+public enum CorrectlyOrNotEnum implements BaseEnum {
   /** 选项正确，数据库插入1 */
-  CPRRECTLY("正确", 1),
+  CPRRECTLY(1, "正确"),
   /** 选项错误，数据库插入-1 */
-  NOT("错误", -1);
+  NOT(-1, "错误");
   /** 标记数据库中的值 */
-  @JsonValue private String name;
+  @EnumValue private Integer name;
+
   /** 返回的json显示此值 */
-  @EnumValue private Integer value;
+  @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */
   @Override
   public String toString() {
-    return this.name;
+    return this.value;
   }
 }

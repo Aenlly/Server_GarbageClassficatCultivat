@@ -14,13 +14,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TopicStateEnum {
+public enum TopicStateEnum implements BaseEnum {
   /** 未答，数据库插入0，默认值 */
   UN_ANSWERED(0, "未答"),
   /** 已答，数据库插入1 */
   ANSWERED(1, "已答");
   /** 标记数据库中的值 */
-  @EnumValue private Integer state;
+  @EnumValue private Integer name;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

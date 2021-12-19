@@ -2,6 +2,7 @@ package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
+import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -16,26 +17,41 @@ public class WasteWrapperUtil {
   /**
    * 根据标签 获取操作对象
    *
-   * @param tag 标签
+   * @param userId 用户编号，根据需求赋值
+   * @param tag 标签，根据需求赋值
+   * @param audit 审核状态，必须值
    */
-  public static Wrapper<WasteTurnTreasure> getListByTag(Integer tag) {
+  public static Wrapper<WasteTurnTreasure> getListByTag(
+      String userId, WasteTagEnum tag, AuditEnum audit) {
     QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
-    wrapper
-        .select("id", "text", "text_desc", "img_url")
-        .eq("text_tag", tag)
-        .eq("audit", AuditEnum.THROUGH.getAudit());
+    wrapper.select("id", "text", "text_desc", "img_url", "text_tag", "audit").eq("audit", audit);
+    if (userId != null) {
+      wrapper.eq("user_id", userId);
+    }
+    if (tag != null) {
+      wrapper.eq("text_tag", tag);
+    }
     return wrapper;
   }
 
   /**
    * 根据标题 获取操作对象
    *
-   * @param title 标题
+   * @param title 标题，必须值
+   * @param audit 审核状态，根据需求赋值
+   * @param userId 用户编号，根据需求赋值
    * @return 查询对象
    */
-  public static Wrapper<WasteTurnTreasure> getListByTitle(String title) {
+  public static Wrapper<WasteTurnTreasure> getListByTitle(
+      String title, AuditEnum audit, String userId) {
     QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
-    wrapper.select("id", "text").eq("audit", AuditEnum.THROUGH.getAudit()).like("text", title);
+    wrapper.select("id", "text", "text_desc", "img_url", "text_tag", "audit").like("text", title);
+    if (audit != null) {
+      wrapper.eq("audit", audit);
+    }
+    if (userId != null) {
+      wrapper.eq("user_id", userId);
+    }
     return wrapper;
   }
 }

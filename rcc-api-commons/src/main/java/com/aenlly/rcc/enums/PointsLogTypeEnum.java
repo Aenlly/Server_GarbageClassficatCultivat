@@ -14,14 +14,14 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum PointsLogTypeEnum {
+public enum PointsLogTypeEnum implements BaseEnum {
   /** 增加，数据库插入1 */
   ADD(1, "增加"),
   /** 减少，数据库插入-1 */
   LOWER(-1, "减少");
 
   /** 标记数据库中的值 */
-  @EnumValue private Integer type;
+  @EnumValue private Integer name;
 
   /** 返回的json显示此值 */
   @JsonValue private String value;

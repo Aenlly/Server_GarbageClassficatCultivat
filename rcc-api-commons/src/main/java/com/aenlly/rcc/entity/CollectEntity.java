@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -50,7 +51,7 @@ public class CollectEntity implements Serializable {
 
   @ApiModelProperty(value = "标签，好用，好看，好玩，收藏变废为宝时使用")
   @TableField("text_tag")
-  private String textTag;
+  private WasteTagEnum textTag;
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)

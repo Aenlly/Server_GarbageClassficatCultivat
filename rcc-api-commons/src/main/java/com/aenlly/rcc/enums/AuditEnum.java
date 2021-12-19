@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum AuditEnum {
+public enum AuditEnum implements BaseEnum {
   /** 未通过，数据库插入2 */
   Not_THROUGH(-1, "未通过"),
   /** 待审核，数据库插入0 */
@@ -25,7 +25,7 @@ public enum AuditEnum {
   OFF(2, "已下架");
 
   /** 标记数据库中的值 */
-  @EnumValue private Integer audit;
+  @EnumValue private Integer name;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

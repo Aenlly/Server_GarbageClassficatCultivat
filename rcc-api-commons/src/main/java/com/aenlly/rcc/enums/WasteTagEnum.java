@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum WasteTagEnum {
+public enum WasteTagEnum implements BaseEnum {
   /** 好用，数据库插入0 */
   HANDY(0, "好用"),
   /** 好看，数据库插入1 */
@@ -23,7 +23,7 @@ public enum WasteTagEnum {
   FUN(2, "好玩");
 
   /** 标记数据库中的值 */
-  @EnumValue private Integer tag;
+  @EnumValue private Integer name;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

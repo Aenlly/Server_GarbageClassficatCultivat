@@ -2,7 +2,9 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
+import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
+import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.service.IUserService;
 import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -36,9 +38,9 @@ public class WasteTurnTreasureController {
   @GetMapping("/getListByTag/{tag}")
   @JsonCreator
   public CommonResult<List<WasteTurnTreasure>> getListByTag(
-      @Param("标签") @PathVariable("tag") Integer tag) {
+      @Param("标签") @PathVariable("tag") WasteTagEnum wasteTagEnum) {
     try {
-      List<WasteTurnTreasure> list = wasteTurnTreasureService.getListByTag(tag);
+      List<WasteTurnTreasure> list = wasteTurnTreasureService.getListByTag(wasteTagEnum);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -81,5 +83,33 @@ public class WasteTurnTreasureController {
       return resultOk(wasteTurnTreasure.getShareCount());
     }
     return resultError();
+  }
+
+  @ApiOperation(value = "用户服务-变废为宝-我的-请求发布数据")
+  @GetMapping("/getListByUserIdAndAudit")
+  public CommonResult<List<WasteTurnTreasure>> getListByUserIdAndAudit(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("审核状态") @RequestParam("audit") AuditEnum auditEnum) {
+    try {
+      List<WasteTurnTreasure> list =
+          wasteTurnTreasureService.getListByUserIdAndAudit(userId, auditEnum);
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "用户服务-变废为宝-我的-根据标题搜索，获取信息请求", httpMethod = "GET")
+  @GetMapping("/getListSearchByUserIdAndTitle/{userId}/{title}")
+  public CommonResult<List<WasteTurnTreasure>> getListSearchByUserIdAndTitle(
+      @Param("用户编号") @PathVariable("userId") String userId,
+      @Param("标题") @PathVariable("title") String title) {
+    try {
+      List<WasteTurnTreasure> list =
+          wasteTurnTreasureService.getListSearchByUserIdAndTitle(userId, title);
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
   }
 }

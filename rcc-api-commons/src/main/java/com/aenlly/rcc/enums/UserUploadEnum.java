@@ -12,14 +12,14 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum UserUploadEnum {
+public enum UserUploadEnum implements BaseEnum {
   /** 是用户上传，数据库插入1 */
   YES(1, "是"),
   /** 非用户上传，数据库拆入0，默认值 */
   NO(0, "否");
 
   /** 标记数据库中的值 */
-  @EnumValue private Integer isUserUpload;
+  @EnumValue private Integer name;
   /** 返回的json显示此值 */
   @JsonValue private String value;
   /** 重写toString(),用于配合@JsonValue显示 */

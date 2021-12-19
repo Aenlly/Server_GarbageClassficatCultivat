@@ -119,9 +119,7 @@ public class QuizWrapperUtil {
    */
   public static Wrapper<OptionsTable> getOptionsTableCorrect(Long topicId) {
     QueryWrapper<OptionsTable> wrapper = new QueryWrapper<>();
-    wrapper
-        .eq("belong_topic_id", topicId)
-        .eq("correctly_or_not", CorrectlyOrNotEnum.CPRRECTLY.getValue());
+    wrapper.eq("belong_topic_id", topicId).eq("correctly_or_not", CorrectlyOrNotEnum.CPRRECTLY);
     return wrapper;
   }
 
@@ -138,7 +136,7 @@ public class QuizWrapperUtil {
         .select("id", "submit_time", "total_score")
         .eq("user_id", userId)
         .eq("belong_questionnaire_name", questionnaireName)
-        .eq("state", PaperStateEnum.SUBMITTED.getState());
+        .eq("state", PaperStateEnum.SUBMITTED);
     return wrapper;
   }
 }
