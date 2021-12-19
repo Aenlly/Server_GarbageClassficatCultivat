@@ -3,9 +3,19 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka/ #\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
+      defaultZone: http://localhost:8001/eureka/ #注册到服务注册中心
   instance:
     hostname: resource
 spring:
   application:
-    name: resource #\u670D\u52A1\u540D\u79F0
+    name: resource #服务名称
+  servlet:
+    multipart:
+      max-file-size: 52428800 #单次文件最大50mb
+  mvc:
+    static-path-pattern: /** #网页访问的路径
+  web:
+    resources:
+      static-locations: file:${upload.path} #本地的资源地址
+upload: #上传的路径
+  path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static

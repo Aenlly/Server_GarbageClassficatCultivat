@@ -5,6 +5,7 @@ import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
+import com.aenlly.rcc.eureka.service.IWasteTurnTreasureUploadService;
 import com.aenlly.rcc.service.IUserService;
 import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,6 +33,8 @@ public class WasteTurnTreasureController {
 
   /** 变废为宝表-服务对象 */
   @Resource IWasteTurnTreasureService wasteTurnTreasureService;
+  /** 变废为宝上传服务调用接口 */
+  @Resource IWasteTurnTreasureUploadService wasteTurnTreasureUploadService;
 
   @Resource IUserService userService;
 
@@ -121,6 +125,19 @@ public class WasteTurnTreasureController {
     try {
       Boolean flag = wasteTurnTreasureService.removeByUserIdAndId(userId, id);
       return resultOk(flag);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "上传图片请求", httpMethod = "POST")
+  @PostMapping("/uploadImage")
+  public CommonResult<String> uploadImage(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("文件") @RequestPart("files") MultipartFile files) {
+    try {
+      String databasePath = wasteTurnTreasureUploadService.UploadImage(userId, files);
+      return resultOk(databasePath);
     } catch (Exception e) {
       return resultError();
     }
