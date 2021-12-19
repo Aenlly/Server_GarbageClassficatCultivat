@@ -56,4 +56,12 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @return 信息集合
    */
   List<WasteTurnTreasure> getListSearchByUserIdAndTitle(String userId, String title);
+
+  /**
+   * 根据用户id与实体Id删除
+   *
+   * @param userId 用户id
+   * @param id 实体Id
+   */
+  Boolean removeByUserIdAndId(String userId, Long id);
 }

@@ -87,4 +87,16 @@ public class WasteTurnTreasureServiceImpl
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTitle(title, null, userId);
     return baseMapper.selectList(wrapper);
   }
+
+  /**
+   * 根据用户id与实体Id删除
+   *
+   * @param userId 用户id
+   * @param id 实体Id
+   */
+  @Override
+  public Boolean removeByUserIdAndId(String userId, Long id) {
+    Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getDelByUserIdAndId(userId, id);
+    return baseMapper.delete(wrapper) > 0;
+  }
 }

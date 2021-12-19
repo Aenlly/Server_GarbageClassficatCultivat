@@ -112,4 +112,17 @@ public class WasteTurnTreasureController {
       return resultError();
     }
   }
+
+  @ApiOperation(value = "根据id与用户id删除变废为宝信息请求", httpMethod = "DELETE")
+  @DeleteMapping("/deleteByUserIdAndId")
+  public CommonResult<Boolean> deleteByUserIdAndId(
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("编号") @RequestParam("id") Long id) {
+    try {
+      Boolean flag = wasteTurnTreasureService.removeByUserIdAndId(userId, id);
+      return resultOk(flag);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
 }

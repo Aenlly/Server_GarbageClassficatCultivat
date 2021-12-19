@@ -54,4 +54,17 @@ public class WasteWrapperUtil {
     }
     return wrapper;
   }
+
+  /**
+   * 根据条件 获取删除条件操作对象
+   *
+   * @param userId 用户编号
+   * @param id 实体Id
+   * @return 查询对象
+   */
+  public static Wrapper<WasteTurnTreasure> getDelByUserIdAndId(String userId, Long id) {
+    QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
+    wrapper.eq("user_id", userId).eq("id", id);
+    return wrapper;
+  }
 }
