@@ -1,6 +1,6 @@
 package com.aenlly.rcc.entity;
 
-import com.aenlly.rcc.enums.PaperStateEnum;
+import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -57,7 +57,7 @@ public class PaperTables implements Serializable {
 
   @ApiModelProperty(value = "答卷状态，0未提交，1已提交")
   @TableField("state")
-  private PaperStateEnum state;
+  private SubmitStateEnum state;
 
   @ApiModelProperty(value = "答卷提交时间")
   @TableField("submit_time")

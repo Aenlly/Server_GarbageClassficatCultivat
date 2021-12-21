@@ -2,7 +2,7 @@ package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
-import com.aenlly.rcc.enums.PaperStateEnum;
+import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.WeekNumberEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -136,7 +136,7 @@ public class QuizWrapperUtil {
         .select("id", "submit_time", "total_score")
         .eq("user_id", userId)
         .eq("belong_questionnaire_name", questionnaireName)
-        .eq("state", PaperStateEnum.SUBMITTED);
+        .eq("state", SubmitStateEnum.SUBMITTED);
     return wrapper;
   }
 }

@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PaperStateEnum implements BaseEnum {
+public enum SubmitStateEnum implements BaseEnum {
   /** 未提交，数据库插入0，默认值 */
   NOT_SUBMITTED(0, "未提交"),
   /** 已提交，数据库插入1 */

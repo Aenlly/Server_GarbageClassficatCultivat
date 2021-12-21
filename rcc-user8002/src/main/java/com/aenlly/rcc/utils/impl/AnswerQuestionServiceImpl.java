@@ -2,8 +2,8 @@ package com.aenlly.rcc.utils.impl;
 
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
-import com.aenlly.rcc.enums.PaperStateEnum;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
+import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.TopicStateEnum;
 import com.aenlly.rcc.service.*;
 import com.aenlly.rcc.utils.AnswerQuestionService;
@@ -80,7 +80,7 @@ public class AnswerQuestionServiceImpl implements AnswerQuestionService {
         return resultOk(paperTables.getRandomBatchIndex());
       } else {
         // 今日已进行答题，同时未提交时，则执行交卷流程
-        if (paperTables.getState().equals(PaperStateEnum.NOT_SUBMITTED)) {
+        if (paperTables.getState().equals(SubmitStateEnum.NOT_SUBMITTED)) {
           submitPaper(userId, paperTables.getRandomBatchIndex());
         }
         // 代表今日已完成
@@ -220,7 +220,7 @@ public class AnswerQuestionServiceImpl implements AnswerQuestionService {
     // 获得答卷表信息对象
     PaperTables paperTables = paperTablesService.getOne(paperTablesOne);
     // 设置答卷对象状态为已提交
-    paperTables.setState(PaperStateEnum.SUBMITTED);
+    paperTables.setState(SubmitStateEnum.SUBMITTED);
     // 设置提交时间
     paperTables.setSubmitTime(LocalDateTime.now());
     // 更新答卷信息

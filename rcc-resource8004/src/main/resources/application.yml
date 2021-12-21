@@ -9,6 +9,14 @@ eureka:
 spring:
   application:
     name: resource #服务名称
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/rcc
+  profiles:
+    active: dev
   servlet:
     multipart:
       max-file-size: 52428800 #单次文件最大50mb
@@ -16,6 +24,16 @@ spring:
     static-path-pattern: /** #网页访问的路径
   web:
     resources:
-      static-locations: file:${upload.path} #本地的资源地址
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${upload.path} #mvc配置类二选一，
+      #项目地址classpath：地址
+      #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+      #本地的资源地址file:本地地址
 upload: #上传的路径
   path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 输出日志
+  type-aliases-package: com.aenlly.rcc.entity
+  type-enums-package: com.aenlly.rcc.enums #扫描枚举

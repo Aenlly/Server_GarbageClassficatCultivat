@@ -15,8 +15,8 @@ public interface IUploadService {
    *
    * @param userId 用户编号
    * @param files 文件
-   * @param tempNameEnum 临时文件夹名称枚举
+   * @param uploadPathNameEnum 上传文件夹名称枚举
    * @return 文件存储url
    */
-  String TempUploadImage(String userId, MultipartFile files, UploadPathNameEnum tempNameEnum);
+  String TempUploadImage(String userId, MultipartFile files, UploadPathNameEnum uploadPathNameEnum);
 }

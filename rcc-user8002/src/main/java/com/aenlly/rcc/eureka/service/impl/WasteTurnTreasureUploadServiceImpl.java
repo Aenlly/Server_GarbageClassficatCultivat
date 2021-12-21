@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class WasteTurnTreasureUploadServiceImpl implements IWasteTurnTreasureUploadService {
   @Override
   public String UploadImage(String userId, MultipartFile file) {
-    System.out.println("异常");
-    return "212";
+    System.out.println("上传文件异常");
+    throw new NullPointerException();
   }
 }
