@@ -10,7 +10,7 @@ import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.WxParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +28,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  */
 @RestController
 @Api(tags = "登录管理")
-@Log4j2
+@Slf4j
 public class LoginController {
 
   @Resource IUserService userService;

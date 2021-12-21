@@ -45,7 +45,7 @@ public class UploadUtil {
     try {
       // 保存到指定地址
       files.transferTo(file);
-      // 保存附加的后半地址到数据库中，以便未上传使用的文件进行删除
+      // 保存附加的后半地址到数据库中，以便上传后的文件未进行使用，让其进行删除
       tmpFile.setUploadPath(databasePath);
       tmpFileService.save(tmpFile);
     } catch (IOException e) {

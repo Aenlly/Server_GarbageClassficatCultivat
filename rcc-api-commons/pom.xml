@@ -23,7 +23,7 @@
 			<artifactId>hutool-all</artifactId>
 			<version>5.7.15</version>
 		</dependency>
-		<!-- 数据库依赖 -->
+		<!-- 数据源依赖，数据连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
@@ -37,6 +37,7 @@
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 		</dependency>
+		<!-- mybatis-plus代码自动生成，配合模板引擎使用 -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
@@ -58,19 +59,24 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 		</dependency>
-
+		<!-- 模板引擎，用于快速创建mvc代码,配合mybatis-plus -->
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-engine-core</artifactId>
 		</dependency>
 
-		<!-- 测试依赖 -->
+		<!-- 工具依赖 -->
+		<!-- 搭配log4j使用，同时减少get、set代码 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<scope>provided</scope> <!-- 只在编译阶段生效，不打包到jar中 -->
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
-
 </project>

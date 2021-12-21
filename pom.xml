@@ -27,6 +27,7 @@
 		<junit.version>4.12</junit.version>
 		<devtools.version>2.5.5</devtools.version>
 		<aenlly.version>1.0-SNAPSHOT</aenlly.version>
+		<velocity-engine-core.version>2.2</velocity-engine-core.version>
 	</properties>
 
 	<modules>
@@ -63,15 +64,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-
-			<!-- 热部署依赖 -->
+			<!-- 数据源依赖，数据连接池 -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid-spring-boot-starter</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
-
+			<!-- 热部署依赖 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-devtools</artifactId>
@@ -83,22 +82,23 @@
 				<artifactId>springfox-boot-starter</artifactId>
 				<version>${springfox.version}</version>
 			</dependency>
-
+			<!-- mybatis-plus依赖 -->
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
 				<version>${mybatis-plus-boot-starter.version}</version>
 			</dependency>
+			<!-- mybatis-plus代码自动生成，配合模板引擎使用 -->
 			<dependency>
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-generator</artifactId>
 				<version>${mybatis-plus-generator.version}</version>
 			</dependency>
-
+			<!-- 模板引擎，用于快速创建mvc代码 -->
 			<dependency>
 				<groupId>org.apache.velocity</groupId>
 				<artifactId>velocity-engine-core</artifactId>
-				<version>2.2</version>
+				<version>${velocity-engine-core.version}</version>
 			</dependency>
 
 			<dependency>
