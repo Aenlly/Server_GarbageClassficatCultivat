@@ -2,6 +2,7 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
+import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
@@ -12,6 +13,7 @@ import com.aenlly.rcc.utils.CommonResult;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -138,6 +140,37 @@ public class WasteTurnTreasureController {
     try {
       String databasePath = wasteTurnTreasureUploadService.UploadImage(userId, files);
       return resultOk(databasePath);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  /**
+   * 使用@RequestBody接收正文，使用实体接收url参数
+   *
+   * <p>接收分片数据方法
+   *
+   * @param file 二进制流文件，需要转为byte进行存储
+   * @param wxUploadVideoInfo 文件信息
+   */
+  @ApiOperation(value = "上传视频请求", httpMethod = "POST")
+  @PostMapping(value = "/uploadTmpVideo", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+  public CommonResult<String> uploadTmpVideo(
+      @Param("文件块内容") @RequestBody String file,
+      @Param("文件信息以及参数") WxUploadVideoInfo wxUploadVideoInfo) {
+    try {
+      // 调用其他服务进行
+      String result =
+          wasteTurnTreasureUploadService.uploadTmpFile(
+              file,
+              wxUploadVideoInfo.getIdentifier(),
+              wxUploadVideoInfo.getIndex(),
+              wxUploadVideoInfo.getChunkSize(),
+              wxUploadVideoInfo.getFileName(),
+              wxUploadVideoInfo.getTotalChunks(),
+              wxUploadVideoInfo.getTotalSize(),
+              wxUploadVideoInfo.getUserId());
+      return resultOk(result);
     } catch (Exception e) {
       return resultError();
     }

@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.SubmitStateEnum;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
@@ -36,4 +37,8 @@ public class TmpFile implements Serializable {
   @ApiModelProperty(value = "插入时间")
   @TableField("create_time")
   private LocalDateTime createTime;
+
+  @ApiModelProperty(value = "信息更新时间")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+  private LocalDateTime updateTime;
 }

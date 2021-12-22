@@ -19,7 +19,7 @@ spring:
     active: dev
   servlet:
     multipart:
-      max-file-size: 52428800 #单次文件最大50mb
+      max-file-size: 10485760 #单次文件最大10mb
   mvc:
     static-path-pattern: /** #网页访问的路径
   web:

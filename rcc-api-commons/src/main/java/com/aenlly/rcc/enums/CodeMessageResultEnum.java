@@ -18,7 +18,7 @@ public enum CodeMessageResultEnum {
   /** 成功 */
   OK(200, "请求成功！"),
   /** 失败 */
-  ERROR(444, "请求失败！"),
+  ERROR(500, "请求失败！"),
   /** 已存在 */
   EXIST(300, "数据已存在");
 
