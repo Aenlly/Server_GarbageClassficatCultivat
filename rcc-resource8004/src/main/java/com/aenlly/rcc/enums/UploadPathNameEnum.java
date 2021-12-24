@@ -16,7 +16,7 @@ public enum UploadPathNameEnum {
   /** 临时存储地址,占位地方填写文件唯一标识符 */
   WASTE_TEMP_FILE_NAME("/waste/tmp/%s"),
   /** 占位的地方分别填写用户名，年份-月份，文件名 */
-  WASTE_FILE_NAME("/waste/video/%s/%s%s");
+  WASTE_FILE_NAME("/waste/video/%s/%s");
 
   private String name;
 }

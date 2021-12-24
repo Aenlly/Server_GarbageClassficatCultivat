@@ -64,4 +64,12 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param id 实体Id
    */
   Boolean removeByUserIdAndId(String userId, Long id);
+
+  /**
+   * 根据实体插入信息
+   *
+   * @param wasteTurnTreasure 变废为宝实体
+   * @return 是否成功
+   */
+  Boolean putUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
 }

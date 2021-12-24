@@ -41,7 +41,7 @@ public class WasteTurnTreasureUploadController {
    * <p>同时使用注解@RequestPart接收，而不是@RequestParam
    */
   @PostMapping(value = "/uploadTmpFile", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-  public String uploadTmpFile(@RequestBody String file, WxUploadVideoInfo wxUploadVideoInfo) {
+  public String uploadTmpFile(@RequestBody byte[] file, WxUploadVideoInfo wxUploadVideoInfo) {
     return uploadService.uploadTmpFile(
         file, wxUploadVideoInfo, UploadPathNameEnum.WASTE_TEMP_FILE_NAME);
   }
@@ -56,7 +56,6 @@ public class WasteTurnTreasureUploadController {
   @GetMapping("/mergeTmpFile")
   public String mergeTmpFile(
       @RequestParam("identifier") String identifier, @RequestParam("fileName") String fileName) {
-
-    return null;
+    return uploadService.mergeTmpFile(identifier, fileName);
   }
 }

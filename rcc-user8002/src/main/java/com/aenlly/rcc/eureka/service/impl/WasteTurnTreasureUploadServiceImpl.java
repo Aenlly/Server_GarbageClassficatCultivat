@@ -24,7 +24,7 @@ public class WasteTurnTreasureUploadServiceImpl implements IWasteTurnTreasureUpl
    */
   @Override
   public String uploadTmpFile(
-      String file,
+      byte[] bytes,
       String identifier,
       Long index,
       Long chunkSize,
@@ -33,6 +33,19 @@ public class WasteTurnTreasureUploadServiceImpl implements IWasteTurnTreasureUpl
       Long totalSize,
       String userId) {
     System.out.println("上传视频文件异常");
+    throw new NullPointerException();
+  }
+
+  /**
+   * 调用合并分块请求接口
+   *
+   * @param identifier md5
+   * @param fileName 文件名
+   * @return 线上存储路径
+   */
+  @Override
+  public String mergeTmpFile(String identifier, String fileName) {
+    System.out.println("合并文件异常！");
     throw new NullPointerException();
   }
 }

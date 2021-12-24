@@ -31,6 +31,10 @@ public class TmpFile implements Serializable {
   @TableId("upload_path")
   private String uploadPath;
 
+  @ApiModelProperty(value = "上传的用户编号")
+  @TableField("user_id")
+  private String userId;
+
   @ApiModelProperty(value = "提交状态，0未提交，1已提交")
   private SubmitStateEnum state;
 

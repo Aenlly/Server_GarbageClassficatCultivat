@@ -1,15 +1,22 @@
 package com.aenlly.rcc.service.impl;
 
+import com.aenlly.rcc.entity.TmpFile;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
+import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
+import com.aenlly.rcc.eureka.service.ITmpFileService;
 import com.aenlly.rcc.mapper.WasteTurnTreasureMapper;
 import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.wrapper.WasteWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,6 +29,8 @@ import java.util.List;
 public class WasteTurnTreasureServiceImpl
     extends ServiceImpl<WasteTurnTreasureMapper, WasteTurnTreasure>
     implements IWasteTurnTreasureService {
+
+  @Resource ITmpFileService tmpFileService;
 
   /**
    * 根据标签 获取变废为宝信息
@@ -98,5 +107,35 @@ public class WasteTurnTreasureServiceImpl
   public Boolean removeByUserIdAndId(String userId, Long id) {
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getDelByUserIdAndId(userId, id);
     return baseMapper.delete(wrapper) > 0;
+  }
+
+  /**
+   * 根据实体插入信息
+   *
+   * @param wasteTurnTreasure 变废为宝实体
+   * @return 是否成功
+   */
+  @Override
+  @Transactional
+  public Boolean putUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
+    int insert = baseMapper.insert(wasteTurnTreasure);
+    System.out.println(insert);
+    if (insert > 0) {
+      Collection<TmpFile> tmpFiles = new ArrayList<>();
+      // 创建需要修改的视图片频信息
+      TmpFile tmpFile = new TmpFile();
+      tmpFile.setUploadPath(wasteTurnTreasure.getImgUrl());
+      tmpFile.setState(SubmitStateEnum.SUBMITTED);
+      // 添加至集合中
+      tmpFiles.add(tmpFile);
+      // 创建需要修改的视频信息
+      TmpFile tmpFile1 = new TmpFile();
+      tmpFile1.setUploadPath(wasteTurnTreasure.getVideoUrl());
+      tmpFile1.setState(SubmitStateEnum.SUBMITTED);
+      // 添加至集合中
+      tmpFiles.add(tmpFile1);
+      return tmpFileService.updateBatchById(tmpFiles);
+    }
+    return false;
   }
 }

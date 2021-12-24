@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 import java.util.List;
 
 import static com.aenlly.rcc.utils.ResultUtil.resultError;
@@ -156,13 +158,19 @@ public class WasteTurnTreasureController {
   @ApiOperation(value = "上传视频请求", httpMethod = "POST")
   @PostMapping(value = "/uploadTmpVideo", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
   public CommonResult<String> uploadTmpVideo(
-      @Param("文件块内容") @RequestBody String file,
+      @Param("文件块内容接收对象") HttpServletRequest file,
       @Param("文件信息以及参数") WxUploadVideoInfo wxUploadVideoInfo) {
     try {
+      // 接收二进制流
+      InputStream bodyStream = file.getInputStream();
+      // 读取流全部信息，转为字节数组
+      byte[] bytes = bodyStream.readAllBytes();
+      // 关闭流
+      bodyStream.close();
       // 调用其他服务进行
       String result =
           wasteTurnTreasureUploadService.uploadTmpFile(
-              file,
+              bytes,
               wxUploadVideoInfo.getIdentifier(),
               wxUploadVideoInfo.getIndex(),
               wxUploadVideoInfo.getChunkSize(),
@@ -174,5 +182,41 @@ public class WasteTurnTreasureController {
     } catch (Exception e) {
       return resultError();
     }
+  }
+
+  /**
+   * 合并分块请求
+   *
+   * @param identifier md5值
+   * @param fileName 文件名
+   * @return 线上数据库文件路径
+   */
+  @ApiOperation(value = "合并上传文件请求", httpMethod = "GET")
+  @GetMapping("/mergeTmpFile")
+  public CommonResult<String> mergeTmpFile(
+      @Param("md5值") @RequestParam("identifier") String identifier,
+      @Param("文件名") @RequestParam("fileName") String fileName) {
+    try {
+      String result = wasteTurnTreasureUploadService.mergeTmpFile(identifier, fileName);
+      return resultOk(result);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "插入变废为宝信息", httpMethod = "POST")
+  @PostMapping("/putUserWasteInfo")
+  public CommonResult<Boolean> putUserWasteInfo(
+      @Param("变废为宝基本信息") @RequestBody WasteTurnTreasure wasteTurnTreasure) {
+    try {
+      System.out.println(wasteTurnTreasure);
+      boolean save = wasteTurnTreasureService.putUserWasteInfo(wasteTurnTreasure);
+      if (save) {
+        return resultOk(true);
+      }
+    } catch (Exception e) {
+      return resultError();
+    }
+    return resultError();
   }
 }

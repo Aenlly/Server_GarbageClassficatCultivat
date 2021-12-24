@@ -29,5 +29,12 @@ public interface IUploadService {
    * @param uploadPathNameEnum 保存路径
    */
   String uploadTmpFile(
-      String file, WxUploadVideoInfo wxUploadVideoInfo, UploadPathNameEnum uploadPathNameEnum);
+      byte[] file, WxUploadVideoInfo wxUploadVideoInfo, UploadPathNameEnum uploadPathNameEnum);
+
+  /**
+   * @param identifier 文件的 md5 值
+   * @param fileName 文件名
+   * @return 线上文件路径
+   */
+  String mergeTmpFile(String identifier, String fileName);
 }
