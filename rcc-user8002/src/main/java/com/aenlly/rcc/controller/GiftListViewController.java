@@ -6,10 +6,7 @@ import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -38,6 +35,17 @@ public class GiftListViewController {
     try {
       List<GiftListView> list = giftListViewService.getUserGiftList(name, type);
       return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "根据id请求礼品数据", httpMethod = "GET")
+  @GetMapping("/getById/{id}")
+  public CommonResult<GiftListView> getById(@Param("礼品编号") @PathVariable("id") Long id) {
+    try {
+      GiftListView view = giftListViewService.getById(id);
+      return resultOk(view);
     } catch (Exception e) {
       return resultError();
     }

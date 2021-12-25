@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModel;
@@ -25,14 +26,16 @@ public class GiftListView implements Serializable {
   private static final long serialVersionUID = -1469883932683444730L;
 
   @ApiModelProperty(value = "礼品编号，自增")
-  @TableField("gift_id")
+  @TableId("gift_id")
   private Long giftId;
 
   @ApiModelProperty(value = "礼品名称")
-  private String name;
+  @TableField("gift_name")
+  private String giftName;
 
   @ApiModelProperty(value = "描述")
-  private String desc;
+  @TableField("gift_desc")
+  private String giftDesc;
 
   @ApiModelProperty(value = "礼品封面")
   @TableField("img_url")

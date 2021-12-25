@@ -275,7 +275,7 @@ public class QueryWrapperUtil {
    */
   public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
     QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
-    wrapper.select("gift_id", "name", "img_url", "point", "price").like("name", name);
+    wrapper.select("gift_id", "gift_name", "img_url", "point", "price").like("gift_name", name);
     if (type != -1) {
       wrapper.eq("type_id", type);
     }
