@@ -1,6 +1,7 @@
 package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.*;
+import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -300,9 +301,9 @@ public class QueryWrapperUtil {
    * @param state 操作对象
    * @return 查询对象
    */
-  public static Wrapper<OrderUserView> getOrderUserList(String userId, String state) {
+  public static Wrapper<OrderUserView> getOrderUserList(String userId, OrderStateEnum state) {
     QueryWrapper<OrderUserView> wrapper = new QueryWrapper<>();
-    wrapper.eq("user_id", userId).eq("state", state).orderByDesc("create_time");
+    wrapper.eq("user_id", userId).eq("state", state.getName()).orderByDesc("create_time");
     return wrapper;
   }
 

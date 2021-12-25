@@ -43,4 +43,13 @@ public interface IUserService extends IService<User> {
    * @return 用户信息
    */
   User getNameAndAvatarById(String id);
+
+  /**
+   * 剩余积分减少
+   *
+   * @param user 用户实体未改变信息时的对象
+   * @param point 所减少的量
+   * @return 是否成功
+   */
+  Boolean updatePointReduce(User user, Integer point);
 }

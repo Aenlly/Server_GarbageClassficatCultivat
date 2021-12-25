@@ -240,9 +240,9 @@ public class AnswerQuestionServiceImpl implements AnswerQuestionService {
       pointsLogDescEnum = PointsLogDescEnum.CLASS_QUIZ;
     }
     // 增加积分记录与用户积分信息
-    pointsLogService.answerQuestion(userId, points, pointsLogDescEnum);
+    boolean question = pointsLogService.answerQuestion(userId, points, pointsLogDescEnum);
 
-    if (!update) {
+    if (!update || !question) {
       throw new NullPointerException();
     }
     return true;

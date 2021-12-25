@@ -1,6 +1,7 @@
 package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.OrderUserView;
+import com.aenlly.rcc.enums.OrderStateEnum;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface IOrderUserViewService extends IService<OrderUserView> {
    * @param state 核销状态
    * @return 订单列表
    */
-  List<OrderUserView> getOrderUserList(String userId, String state);
+  List<OrderUserView> getOrderUserList(String userId, OrderStateEnum state);
 }

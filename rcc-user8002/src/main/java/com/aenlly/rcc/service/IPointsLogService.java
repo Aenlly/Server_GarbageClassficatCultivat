@@ -40,4 +40,14 @@ public interface IPointsLogService extends IService<PointsLog> {
    * @return 是否增加成功
    */
   boolean answerQuestion(String userId, Integer points, PointsLogDescEnum pointsLogDescEnum);
+
+  /**
+   * 礼品兑换日志
+   *
+   * @param userId 用户编号
+   * @param points 消耗积分
+   * @param desc 描述
+   * @return 是否成功
+   */
+  boolean giftLog(String userId, Integer points, String desc);
 }

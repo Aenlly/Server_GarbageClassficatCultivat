@@ -1,6 +1,7 @@
 package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.OrderUserView;
+import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.service.IOrderUserViewService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
@@ -34,7 +35,7 @@ public class OrderUserViewController {
   @GetMapping("/getOrderUserList/{userId}/{state}")
   public CommonResult<List<OrderUserView>> getOrderUserList(
       @Param("用户编号") @PathVariable("userId") String userId,
-      @Param("订单状态") @PathVariable("state") String state) {
+      @Param("订单状态") @PathVariable("state") OrderStateEnum state) {
     try {
       List<OrderUserView> list = orderUserViewService.getOrderUserList(userId, state);
       return resultOk(list);

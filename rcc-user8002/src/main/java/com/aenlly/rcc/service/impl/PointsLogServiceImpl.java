@@ -2,6 +2,7 @@ package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.PointsLog;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
+import com.aenlly.rcc.enums.PointsLogTypeEnum;
 import com.aenlly.rcc.mapper.PointsLogMapper;
 import com.aenlly.rcc.service.IPointsLogService;
 import com.aenlly.rcc.utils.UpdateUserPointsUtils;
@@ -25,6 +26,8 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
     implements IPointsLogService {
 
   @Resource UpdateUserPointsUtils userPointsUtils;
+
+  @Resource PointsLog pointsLog;
 
   /**
    * 根据用户编号-积分记录类型查询
@@ -69,5 +72,25 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
   public boolean answerQuestion(
       String userId, Integer points, PointsLogDescEnum pointsLogDescEnum) {
     return userPointsUtils.answerQuestion(userId, points, pointsLogDescEnum);
+  }
+
+  /**
+   * 礼品兑换日志
+   *
+   * @param userId 用户编号
+   * @param points 消耗积分
+   * @param desc 描述
+   * @return 是否成功
+   */
+  @Override
+  public boolean giftLog(String userId, Integer points, String desc) {
+    // 设置值
+    pointsLog.setId(null);
+    pointsLog.setUserId(userId);
+    pointsLog.setNumber(points);
+    pointsLog.setType(PointsLogTypeEnum.LOWER);
+    pointsLog.setLogDesc(desc);
+
+    return baseMapper.insert(pointsLog) > 0;
   }
 }

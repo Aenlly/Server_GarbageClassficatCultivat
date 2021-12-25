@@ -7,6 +7,7 @@ import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -63,5 +64,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
   public User getNameAndAvatarById(String id) {
     Wrapper<User> wrapper = QueryWrapperUtil.getNameAndAvatarById(id);
     return baseMapper.selectOne(wrapper);
+  }
+
+  /**
+   * 剩余积分减少
+   *
+   * @param user 用户实体未改变信息时的对象
+   * @param point 所减少的量
+   * @return 是否成功
+   */
+  @Override
+  @Transactional
+  public Boolean updatePointReduce(User user, Integer point) {
+    user.setRemainingPoints(user.getRemainingPoints() - point);
+    return baseMapper.updateById(user) > 0;
   }
 }

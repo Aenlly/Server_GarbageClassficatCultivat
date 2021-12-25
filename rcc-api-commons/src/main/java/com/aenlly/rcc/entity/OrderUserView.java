@@ -1,7 +1,9 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.OrderStateEnum;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,11 +26,12 @@ public class OrderUserView implements Serializable {
   private static final long serialVersionUID = 2693134616569639583L;
 
   @ApiModelProperty(value = "订单编号")
-  @TableField("order_id")
+  @TableId("order_id")
   private Long orderId;
 
   @ApiModelProperty(value = "礼品名称")
-  private String name;
+  @TableField("gift_name")
+  private String giftName;
 
   @ApiModelProperty(value = "兑换码")
   private String code;
@@ -37,8 +40,8 @@ public class OrderUserView implements Serializable {
   @TableField("user_id")
   private String userId;
 
-  @ApiModelProperty(value = "订单状态，未核销，已核销")
-  private String state;
+  @ApiModelProperty(value = "订单状态，-1代表未核销，1代表已核销")
+  private OrderStateEnum state;
 
   @ApiModelProperty(value = "信息插入时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)

@@ -1,6 +1,7 @@
 package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.OrderUserView;
+import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.mapper.OrderUserViewMapper;
 import com.aenlly.rcc.service.IOrderUserViewService;
 import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
@@ -28,7 +29,7 @@ public class OrderUserViewServiceImpl extends ServiceImpl<OrderUserViewMapper, O
    * @return 订单列表
    */
   @Override
-  public List<OrderUserView> getOrderUserList(String userId, String state) {
+  public List<OrderUserView> getOrderUserList(String userId, OrderStateEnum state) {
     Wrapper<OrderUserView> wrapper = QueryWrapperUtil.getOrderUserList(userId, state);
     return baseMapper.selectList(wrapper);
   }

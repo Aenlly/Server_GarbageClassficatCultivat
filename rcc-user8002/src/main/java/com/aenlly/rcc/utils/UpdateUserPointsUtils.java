@@ -29,6 +29,12 @@ public class UpdateUserPointsUtils {
 
   @Resource IPointsService pointsService;
 
+  /**
+   * 签到获取获取判断
+   *
+   * @param userId 用户编号
+   * @return 是否成功
+   */
   @Transactional
   public Boolean dailyCheck(String userId) {
     // 设置积分记录描述
@@ -110,7 +116,7 @@ public class UpdateUserPointsUtils {
    * @param points 积分
    */
   @Transactional
-  private boolean savePointsLog(String userId, Integer points) {
+  public boolean savePointsLog(String userId, Integer points) {
     pointsLog.setId(null);
     // 设置积分值
     pointsLog.setNumber(points);

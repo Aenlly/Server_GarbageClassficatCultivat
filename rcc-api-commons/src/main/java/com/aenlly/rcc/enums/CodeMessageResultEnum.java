@@ -20,7 +20,9 @@ public enum CodeMessageResultEnum {
   /** 失败 */
   ERROR(500, "请求失败！"),
   /** 已存在 */
-  EXIST(300, "数据已存在");
+  EXIST(300, "数据已存在"),
+  /** 积分不足 */
+  NOT_POINT(400, "积分不足");
 
   private int code;
 
