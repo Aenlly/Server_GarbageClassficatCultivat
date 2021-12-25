@@ -205,10 +205,40 @@ public class WasteTurnTreasureController {
   }
 
   @ApiOperation(value = "插入变废为宝信息", httpMethod = "POST")
-  @PostMapping("/putUserWasteInfo")
+  @PostMapping("/postUserWasteInfo")
+  public CommonResult<Boolean> postUserWasteInfo(
+      @Param("变废为宝基本信息") @RequestBody WasteTurnTreasure wasteTurnTreasure) {
+    try {
+      System.out.println(wasteTurnTreasure);
+      boolean save = wasteTurnTreasureService.postUserWasteInfo(wasteTurnTreasure);
+      if (save) {
+        return resultOk(true);
+      }
+    } catch (Exception e) {
+      return resultError();
+    }
+    return resultError();
+  }
+
+  @ApiOperation(value = "根据id请求变废为宝信息", httpMethod = "GET")
+  @GetMapping("/getById")
+  public CommonResult<WasteTurnTreasure> getById(
+      @Param("变废为宝信息编号") @RequestParam("id") Long id,
+      @Param("用户编号") @RequestParam("userId") String userId) {
+    try {
+      WasteTurnTreasure wasteTurnTreasure = wasteTurnTreasureService.getById(id);
+      return resultOk(wasteTurnTreasure);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "更新变废为宝信息", httpMethod = "PUT")
+  @PutMapping("/putUserWasteInfo")
   public CommonResult<Boolean> putUserWasteInfo(
       @Param("变废为宝基本信息") @RequestBody WasteTurnTreasure wasteTurnTreasure) {
     try {
+      wasteTurnTreasure.setAudit(AuditEnum.TO_AUDIT);
       System.out.println(wasteTurnTreasure);
       boolean save = wasteTurnTreasureService.putUserWasteInfo(wasteTurnTreasure);
       if (save) {

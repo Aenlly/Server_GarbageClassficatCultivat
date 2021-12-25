@@ -71,5 +71,13 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param wasteTurnTreasure 变废为宝实体
    * @return 是否成功
    */
+  Boolean postUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
+
+  /**
+   * 根据实体插入信息
+   *
+   * @param wasteTurnTreasure 变废为宝实体
+   * @return 是否成功
+   */
   Boolean putUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
 }
