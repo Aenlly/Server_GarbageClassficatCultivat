@@ -2,15 +2,14 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.GarbageLibrary;
 import com.aenlly.rcc.entity.UserSearch;
+import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.SearchService;
+import com.aenlly.rcc.utils.ISearchService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -30,18 +29,43 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @Api(tags = "用户首页-垃圾搜索管理控制器")
 public class SearchController {
 
-  @Resource SearchService searchService;
+  @Resource ISearchService searchService;
 
   @ApiOperation(value = "文本搜索垃圾所属分类请求", httpMethod = "GET")
   @GetMapping("/getSearchText")
   public CommonResult<Collection<GarbageLibrary>> getSearchText(
       @Param("垃圾名称") @RequestParam("name") String name,
-      @Param("用户编号") @RequestParam("userId") String userId) {
-    Collection<GarbageLibrary> list = searchService.searchText(name, userId);
+      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("搜索类型") @RequestParam("type") SearchTypeEnum typeEnum) {
+    Collection<GarbageLibrary> list = searchService.searchText(name, userId, typeEnum);
     if (list != null) {
       return resultOk(list);
     }
     return resultError();
+  }
+
+  @ApiOperation(value = "首页-语音搜索识别请求", httpMethod = "POST")
+  @PostMapping("/searchVoice")
+  public CommonResult<String> searchVoice(
+      @Param("语音文件") @RequestParam("voice") MultipartFile voice) {
+    try {
+      // String result = searchService.searchVoice(voice);
+      return resultOk("苹果");
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "首页-图片搜索识别请求", httpMethod = "POST")
+  @PostMapping("/searchPicture")
+  public CommonResult<String> searchPicture(
+      @Param("图片文件") @RequestParam("picture") MultipartFile picture) {
+    try {
+      String result = searchService.searchPicture(picture);
+      return resultOk(result);
+    } catch (Exception e) {
+      return resultError();
+    }
   }
 
   @ApiOperation(value = "用户所有搜索记录查询", httpMethod = "GET")

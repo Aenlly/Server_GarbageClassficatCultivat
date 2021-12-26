@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,7 +35,7 @@ public class UserSearch implements Serializable {
 
   @ApiModelProperty(value = "搜索类型，文本搜索，语音搜索，图片识别")
   @TableField("type")
-  private String type;
+  private SearchTypeEnum type;
 
   @ApiModelProperty(value = "用户编号")
   @TableField("user_id")
@@ -57,7 +58,7 @@ public class UserSearch implements Serializable {
   @Version
   private Integer version;
 
-  public UserSearch(String name, String type, String userId) {
+  public UserSearch(String name, SearchTypeEnum type, String userId) {
     this.name = name;
     this.type = type;
     this.userId = userId;
