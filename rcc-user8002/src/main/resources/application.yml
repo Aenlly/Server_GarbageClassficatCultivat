@@ -1,5 +1,16 @@
 server:
   port: 8002
+  #配置https
+  ssl:
+    enabled: true
+    #文件
+    key-store: classpath:aenlly.jks
+    #密码,一个是文件密码，一个是密匙密码
+    key-password: xtx6nRj2
+    key-store-password: xtx6nRj2
+    #密匙库类型，tomcat只支持PKCS12和JKS
+    key-store-type: JKS
+
 eureka:
   client:
     service-url:
@@ -23,6 +34,16 @@ spring:
   servlet:
     multipart:
       max-file-size: 10485760 #单次文件最大10mb.
+#  mvc:
+#    static-path-pattern: /** #网页访问的路径
+#  web:
+#    resources:
+#      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${upload.path} #mvc配置类二选一，
+#      #项目地址classpath：地址
+#      #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#      #本地的资源地址file:本地地址
+#upload: #上传的路径
+#  path: C:/aenlly/static #远程路径，下面位本地调试路径
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml

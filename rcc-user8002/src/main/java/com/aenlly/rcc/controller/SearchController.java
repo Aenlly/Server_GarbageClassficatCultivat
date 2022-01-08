@@ -49,8 +49,8 @@ public class SearchController {
   public CommonResult<String> searchVoice(
       @Param("语音文件") @RequestParam("voice") MultipartFile voice) {
     try {
-      // String result = searchService.searchVoice(voice);
-      return resultOk("苹果");
+      String result = searchService.searchVoice(voice);
+      return resultOk(result);
     } catch (Exception e) {
       return resultError();
     }

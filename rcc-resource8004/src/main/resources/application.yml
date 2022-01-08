@@ -29,6 +29,7 @@ spring:
       #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
       #本地的资源地址file:本地地址
 upload: #上传的路径
+  #  path: C:/aenlly/static #远程路径，下面位本地调试路径
   path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static
 
 mybatis-plus:

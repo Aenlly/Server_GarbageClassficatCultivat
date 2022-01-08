@@ -1,0 +1,53 @@
+server:
+  port: 8003
+#  #\u914D\u7F6Ehttps
+#  ssl:
+#    enabled: true
+#    #\u6587\u4EF6
+#    key-store: classpath:aenlly.jks
+#    #\u5BC6\u7801,\u4E00\u4E2A\u662F\u6587\u4EF6\u5BC6\u7801\uFF0C\u4E00\u4E2A\u662F\u5BC6\u5319\u5BC6\u7801
+#    key-password: xtx6nRj2
+#    key-store-password: xtx6nRj2
+#    #\u5BC6\u5319\u5E93\u7C7B\u578B\uFF0Ctomcat\u53EA\u652F\u6301PKCS12\u548CJKS
+#    key-store-type: JKS
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/ #\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
+  instance:
+    hostname: admin
+spring:
+  application:
+    name: admin #\u670D\u52A1\u540D\u79F0
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # \u5F53\u524D\u6570\u636E\u6E90\u64CD\u4F5C\u7C7B\u578B
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/rcc
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 10485760 #\u5355\u6B21\u6587\u4EF6\u6700\u592710mb.
+#  mvc:
+#    static-path-pattern: /** #\u7F51\u9875\u8BBF\u95EE\u7684\u8DEF\u5F84
+#  web:
+#    resources:
+#      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${upload.path} #mvc\u914D\u7F6E\u7C7B\u4E8C\u9009\u4E00\uFF0C
+#      #\u9879\u76EE\u5730\u5740classpath\uFF1A\u5730\u5740
+#      #\u9ED8\u8BA4\u5F00\u653Eclasspath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#      #\u672C\u5730\u7684\u8D44\u6E90\u5730\u5740file:\u672C\u5730\u5730\u5740
+#upload: #\u4E0A\u4F20\u7684\u8DEF\u5F84
+#  path: C:/aenlly/static #\u8FDC\u7A0B\u8DEF\u5F84\uFF0C\u4E0B\u9762\u4F4D\u672C\u5730\u8C03\u8BD5\u8DEF\u5F84
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # \u8F93\u51FA\u65E5\u5FD7
+  type-aliases-package: com.aenlly.rcc.entity
+  type-enums-package: com.aenlly.rcc.enums #\u626B\u63CF\u679A\u4E3E
