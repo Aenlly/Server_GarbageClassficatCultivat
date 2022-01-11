@@ -14,17 +14,16 @@ public class adminWrapperUtil {
   /**
    * 利用账号与密码，创建查询对象
    *
-   * @param username 用户名
-   * @param password 密码
+   * @param username 账号
    * @param adminLoginEnum 登录类型，邮箱或手机号
    * @return 查询操作对象
    */
   public static QueryWrapper<AdminTable> adminLogin(
-      String username, String password, AdminLoginEnum adminLoginEnum) {
+      String username, AdminLoginEnum adminLoginEnum) {
     QueryWrapper<AdminTable> wrapper = new QueryWrapper<>();
-    wrapper.select("id", "img_url", "name").eq("password", password);
+    wrapper.select("img_url", "name", "password");
     if (adminLoginEnum.equals(AdminLoginEnum.EMAIL)) {
-      wrapper.select("email", username);
+      wrapper.eq("email", username);
     } else if (adminLoginEnum.equals(AdminLoginEnum.TEL)) {
       wrapper.eq("tel", username);
     }

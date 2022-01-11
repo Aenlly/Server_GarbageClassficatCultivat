@@ -3,6 +3,7 @@ package com.aenlly.rcc.utils.wrapper;
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
+import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
@@ -182,7 +183,7 @@ public class QueryWrapperUtil {
    */
   public static Wrapper<VideoUserView> getByChekTop() {
     QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
-    wrapper.select("video_url").eq("video_check", "置顶");
+    wrapper.select("video_url").eq("video_check", VideoCheckEnum.TOP);
     return wrapper;
   }
 
@@ -194,7 +195,9 @@ public class QueryWrapperUtil {
    */
   public static Wrapper<VideoUserView> getVideoByTitleList(String title) {
     QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
-    wrapper.likeRight("video_title", title);
+    wrapper
+        .likeRight("video_title", title)
+        .in("video_check", VideoCheckEnum.PUBLISH_OK, VideoCheckEnum.TOP);
     return wrapper;
   }
 

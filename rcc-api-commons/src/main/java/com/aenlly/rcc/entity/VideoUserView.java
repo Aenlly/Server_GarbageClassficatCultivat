@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,9 +47,9 @@ public class VideoUserView implements Serializable {
   @TableField("video_points")
   private String videoPoints;
 
-  @ApiModelProperty(value = "视频状态,待发布，已发布，置顶")
+  @ApiModelProperty(value = "视频状态,待发布，已发布，已下线，置顶")
   @TableField("video_check")
-  private String videoCheck;
+  private VideoCheckEnum videoCheck;
 
   @ApiModelProperty(value = "分享总数")
   @TableField("share_count")
