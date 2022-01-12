@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -104,6 +105,30 @@ public class VideoController {
     try {
       Boolean check = videoService.putVideoByIdCheck(id, VideoCheckEnum.TOP);
       return resultOk(check);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "上传视频请求", httpMethod = "POST")
+  @PostMapping("/uploadVideo")
+  public CommonResult<String> uploadVideo(
+      @Param("视频文件") @RequestPart("videoFile") MultipartFile file) {
+    try {
+      String filePath = videoService.uploadVideo(file);
+      return resultOk(filePath);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "上传封面请求", httpMethod = "POST")
+  @PostMapping("/uploadImage")
+  public CommonResult<String> uploadImage(
+      @Param("封面文件") @RequestPart("imageFile") MultipartFile file) {
+    try {
+      String filePath = videoService.uploadImage(file);
+      return resultOk(filePath);
     } catch (Exception e) {
       return resultError();
     }

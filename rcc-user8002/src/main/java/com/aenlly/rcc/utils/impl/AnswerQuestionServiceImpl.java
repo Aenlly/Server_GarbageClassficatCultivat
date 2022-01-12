@@ -6,8 +6,8 @@ import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.TopicStateEnum;
 import com.aenlly.rcc.service.*;
-import com.aenlly.rcc.utils.AnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.utils.IAnswerQuestionService;
 import com.aenlly.rcc.utils.wrapper.QuizWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @projectName RefuseClassificationCultivate
  */
 @Service
-public class AnswerQuestionServiceImpl implements AnswerQuestionService {
+public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
 
   /** 问卷表-服务对象 */
   @Resource IQuestionnaireService questionnaireService;

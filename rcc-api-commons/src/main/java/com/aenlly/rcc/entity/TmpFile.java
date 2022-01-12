@@ -39,7 +39,7 @@ public class TmpFile implements Serializable {
   private SubmitStateEnum state;
 
   @ApiModelProperty(value = "插入时间")
-  @TableField("create_time")
+  @TableField(value = "create_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")

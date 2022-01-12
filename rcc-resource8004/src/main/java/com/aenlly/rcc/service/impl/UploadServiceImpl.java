@@ -4,6 +4,7 @@ import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.enums.UploadPathNameEnum;
 import com.aenlly.rcc.service.IUploadService;
 import com.aenlly.rcc.util.UploadUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,18 +23,36 @@ public class UploadServiceImpl implements IUploadService {
   /**
    * 上传图片文件到指定目录
    *
-   * @param userId 用户编号
+   * @param userId 用户编号,管理员上传时可不填
    * @param files 文件
    * @param uploadPathNameEnum 上传文件夹名称枚举
    * @return 文件存储url
    */
   @Override
-  public String UploadImage(
+  public String uploadImage(
+      String userId, MultipartFile files, UploadPathNameEnum uploadPathNameEnum) {
+    return uploadFile(userId, files, uploadPathNameEnum);
+  }
+
+  /**
+   * 上传文件到指定目录
+   *
+   * @param userId 用户编号,管理员上传时可不填
+   * @param files 文件
+   * @param uploadPathNameEnum 上传文件夹名称枚举
+   * @return 文件存储url
+   */
+  private String uploadFile(
       String userId, MultipartFile files, UploadPathNameEnum uploadPathNameEnum) {
     // 当月文件夹
     String dateFile = uploadUtil.getDateFileName();
     // 上传文件附加路径
-    String databasePath = String.format(uploadPathNameEnum.getName(), userId, dateFile);
+    String databasePath;
+    if (StringUtils.isNotBlank(userId)) {
+      databasePath = String.format(uploadPathNameEnum.getName(), userId, dateFile);
+    } else {
+      databasePath = String.format(uploadPathNameEnum.getName(), dateFile);
+    }
     // 获得本地文件夹地址
     String localPath = uploadUtil.getLocalPath(databasePath);
     // 存储文件，并获得文件名
@@ -71,7 +90,6 @@ public class UploadServiceImpl implements IUploadService {
   public String mergeTmpFile(String identifier, String fileName) {
     // 当月文件夹
     String dateFile = uploadUtil.getDateFileName();
-    System.out.println(identifier);
     // 临时路径文件夹
     String localFolderPath =
         String.format(UploadPathNameEnum.WASTE_TEMP_FILE_NAME.getName(), identifier);
@@ -85,5 +103,17 @@ public class UploadServiceImpl implements IUploadService {
     // 合并文件
     fileName = uploadUtil.mergeFile(identifier, localFolderPath, databasePath, fileName);
     return uploadUtil.saveOrUpdateDatabase(userId, databasePath, fileName);
+  }
+
+  /**
+   * 上传视频文件
+   *
+   * @param file 视频文件
+   * @param videoFileName 视频存储文件夹位置
+   * @return 视频存储相对远程地址
+   */
+  @Override
+  public String uploadVideo(MultipartFile file, UploadPathNameEnum videoFileName) {
+    return uploadFile(null, file, videoFileName);
   }
 }

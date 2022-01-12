@@ -57,7 +57,7 @@ public class UploadUtil {
   /**
    * 存储信息到数据库中
    *
-   * @param userId 用户编号
+   * @param userId 用户编号,管理员上传时可不填写
    * @param databasePath 数据库存储路径
    * @param newFileName 文件名称
    * @return 数据库与文件名称的合并路径
@@ -115,7 +115,6 @@ public class UploadUtil {
    */
   public void uploadTmpVideoFileName(
       byte[] file, WxUploadVideoInfo wxUploadVideoInfo, String localPath) {
-    System.out.println(wxUploadVideoInfo.getIndex());
     // 获得文件唯一标识符
     String identifier = wxUploadVideoInfo.getIdentifier();
     // 获得文件序号

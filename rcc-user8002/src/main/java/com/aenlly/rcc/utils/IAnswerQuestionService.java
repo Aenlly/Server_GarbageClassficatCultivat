@@ -12,7 +12,7 @@ import java.util.List;
  * @create by date 2021/12/17 20:45
  * @projectName RefuseClassificationCultivate
  */
-public interface AnswerQuestionService {
+public interface IAnswerQuestionService {
   /**
    * 根据用户编号，与问卷名称，生成题目
    *

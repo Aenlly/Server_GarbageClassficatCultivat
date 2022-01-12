@@ -1,6 +1,6 @@
 package com.aenlly.rcc.eureka.service;
 
-import com.aenlly.rcc.eureka.service.impl.WasteTurnTreasureUploadServiceImpl;
+import com.aenlly.rcc.eureka.service.impl.ResourceServiceImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -9,17 +9,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Aenlly
- * @create by date 2021/12/19 18:13
+ * @create by date 2022/01/12 22:16
  * @projectName RefuseClassificationCultivate
  */
 @Component
-@FeignClient(value = "resource", fallback = WasteTurnTreasureUploadServiceImpl.class) // 服务名称
-public interface IWasteTurnTreasureUploadService {
+@FeignClient(value = "resource", fallback = ResourceServiceImpl.class) // 服务名称
+public interface IResourceService {
+
+  @PostMapping(value = "/videoUpload/uploadVideo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  String uploadVideo(@RequestPart("videoFile") MultipartFile file);
+
+  @PostMapping(value = "/videoUpload/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  String uploadImage(@RequestPart("imageFile") MultipartFile file);
 
   @PostMapping(
-      value = "/wasteTurnTreasureUpload/uploadImage",
+      value = "/wasteTurnTreasureUpload/UploadImage",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  String uploadImage(
+  String UploadImage(
       @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files);
 
   /**

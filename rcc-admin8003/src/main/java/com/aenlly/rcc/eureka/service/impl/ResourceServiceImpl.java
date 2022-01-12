@@ -1,18 +1,26 @@
 package com.aenlly.rcc.eureka.service.impl;
 
-import com.aenlly.rcc.eureka.service.IWasteTurnTreasureUploadService;
-import org.springframework.stereotype.Component;
+import com.aenlly.rcc.eureka.service.IResourceService;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Aenlly
- * @create by date 2021/12/19 18:41
+ * @create by date 2022/01/12 22:16
  * @projectName RefuseClassificationCultivate
  */
-@Component()
-public class WasteTurnTreasureUploadServiceImpl implements IWasteTurnTreasureUploadService {
+public class ResourceServiceImpl implements IResourceService {
   @Override
-  public String uploadImage(String userId, MultipartFile file) {
+  public String uploadVideo(MultipartFile file) {
+    throw new NullPointerException();
+  }
+
+  @Override
+  public String uploadImage(MultipartFile file) {
+    throw new NullPointerException();
+  }
+
+  @Override
+  public String UploadImage(String userId, MultipartFile file) {
     System.out.println("上传图片文件异常");
     throw new NullPointerException();
   }

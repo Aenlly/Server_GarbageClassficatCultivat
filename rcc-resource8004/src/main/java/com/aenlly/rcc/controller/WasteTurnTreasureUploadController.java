@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @projectName RefuseClassificationCultivate
  */
 @RestController
-@RequestMapping("/WasteTurnTreasureUpload")
+@RequestMapping("/wasteTurnTreasureUpload")
 public class WasteTurnTreasureUploadController {
 
   @Resource private IUploadService uploadService;
@@ -27,10 +27,10 @@ public class WasteTurnTreasureUploadController {
    *
    * <p>同时使用注解@RequestPart接收，而不是@RequestParam
    */
-  @PostMapping(value = "/UploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public String UploadImage(
+  @PostMapping(value = "/uloadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public String uloadImage(
       @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files) {
-    return uploadService.UploadImage(userId, files, UploadPathNameEnum.WASTE_IMAGE_NAME);
+    return uploadService.uploadImage(userId, files, UploadPathNameEnum.WASTE_IMAGE_NAME);
   }
 
   /**

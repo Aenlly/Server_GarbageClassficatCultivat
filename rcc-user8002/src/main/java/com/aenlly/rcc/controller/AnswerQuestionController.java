@@ -2,8 +2,8 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.PaperTables;
 import com.aenlly.rcc.entity.QuestionnaireTopics;
-import com.aenlly.rcc.utils.AnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.utils.IAnswerQuestionService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/answer-question")
 public class AnswerQuestionController {
 
-  @Resource AnswerQuestionService answerQuestionService;
+  @Resource IAnswerQuestionService answerQuestionService;
 
   /**
    * 200：成功请求

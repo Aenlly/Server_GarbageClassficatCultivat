@@ -140,7 +140,7 @@ public class WasteTurnTreasureController {
       @Param("用户编号") @RequestParam("userId") String userId,
       @Param("文件") @RequestPart("files") MultipartFile files) {
     try {
-      String databasePath = wasteTurnTreasureUploadService.UploadImage(userId, files);
+      String databasePath = wasteTurnTreasureUploadService.uploadImage(userId, files);
       return resultOk(databasePath);
     } catch (Exception e) {
       return resultError();

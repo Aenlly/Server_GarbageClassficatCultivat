@@ -6,6 +6,7 @@ import com.aenlly.rcc.utils.enums.QueryVideoType;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 公益视频信息表 服务类
@@ -32,4 +33,20 @@ public interface IVideoService extends IService<Video> {
    * @return 是否成功
    */
   Boolean putVideoByIdCheck(Long id, VideoCheckEnum videoCheckEnum);
+
+  /**
+   * 上传视频文件
+   *
+   * @param file 文件
+   * @return 远程视频存储地址
+   */
+  String uploadVideo(MultipartFile file);
+
+  /**
+   * 上传视频文件
+   *
+   * @param file 文件
+   * @return 远程视频存储地址
+   */
+  String uploadImage(MultipartFile file);
 }

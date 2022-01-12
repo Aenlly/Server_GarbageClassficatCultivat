@@ -11,6 +11,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UploadPathNameEnum {
+
+  /** 占位的地方填写年份-月份 */
+  VIDEO_IMAGE_NAME("/video/image/%s"),
+  /** 占位的地方填写年份-月份 */
+  VIDEO_FILE_NAME("/video/video/%s"),
   /** 占位的地方分别填写用户名，年份-月份 */
   WASTE_IMAGE_NAME("/waste/image/%s/%s"),
   /** 临时存储地址,占位地方填写文件唯一标识符 */

@@ -19,7 +19,7 @@ public interface IUploadService {
    * @param uploadPathNameEnum 上传文件夹名称枚举
    * @return 文件存储url
    */
-  String UploadImage(String userId, MultipartFile files, UploadPathNameEnum uploadPathNameEnum);
+  String uploadImage(String userId, MultipartFile files, UploadPathNameEnum uploadPathNameEnum);
 
   /**
    * 上传视频文件到临时目录
@@ -37,4 +37,13 @@ public interface IUploadService {
    * @return 线上文件路径
    */
   String mergeTmpFile(String identifier, String fileName);
+
+  /**
+   * 上传视频文件
+   *
+   * @param file 视频文件
+   * @param videoFileName 视频存储文件夹位置
+   * @return 视频存储相对远程地址
+   */
+  String uploadVideo(MultipartFile file, UploadPathNameEnum videoFileName);
 }
