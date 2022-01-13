@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class GiftListView implements Serializable {
 
   @ApiModelProperty(value = "礼品编号，自增")
   @TableId("gift_id")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long giftId;
 
   @ApiModelProperty(value = "礼品名称")

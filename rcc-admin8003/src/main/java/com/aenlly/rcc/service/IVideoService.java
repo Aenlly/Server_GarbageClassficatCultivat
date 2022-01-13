@@ -49,4 +49,20 @@ public interface IVideoService extends IService<Video> {
    * @return 远程视频存储地址
    */
   String uploadImage(MultipartFile file);
+
+  /**
+   * 添加公益视频信息到数据库中
+   *
+   * @param video 公益视频信息实体
+   * @return 是否成功添加
+   */
+  Boolean createVideo(Video video);
+
+  /**
+   * 编辑公益视频信息到数据库中
+   *
+   * @param video 公益视频信息
+   * @return 是否成功添加
+   */
+  Boolean updateVideo(Video video);
 }

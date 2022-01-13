@@ -41,6 +41,7 @@ public class VideoController {
       @Param("查询内容") @RequestParam("text") String text) {
     try {
       IPage<Video> list = videoService.getVideoList(new Page<>(current, size), queryType, text);
+      System.out.println(list);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -129,6 +130,28 @@ public class VideoController {
     try {
       String filePath = videoService.uploadImage(file);
       return resultOk(filePath);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "新增公益视频信息请求", httpMethod = "POST")
+  @PostMapping("/createVideo")
+  public CommonResult<Boolean> createVideo(@Param("视频信息") Video video) {
+    try {
+      Boolean save = videoService.createVideo(video);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "编辑公益视频信息请求", httpMethod = "PUT")
+  @PutMapping("/updateVideo")
+  public CommonResult<Boolean> updateVideo(@Param("视频信息") Video video) {
+    try {
+      Boolean save = videoService.updateVideo(video);
+      return resultOk(save);
     } catch (Exception e) {
       return resultError();
     }

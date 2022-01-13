@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.PointsLogTypeEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class PointsLog implements Serializable {
 
   @ApiModelProperty(value = "自增编号")
   @TableId(value = "id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Integer id;
 
   @ApiModelProperty(value = "积分记录描述")

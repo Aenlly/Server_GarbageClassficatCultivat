@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class CollectEntity implements Serializable {
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "collect_id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Integer collectId;
 
   @ApiModelProperty(value = "用户唯一标识")

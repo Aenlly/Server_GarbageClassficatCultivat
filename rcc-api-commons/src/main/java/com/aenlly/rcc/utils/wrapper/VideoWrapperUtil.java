@@ -23,7 +23,10 @@ public class VideoWrapperUtil {
    */
   public static Wrapper<Video> queryVideoListPage(QueryVideoType queryType, String text) {
     QueryWrapper<Video> wrapper = new QueryWrapper<>();
-    wrapper.like(queryType.getValue(), text).orderByDesc("video_check");
+    wrapper
+        .like(queryType.getValue(), text)
+        .orderByDesc("video_check")
+        .orderBy(true, false, "update_time");
     return wrapper;
   }
 

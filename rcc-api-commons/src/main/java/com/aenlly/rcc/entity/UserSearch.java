@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class UserSearch implements Serializable {
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "search_id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Integer searchId;
 
   @ApiModelProperty(value = "搜索的垃圾名称")

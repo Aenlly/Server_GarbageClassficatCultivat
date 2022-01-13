@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,10 +21,12 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "Gift对象", description = "礼品信息表")
 public class Gift implements Serializable {
-    
-    private static final long serialVersionUID = -5829242303562279347L;
-    @ApiModelProperty(value = "礼品编号，自增")
+
+  private static final long serialVersionUID = -5829242303562279347L;
+
+  @ApiModelProperty(value = "礼品编号，自增")
   @TableId(value = "gift_id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long giftId;
 
   @ApiModelProperty(value = "礼品名称")

@@ -36,6 +36,7 @@ spring:
   servlet:
     multipart:
       max-file-size: 524288000 #单次文件最大500mb
+      max-request-size: 524288000 #总数据大小
 #  mvc:
 #    static-path-pattern: /** #网页访问的路径
 #  web:

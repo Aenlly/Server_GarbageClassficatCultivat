@@ -4,6 +4,7 @@ import com.aenlly.rcc.enums.OrderStateEnum;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class OrderUserView implements Serializable {
 
   @ApiModelProperty(value = "订单编号")
   @TableId("order_id")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long orderId;
 
   @ApiModelProperty(value = "礼品名称")

@@ -21,7 +21,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param wasteTagEnum 标签枚举
    * @return 信息集合
    */
-  List<WasteTurnTreasure> getListByTag(WasteTagEnum wasteTagEnum);
+  List<WasteTurnTreasure> queryListByTag(WasteTagEnum wasteTagEnum);
 
   /**
    * 根据标题 获取变废为宝信息
@@ -29,7 +29,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param title 标题
    * @return 信息集合
    */
-  List<WasteTurnTreasure> getListSearchByTitle(String title);
+  List<WasteTurnTreasure> queryListSearchByTitle(String title);
 
   /**
    * 通过编号，增加分享量
@@ -37,7 +37,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param id 编号
    * @return 是否成功
    */
-  Boolean upShareCount(Long id);
+  Boolean updateShareCount(Long id);
 
   /**
    * 根据用户编号，审核状态 获取个人变废为宝上传信息
@@ -46,7 +46,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param auditEnum 审核状态
    * @return 信息集合
    */
-  List<WasteTurnTreasure> getListByUserIdAndAudit(String userId, AuditEnum auditEnum);
+  List<WasteTurnTreasure> queryListByUserIdAndAudit(String userId, AuditEnum auditEnum);
 
   /**
    * 根据标题，用户班换 搜索变废为宝信息 用户个人使用
@@ -55,7 +55,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param userId 用户编号
    * @return 信息集合
    */
-  List<WasteTurnTreasure> getListSearchByUserIdAndTitle(String userId, String title);
+  List<WasteTurnTreasure> queryListSearchByUserIdAndTitle(String userId, String title);
 
   /**
    * 根据用户id与实体Id删除
@@ -71,7 +71,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param wasteTurnTreasure 变废为宝实体
    * @return 是否成功
    */
-  Boolean postUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
+  Boolean createUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
 
   /**
    * 根据实体插入信息
@@ -79,5 +79,5 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param wasteTurnTreasure 变废为宝实体
    * @return 是否成功
    */
-  Boolean putUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
+  Boolean updateUserWasteInfo(WasteTurnTreasure wasteTurnTreasure);
 }

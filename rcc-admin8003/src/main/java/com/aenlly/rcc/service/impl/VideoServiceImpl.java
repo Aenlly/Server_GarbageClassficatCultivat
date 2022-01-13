@@ -4,6 +4,7 @@ import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.eureka.service.IResourceService;
 import com.aenlly.rcc.mapper.VideoMapper;
+import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.service.IVideoService;
 import com.aenlly.rcc.utils.enums.QueryVideoType;
 import com.aenlly.rcc.utils.wrapper.VideoWrapperUtil;
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -27,6 +29,9 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
 
   /** 上传视频表请求服务对象 */
   @Resource private IResourceService videoUploadService;
+
+  /** 临时存储表服务对象 */
+  @Resource private ITmpFileService tmpFileService;
 
   /**
    * 查询视频信息集合
@@ -84,5 +89,44 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
   @Override
   public String uploadImage(MultipartFile file) {
     return videoUploadService.uploadImage(file);
+  }
+
+  /**
+   * 添加视频信息到数据库中
+   *
+   * @param video 视频信息实体
+   * @return 是否成功添加
+   */
+  @Override
+  @Transactional
+  public Boolean createVideo(Video video) {
+    if (video.getVideoCheck().equals(VideoCheckEnum.TOP)) {
+      Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
+      baseMapper.update(null, wrapper);
+    }
+    int insert = baseMapper.insert(video);
+    if (insert > 0) {
+      return tmpFileService.updateBatchTmpInfo(video.getVideoUrl(), video.getVideoImg());
+    }
+    throw new NullPointerException();
+  }
+
+  /**
+   * 编辑公益视频信息到数据库中
+   *
+   * @param video 公益视频信息
+   * @return 是否成功添加
+   */
+  @Override
+  public Boolean updateVideo(Video video) {
+    if (video.getVideoCheck().equals(VideoCheckEnum.TOP)) {
+      Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
+      baseMapper.update(null, wrapper);
+    }
+    int insert = baseMapper.updateById(video);
+    if (insert > 0) {
+      return tmpFileService.updateBatchTmpInfo(video.getVideoUrl(), video.getVideoImg());
+    }
+    throw new NullPointerException();
   }
 }

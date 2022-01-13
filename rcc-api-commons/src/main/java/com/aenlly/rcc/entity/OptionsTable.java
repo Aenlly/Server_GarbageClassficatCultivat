@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class OptionsTable implements Serializable {
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long id;
 
   @ApiModelProperty(value = "选项名称")

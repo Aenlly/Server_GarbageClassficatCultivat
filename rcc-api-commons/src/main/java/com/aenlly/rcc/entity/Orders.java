@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.OrderStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Orders implements Serializable {
 
   @ApiModelProperty(value = "订单编号")
   @TableId(value = "order_id", type = IdType.ASSIGN_ID)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long orderId;
 
   @ApiModelProperty(value = "礼品信息表编号")

@@ -48,7 +48,7 @@ public class WasteTurnTreasureController {
   public CommonResult<List<WasteTurnTreasure>> getListByTag(
       @Param("标签") @PathVariable("tag") WasteTagEnum wasteTagEnum) {
     try {
-      List<WasteTurnTreasure> list = wasteTurnTreasureService.getListByTag(wasteTagEnum);
+      List<WasteTurnTreasure> list = wasteTurnTreasureService.queryListByTag(wasteTagEnum);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -60,7 +60,7 @@ public class WasteTurnTreasureController {
   public CommonResult<List<WasteTurnTreasure>> getListSearchByTitle(
       @Param("标题") @PathVariable("title") String title) {
     try {
-      List<WasteTurnTreasure> list = wasteTurnTreasureService.getListSearchByTitle(title);
+      List<WasteTurnTreasure> list = wasteTurnTreasureService.queryListSearchByTitle(title);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -85,7 +85,7 @@ public class WasteTurnTreasureController {
   @ApiOperation(value = "分享操作，用户通过分享的链接进入时，分享数量增加", httpMethod = "PUT")
   @PutMapping("/upShareCount/{id}")
   public CommonResult<Long> upShareCount(@Param(value = "视频编号") @PathVariable("id") Long id) {
-    Boolean flag = wasteTurnTreasureService.upShareCount(id);
+    Boolean flag = wasteTurnTreasureService.updateShareCount(id);
     if (flag) {
       WasteTurnTreasure wasteTurnTreasure = wasteTurnTreasureService.getById(id);
       return resultOk(wasteTurnTreasure.getShareCount());
@@ -100,7 +100,7 @@ public class WasteTurnTreasureController {
       @Param("审核状态") @RequestParam("audit") AuditEnum auditEnum) {
     try {
       List<WasteTurnTreasure> list =
-          wasteTurnTreasureService.getListByUserIdAndAudit(userId, auditEnum);
+          wasteTurnTreasureService.queryListByUserIdAndAudit(userId, auditEnum);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -114,7 +114,7 @@ public class WasteTurnTreasureController {
       @Param("标题") @PathVariable("title") String title) {
     try {
       List<WasteTurnTreasure> list =
-          wasteTurnTreasureService.getListSearchByUserIdAndTitle(userId, title);
+          wasteTurnTreasureService.queryListSearchByUserIdAndTitle(userId, title);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -210,7 +210,7 @@ public class WasteTurnTreasureController {
       @Param("变废为宝基本信息") @RequestBody WasteTurnTreasure wasteTurnTreasure) {
     try {
       System.out.println(wasteTurnTreasure);
-      boolean save = wasteTurnTreasureService.postUserWasteInfo(wasteTurnTreasure);
+      boolean save = wasteTurnTreasureService.createUserWasteInfo(wasteTurnTreasure);
       if (save) {
         return resultOk(true);
       }
@@ -240,7 +240,7 @@ public class WasteTurnTreasureController {
     try {
       wasteTurnTreasure.setAudit(AuditEnum.TO_AUDIT);
       System.out.println(wasteTurnTreasure);
-      boolean save = wasteTurnTreasureService.putUserWasteInfo(wasteTurnTreasure);
+      boolean save = wasteTurnTreasureService.updateUserWasteInfo(wasteTurnTreasure);
       if (save) {
         return resultOk(true);
       }

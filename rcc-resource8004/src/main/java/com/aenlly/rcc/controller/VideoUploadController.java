@@ -40,6 +40,6 @@ public class VideoUploadController {
    */
   @PostMapping("/uploadImage")
   public String uploadImage(@RequestPart("imageFile") MultipartFile file) {
-    return uploadService.uploadImage(null, file, UploadPathNameEnum.VIDEO_IMAGE_NAME);
+    return uploadService.uploadImage(null, file, UploadPathNameEnum.VIDEO_FILE_NAME);
   }
 }

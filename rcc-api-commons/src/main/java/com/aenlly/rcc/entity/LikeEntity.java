@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class LikeEntity implements Serializable {
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "like_id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Integer likeId;
 
   @ApiModelProperty(value = "用户唯一标识")

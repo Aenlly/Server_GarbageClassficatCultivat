@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class AdminTable implements Serializable {
   private static final long serialVersionUID = 3303024819989789508L;
 
   @ApiModelProperty(value = "编号")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long id;
 
   @ApiModelProperty(value = "头像，需要上传到其他地方使用")

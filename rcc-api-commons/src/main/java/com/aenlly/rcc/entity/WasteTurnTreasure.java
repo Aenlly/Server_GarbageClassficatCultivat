@@ -4,6 +4,7 @@ import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class WasteTurnTreasure implements Serializable {
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "id", type = IdType.AUTO)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string,避免精度丢失
   private Long id;
 
   @ApiModelProperty(value = "标题")

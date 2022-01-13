@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  * @since 2021-12-21
  */
 @Data
-@Component
+@Component()
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "TmpFile对象", description = "文件上传路径临时表，每天根据该表，删除未提交的信息到数据库的文件")
 public class TmpFile implements Serializable {
@@ -39,7 +39,7 @@ public class TmpFile implements Serializable {
   private SubmitStateEnum state;
 
   @ApiModelProperty(value = "插入时间")
-  @TableField(value = "create_time", fill = FieldFill.INSERT_UPDATE)
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")

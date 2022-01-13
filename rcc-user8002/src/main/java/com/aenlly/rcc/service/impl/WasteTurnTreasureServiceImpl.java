@@ -1,9 +1,7 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.entity.TmpFile;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
-import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.mapper.WasteTurnTreasureMapper;
 import com.aenlly.rcc.service.ITmpFileService;
@@ -15,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,7 +26,7 @@ public class WasteTurnTreasureServiceImpl
     extends ServiceImpl<WasteTurnTreasureMapper, WasteTurnTreasure>
     implements IWasteTurnTreasureService {
 
-  @Resource ITmpFileService tmpFileService;
+  @Resource private ITmpFileService tmpFileService;
 
   /**
    * 根据标签 获取变废为宝信息
@@ -39,7 +35,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 信息集合
    */
   @Override
-  public List<WasteTurnTreasure> getListByTag(WasteTagEnum wasteTagEnum) {
+  public List<WasteTurnTreasure> queryListByTag(WasteTagEnum wasteTagEnum) {
     Wrapper<WasteTurnTreasure> wrapper =
         WasteWrapperUtil.getListByTag(null, wasteTagEnum, AuditEnum.THROUGH);
     return baseMapper.selectList(wrapper);
@@ -52,7 +48,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 信息集合
    */
   @Override
-  public List<WasteTurnTreasure> getListSearchByTitle(String title) {
+  public List<WasteTurnTreasure> queryListSearchByTitle(String title) {
     Wrapper<WasteTurnTreasure> wrapper =
         WasteWrapperUtil.getListByTitle(title, AuditEnum.THROUGH, null);
     return baseMapper.selectList(wrapper);
@@ -65,7 +61,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 是否成功
    */
   @Override
-  public Boolean upShareCount(Long id) {
+  public Boolean updateShareCount(Long id) {
     WasteTurnTreasure view = baseMapper.selectById(id);
     view.setShareCount(view.getShareCount() + 1);
     return baseMapper.updateById(view) > 0;
@@ -79,7 +75,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 信息集合
    */
   @Override
-  public List<WasteTurnTreasure> getListByUserIdAndAudit(String userId, AuditEnum auditEnum) {
+  public List<WasteTurnTreasure> queryListByUserIdAndAudit(String userId, AuditEnum auditEnum) {
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTag(userId, null, auditEnum);
     return baseMapper.selectList(wrapper);
   }
@@ -92,7 +88,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 信息集合
    */
   @Override
-  public List<WasteTurnTreasure> getListSearchByUserIdAndTitle(String userId, String title) {
+  public List<WasteTurnTreasure> queryListSearchByUserIdAndTitle(String userId, String title) {
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTitle(title, null, userId);
     return baseMapper.selectList(wrapper);
   }
@@ -117,11 +113,11 @@ public class WasteTurnTreasureServiceImpl
    */
   @Override
   @Transactional
-  public Boolean postUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
+  public Boolean createUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
     int insert = baseMapper.insert(wasteTurnTreasure);
-    System.out.println(insert);
     if (insert > 0) {
-      return updateBatchTmpInfo(wasteTurnTreasure);
+      return tmpFileService.updateBatchTmpInfo(
+          wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
     }
     return false;
   }
@@ -134,34 +130,12 @@ public class WasteTurnTreasureServiceImpl
    */
   @Override
   @Transactional
-  public Boolean putUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
+  public Boolean updateUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
     int insert = baseMapper.updateById(wasteTurnTreasure);
     if (insert > 0) {
-      return updateBatchTmpInfo(wasteTurnTreasure);
+      return tmpFileService.updateBatchTmpInfo(
+          wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
     }
     return false;
-  }
-
-  /**
-   * 更新临时存储的视频与图片数据
-   *
-   * @param wasteTurnTreasure 变废为宝信息
-   * @return 是否成功
-   */
-  private Boolean updateBatchTmpInfo(WasteTurnTreasure wasteTurnTreasure) {
-    Collection<TmpFile> tmpFiles = new ArrayList<>();
-    // 创建需要修改的视图片频信息
-    TmpFile tmpFile = new TmpFile();
-    tmpFile.setUploadPath(wasteTurnTreasure.getImgUrl());
-    tmpFile.setState(SubmitStateEnum.SUBMITTED);
-    // 添加至集合中
-    tmpFiles.add(tmpFile);
-    // 创建需要修改的视频信息
-    TmpFile tmpFile1 = new TmpFile();
-    tmpFile1.setUploadPath(wasteTurnTreasure.getVideoUrl());
-    tmpFile1.setState(SubmitStateEnum.SUBMITTED);
-    // 添加至集合中
-    tmpFiles.add(tmpFile1);
-    return tmpFileService.updateBatchById(tmpFiles);
   }
 }

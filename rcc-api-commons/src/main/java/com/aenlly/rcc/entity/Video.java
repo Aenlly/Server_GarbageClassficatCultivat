@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,14 +18,15 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({"createTime", "updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
+@JsonIgnoreProperties({"updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "公益视频对象", description = "")
 public class Video implements Serializable {
 
   private static final long serialVersionUID = 9198257600849363799L;
 
   @ApiModelProperty(value = "视频标识")
-  @TableId("video_id")
+  @TableId(value = "video_id", type = IdType.ASSIGN_ID)
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long videoId;
 
   @ApiModelProperty(value = "视频标题")
@@ -57,6 +59,7 @@ public class Video implements Serializable {
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
