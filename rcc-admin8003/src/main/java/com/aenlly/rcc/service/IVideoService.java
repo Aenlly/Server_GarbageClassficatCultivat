@@ -23,7 +23,7 @@ public interface IVideoService extends IService<Video> {
    * @param text 查询字段内容
    * @return 分页对象
    */
-  IPage<Video> getVideoList(Page<Video> page, QueryVideoType queryType, String text);
+  IPage<Video> getList(Page<Video> page, QueryVideoType queryType, String text);
 
   /**
    * 根据编号修改视频状态
@@ -32,7 +32,7 @@ public interface IVideoService extends IService<Video> {
    * @param videoCheckEnum 视频状态
    * @return 是否成功
    */
-  Boolean putVideoByIdCheck(Long id, VideoCheckEnum videoCheckEnum);
+  Boolean updateByIdCheck(Long id, VideoCheckEnum videoCheckEnum);
 
   /**
    * 上传视频文件
@@ -51,18 +51,18 @@ public interface IVideoService extends IService<Video> {
   String uploadImage(MultipartFile file);
 
   /**
-   * 添加公益视频信息到数据库中
+   * 添加信息到数据库中
    *
-   * @param video 公益视频信息实体
-   * @return 是否成功添加
+   * @param entity 添加实体
+   * @return 是否成功
    */
-  Boolean createVideo(Video video);
+  Boolean create(Video entity);
 
   /**
-   * 编辑公益视频信息到数据库中
+   * 更新信息到数据库中
    *
-   * @param video 公益视频信息
-   * @return 是否成功添加
+   * @param entity 更新实体
+   * @return 是否成功
    */
-  Boolean updateVideo(Video video);
+  Boolean update(Video entity);
 }

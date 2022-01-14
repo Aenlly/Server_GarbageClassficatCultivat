@@ -5,7 +5,6 @@ import com.aenlly.rcc.service.IAdminTableService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,6 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  */
 @RestController
 @ApiOperation("管理员登录控制器")
-@CrossOrigin // 允许跨域请求
 public class LoginController {
 
   @Resource private IAdminTableService adminTableService;

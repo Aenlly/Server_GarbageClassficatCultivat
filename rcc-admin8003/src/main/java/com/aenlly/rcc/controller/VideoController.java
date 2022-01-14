@@ -27,20 +27,19 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RestController
 @ApiOperation("公益视频信息管理控制器")
 @RequestMapping("/video")
-@CrossOrigin // 允许跨域请求
 public class VideoController {
   /** 视频信息表服务类 */
   @Resource private IVideoService videoService;
 
   @ApiOperation(value = "请求视频信息数据据", httpMethod = "GET")
-  @GetMapping("/getVideoList")
+  @GetMapping("/getList")
   public CommonResult<IPage<Video>> getVideoList(
       @Param("当前页码") @RequestParam("current") Integer current,
       @Param("每页数量") @RequestParam("size") Integer size,
       @Param("查询类型") @RequestParam("queryType") QueryVideoType queryType,
       @Param("查询内容") @RequestParam("text") String text) {
     try {
-      IPage<Video> list = videoService.getVideoList(new Page<>(current, size), queryType, text);
+      IPage<Video> list = videoService.getList(new Page<>(current, size), queryType, text);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -48,8 +47,8 @@ public class VideoController {
   }
 
   @ApiOperation(value = "根据id执行删除请求", httpMethod = "DELETE")
-  @DeleteMapping("/delVideoById")
-  public CommonResult<Boolean> delVideoById(@Param("主键") @RequestParam("id") Long id) {
+  @DeleteMapping("/delById")
+  public CommonResult<Boolean> delById(@Param("主键") @RequestParam("id") Long id) {
     try {
       boolean b = videoService.removeById(id);
       if (b) {
@@ -63,7 +62,7 @@ public class VideoController {
   }
 
   @ApiOperation(value = "根据id集合执行批量删除请求", httpMethod = "DELETE")
-  @DeleteMapping("/delVideoByIds")
+  @DeleteMapping("/delByIds")
   public CommonResult<Boolean> delVideoByIds(@Param("主键集合") @RequestBody List<Long> ids) {
     try {
       boolean b = videoService.removeByIds(ids);
@@ -78,10 +77,10 @@ public class VideoController {
   }
 
   @ApiOperation(value = "根据id发布数据请求", httpMethod = "PUT")
-  @PutMapping("/putPublish/{id}")
-  public CommonResult<Boolean> putPublish(@Param("主键") @PathVariable("id") Long id) {
+  @PutMapping("/publish/{id}")
+  public CommonResult<Boolean> publish(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.putVideoByIdCheck(id, VideoCheckEnum.PUBLISH_OK);
+      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.PUBLISH_OK);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -89,10 +88,10 @@ public class VideoController {
   }
 
   @ApiOperation(value = "根据id下线数据请求", httpMethod = "PUT")
-  @PutMapping("/putShelf/{id}")
-  public CommonResult<Boolean> putShelf(@Param("主键") @PathVariable("id") Long id) {
+  @PutMapping("/shelf/{id}")
+  public CommonResult<Boolean> shelf(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.putVideoByIdCheck(id, VideoCheckEnum.PUBLISH_NOT);
+      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.PUBLISH_NOT);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -100,10 +99,10 @@ public class VideoController {
   }
 
   @ApiOperation(value = "根据id置顶数据请求", httpMethod = "PUT")
-  @PutMapping("/putTop/{id}")
-  public CommonResult<Boolean> putTop(@Param("主键") @PathVariable("id") Long id) {
+  @PutMapping("/top/{id}")
+  public CommonResult<Boolean> top(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.putVideoByIdCheck(id, VideoCheckEnum.TOP);
+      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.TOP);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -135,10 +134,10 @@ public class VideoController {
   }
 
   @ApiOperation(value = "新增公益视频信息请求", httpMethod = "POST")
-  @PostMapping("/createVideo")
-  public CommonResult<Boolean> createVideo(@Param("视频信息") Video video) {
+  @PostMapping("/create")
+  public CommonResult<Boolean> create(@Param("视频信息") Video video) {
     try {
-      Boolean save = videoService.createVideo(video);
+      Boolean save = videoService.create(video);
       return resultOk(save);
     } catch (Exception e) {
       return resultError();
@@ -146,10 +145,10 @@ public class VideoController {
   }
 
   @ApiOperation(value = "编辑公益视频信息请求", httpMethod = "PUT")
-  @PutMapping("/updateVideo")
-  public CommonResult<Boolean> updateVideo(@Param("视频信息") Video video) {
+  @PutMapping("/update")
+  public CommonResult<Boolean> update(@Param("视频信息") Video video) {
     try {
-      Boolean save = videoService.updateVideo(video);
+      Boolean save = videoService.update(video);
       return resultOk(save);
     } catch (Exception e) {
       return resultError();

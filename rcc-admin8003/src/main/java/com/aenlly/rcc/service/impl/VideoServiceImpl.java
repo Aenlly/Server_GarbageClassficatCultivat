@@ -43,7 +43,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 分页对象
    */
   @Override
-  public IPage<Video> getVideoList(Page<Video> page, QueryVideoType queryType, String text) {
+  public IPage<Video> getList(Page<Video> page, QueryVideoType queryType, String text) {
     Wrapper<Video> wrapper = VideoWrapperUtil.queryVideoListPage(queryType, text);
     return baseMapper.selectPage(page, wrapper);
   }
@@ -56,7 +56,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 是否成功
    */
   @Override
-  public Boolean putVideoByIdCheck(Long id, VideoCheckEnum videoCheckEnum) {
+  public Boolean updateByIdCheck(Long id, VideoCheckEnum videoCheckEnum) {
     Wrapper<Video> wrapper;
     // 如果是进行置顶操作的，那么需要多执行一步
     if (videoCheckEnum.equals(VideoCheckEnum.TOP)) {
@@ -93,40 +93,39 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
   }
 
   /**
-   * 添加视频信息到数据库中
+   * 添加信息到数据库中
    *
-   * @param video 视频信息实体
-   * @return 是否成功添加
+   * @param entity 添加实体
+   * @return 是否成功
    */
   @Override
   @Transactional
-  public Boolean createVideo(Video video) {
-    if (video.getVideoCheck().equals(VideoCheckEnum.TOP)) {
+  public Boolean create(Video entity) {
+    if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
       baseMapper.update(null, wrapper);
     }
-    int insert = baseMapper.insert(video);
+    int insert = baseMapper.insert(entity);
     if (insert > 0) {
-      return tmpFileService.updateBatchTmpInfo(video.getVideoUrl(), video.getVideoImg());
+      return tmpFileService.updateBatchTmpInfo(entity.getVideoUrl(), entity.getVideoImg());
     }
     throw new NullPointerException();
   }
-
   /**
-   * 编辑公益视频信息到数据库中
+   * 更新信息到数据库中
    *
-   * @param video 公益视频信息
-   * @return 是否成功添加
+   * @param entity 更新实体
+   * @return 是否成功
    */
   @Override
-  public Boolean updateVideo(Video video) {
-    if (video.getVideoCheck().equals(VideoCheckEnum.TOP)) {
+  public Boolean update(Video entity) {
+    if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
       baseMapper.update(null, wrapper);
     }
-    int insert = baseMapper.updateById(video);
+    int insert = baseMapper.updateById(entity);
     if (insert > 0) {
-      return tmpFileService.updateBatchTmpInfo(video.getVideoUrl(), video.getVideoImg());
+      return tmpFileService.updateBatchTmpInfo(entity.getVideoUrl(), entity.getVideoImg());
     }
     throw new NullPointerException();
   }

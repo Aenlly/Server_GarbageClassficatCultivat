@@ -18,6 +18,10 @@ public enum UploadPathNameEnum {
   VIDEO_VIDEO_NAME("/video/video/%s"),
   /** 视频信息的封面文件地址，占位的地方填写年份-月份 */
   CAROUSEL_IMAGE_NAME("/video/video/%s"),
+  /** 垃圾类型图标存储地址 */
+  GARBAGE_IMAGE_NAME("/garbage/video"),
+  /** 垃圾类型视频存储地址 */
+  GARBAGE_VIDEO_NAME("/garbage/ico"),
   /** 变废为宝的封面文件地址，占位的地方分别填写用户名，年份-月份 */
   WASTE_IMAGE_NAME("/waste/image/%s/%s"),
   /** 临时存储地址,占位地方填写文件唯一标识符 */

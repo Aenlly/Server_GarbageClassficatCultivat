@@ -24,12 +24,12 @@ import static com.aenlly.rcc.utils.ResultUtil.*;
  */
 @RestController
 @RequestMapping("/carousel")
-@CrossOrigin // 允许跨域请求
 public class CarouselController {
 
+  /** 轮播信息表服务对象 */
   @Resource private ICarouselService service;
 
-  @ApiOperation(value = "请求视频信息数据据", httpMethod = "GET")
+  @ApiOperation(value = "请求轮播信息数据", httpMethod = "GET")
   @GetMapping("/getList")
   public CommonResult<IPage<Carousel>> getList(
       @Param("当前页码") @RequestParam("current") Integer current,
@@ -73,7 +73,7 @@ public class CarouselController {
     }
   }
 
-  @ApiOperation(value = "根据id上线数据请求", httpMethod = "PUT")
+  @ApiOperation(value = "根据id发布数据请求", httpMethod = "PUT")
   @PutMapping("/publish/{id}")
   public CommonResult<Boolean> publish(@Param("主键") @PathVariable("id") Long id) {
     try {
@@ -120,7 +120,7 @@ public class CarouselController {
     }
   }
 
-  @ApiOperation(value = "编辑轮播信息请求", httpMethod = "PUT")
+  @ApiOperation(value = "更新轮播信息请求", httpMethod = "PUT")
   @PutMapping("/update")
   public CommonResult<Boolean> update(@Param("轮播信息") Carousel entity) {
     try {

@@ -4,9 +4,13 @@ import com.aenlly.rcc.entity.Garbage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * Mapper 接口
+ * <p>
+ * 垃圾类型信息表 Mapper 接口
+ * </p>
  *
  * @author aenlly
- * @since 2021-12-12
+ * @since 2022-01-14
  */
-public interface GarbageMapper extends BaseMapper<Garbage> {}
+public interface GarbageMapper extends BaseMapper<Garbage> {
+
+}
