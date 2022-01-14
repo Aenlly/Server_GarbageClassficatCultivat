@@ -2,11 +2,12 @@ package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
-import com.aenlly.rcc.eureka.service.IResourceService;
+import com.aenlly.rcc.eureka.service.IAdminUploadService;
 import com.aenlly.rcc.mapper.VideoMapper;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.service.IVideoService;
 import com.aenlly.rcc.utils.enums.QueryVideoType;
+import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.VideoWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
 public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements IVideoService {
 
   /** 上传视频表请求服务对象 */
-  @Resource private IResourceService videoUploadService;
+  @Resource private IAdminUploadService uploadService;
 
   /** 临时存储表服务对象 */
   @Resource private ITmpFileService tmpFileService;
@@ -77,18 +78,18 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    */
   @Override
   public String uploadVideo(MultipartFile file) {
-    return videoUploadService.uploadVideo(file);
+    return uploadService.uploadVideo(file, UploadPathNameEnum.VIDEO_VIDEO_NAME);
   }
 
   /**
-   * 上传视频文件
+   * 上传图片文件
    *
    * @param file 文件
-   * @return 远程视频存储地址
+   * @return 远程图片存储地址
    */
   @Override
   public String uploadImage(MultipartFile file) {
-    return videoUploadService.uploadImage(file);
+    return uploadService.uploadImage(file, UploadPathNameEnum.VIDEO_IMAGE_NAME);
   }
 
   /**

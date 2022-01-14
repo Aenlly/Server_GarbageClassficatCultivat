@@ -41,6 +41,18 @@ public class ResultUtil {
   }
 
   /**
+   * 超出最大数量限制时
+   *
+   * <p>统一返回内容方法执行方法
+   *
+   * @param <T> 推断类型，不需要
+   * @return 公共错误返回内容
+   */
+  public static <T> CommonResult<T> resultExceed() {
+    return new CommonResult<T>(CodeMessageResultEnum.EXCEED);
+  }
+
+  /**
    * 插入数据时，已存在内容
    *
    * <p>统一返回方法执行

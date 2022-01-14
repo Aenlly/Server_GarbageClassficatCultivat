@@ -1,6 +1,6 @@
 package com.aenlly.rcc.eureka.service.impl;
 
-import com.aenlly.rcc.eureka.service.IWasteTurnTreasureUploadService;
+import com.aenlly.rcc.eureka.service.IUserUploadService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @projectName RefuseClassificationCultivate
  */
 @Component()
-public class WasteTurnTreasureUploadServiceImpl implements IWasteTurnTreasureUploadService {
+public class UserUploadServiceImpl implements IUserUploadService {
   @Override
   public String uploadImage(String userId, MultipartFile file) {
     System.out.println("上传图片文件异常");

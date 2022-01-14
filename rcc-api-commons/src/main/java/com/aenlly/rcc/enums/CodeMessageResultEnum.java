@@ -19,6 +19,7 @@ public enum CodeMessageResultEnum {
   OK(200, "请求成功！"),
   /** 失败 */
   ERROR(500, "请求失败！"),
+  EXCEED(-1, "超出最大数量"),
   /** 已存在 */
   EXIST(300, "数据已存在"),
   /** 积分不足 */

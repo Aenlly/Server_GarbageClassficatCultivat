@@ -14,9 +14,8 @@ public interface ITmpFileService extends IService<TmpFile> {
   /**
    * 更新临时存储的视频与图片数据状态为已提交
    *
-   * @param videoUrl 视频地址
-   * @param videoImage 图片地址
+   * @param fileUrl 文件地址
    * @return 是否成功
    */
-  Boolean updateBatchTmpInfo(String videoUrl, String videoImage);
+  Boolean updateBatchTmpInfo(String... fileUrl);
 }

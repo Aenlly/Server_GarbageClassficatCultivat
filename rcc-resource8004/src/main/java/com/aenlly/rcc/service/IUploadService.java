@@ -1,7 +1,7 @@
 package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.WxUploadVideoInfo;
-import com.aenlly.rcc.enums.UploadPathNameEnum;
+import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

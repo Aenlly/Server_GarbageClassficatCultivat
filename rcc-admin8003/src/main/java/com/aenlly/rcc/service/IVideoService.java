@@ -43,10 +43,10 @@ public interface IVideoService extends IService<Video> {
   String uploadVideo(MultipartFile file);
 
   /**
-   * 上传视频文件
+   * 上传图片文件
    *
    * @param file 文件
-   * @return 远程视频存储地址
+   * @return 远程图片存储地址
    */
   String uploadImage(MultipartFile file);
 

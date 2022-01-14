@@ -6,23 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 视频审核状态
+ * 上线/下线状态枚举类
  *
  * @author Aenlly
- * @create by date 2021/12/18 20:54
+ * @create by date 2022/01/14 16:40
  * @projectName RefuseClassificationCultivate
  */
 @Getter
 @AllArgsConstructor
-public enum AuditEnum implements BaseEnum {
-  /** 未通过，数据库插入-1 */
-  Not_THROUGH(-1, "未通过"),
-  /** 待审核，数据库插入0 */
-  TO_AUDIT(0, "待审核"),
-  /** 已通过，数据库插入1 */
-  THROUGH(1, "已通过"),
-  /** 已下架，数据库插入3 */
-  OFF(2, "已下架");
+public enum CarouselShowFlagEnum implements BaseEnum {
+
+  /** 下线，数据库插入0 */
+  OFFLINE(0, "下线"),
+  /** 发布，数据库插入1 */
+  PUBLISH(1, "发布");
 
   /** 标记数据库中的值 */
   @EnumValue private Integer name;

@@ -1,8 +1,8 @@
 package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.entity.WxUploadVideoInfo;
-import com.aenlly.rcc.enums.UploadPathNameEnum;
 import com.aenlly.rcc.service.IUploadService;
+import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +17,8 @@ import javax.annotation.Resource;
  * @projectName RefuseClassificationCultivate
  */
 @RestController
-@RequestMapping("/wasteTurnTreasureUpload")
-public class WasteTurnTreasureUploadController {
+@RequestMapping("/userUpload")
+public class UserUploadController {
 
   @Resource private IUploadService uploadService;
 
@@ -27,7 +27,7 @@ public class WasteTurnTreasureUploadController {
    *
    * <p>同时使用注解@RequestPart接收，而不是@RequestParam
    */
-  @PostMapping(value = "/uloadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(value = "/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public String uloadImage(
       @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files) {
     return uploadService.uploadImage(userId, files, UploadPathNameEnum.WASTE_IMAGE_NAME);

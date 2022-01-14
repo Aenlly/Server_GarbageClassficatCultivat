@@ -24,26 +24,21 @@ public class TmpFileServiceImpl extends ServiceImpl<TmpFileMapper, TmpFile>
   /**
    * 更新临时存储的视频与图片数据状态为已提交
    *
-   * @param videoUrl 视频地址
-   * @param videoImage 图片地址
+   * @param fileUrl 文件地址
    * @return 是否成功
    */
   @Override
   @Transactional
-  public Boolean updateBatchTmpInfo(String videoUrl, String videoImage) {
+  public Boolean updateBatchTmpInfo(String... fileUrl) {
     Collection<TmpFile> tmpFiles = new ArrayList<>();
-    // 创建需要修改的视图片频信息
-    TmpFile tmpFileVideo = new TmpFile();
-    tmpFileVideo.setUploadPath(videoUrl);
-    tmpFileVideo.setState(SubmitStateEnum.SUBMITTED);
-    // 添加至集合中
-    tmpFiles.add(tmpFileVideo);
-    // 创建需要修改的视频信息
-    TmpFile tmpFileImage = new TmpFile();
-    tmpFileImage.setUploadPath(videoImage);
-    tmpFileImage.setState(SubmitStateEnum.SUBMITTED);
-    // 添加至集合中
-    tmpFiles.add(tmpFileImage);
+    for (String path : fileUrl) {
+      // 创建需要修改的文件信息
+      TmpFile tmpFile = new TmpFile();
+      tmpFile.setUploadPath(path);
+      tmpFile.setState(SubmitStateEnum.SUBMITTED);
+      // 添加至集合中
+      tmpFiles.add(tmpFile);
+    }
     return this.updateBatchById(tmpFiles);
   }
 }

@@ -6,7 +6,7 @@ import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
-import com.aenlly.rcc.eureka.service.IWasteTurnTreasureUploadService;
+import com.aenlly.rcc.eureka.service.IUserUploadService;
 import com.aenlly.rcc.service.IUserService;
 import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -38,7 +38,7 @@ public class WasteTurnTreasureController {
   /** 变废为宝表-服务对象 */
   @Resource IWasteTurnTreasureService wasteTurnTreasureService;
   /** 变废为宝上传服务调用接口 */
-  @Resource IWasteTurnTreasureUploadService wasteTurnTreasureUploadService;
+  @Resource IUserUploadService uploadService;
 
   @Resource IUserService userService;
 
@@ -140,7 +140,7 @@ public class WasteTurnTreasureController {
       @Param("用户编号") @RequestParam("userId") String userId,
       @Param("文件") @RequestPart("files") MultipartFile files) {
     try {
-      String databasePath = wasteTurnTreasureUploadService.uploadImage(userId, files);
+      String databasePath = uploadService.uploadImage(userId, files);
       return resultOk(databasePath);
     } catch (Exception e) {
       return resultError();
@@ -169,7 +169,7 @@ public class WasteTurnTreasureController {
       bodyStream.close();
       // 调用其他服务进行
       String result =
-          wasteTurnTreasureUploadService.uploadTmpFile(
+          uploadService.uploadTmpFile(
               bytes,
               wxUploadVideoInfo.getIdentifier(),
               wxUploadVideoInfo.getIndex(),
@@ -197,7 +197,7 @@ public class WasteTurnTreasureController {
       @Param("md5值") @RequestParam("identifier") String identifier,
       @Param("文件名") @RequestParam("fileName") String fileName) {
     try {
-      String result = wasteTurnTreasureUploadService.mergeTmpFile(identifier, fileName);
+      String result = uploadService.mergeTmpFile(identifier, fileName);
       return resultOk(result);
     } catch (Exception e) {
       return resultError();

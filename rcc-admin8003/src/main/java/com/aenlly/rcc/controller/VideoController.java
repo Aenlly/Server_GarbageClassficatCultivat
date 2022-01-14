@@ -41,7 +41,6 @@ public class VideoController {
       @Param("查询内容") @RequestParam("text") String text) {
     try {
       IPage<Video> list = videoService.getVideoList(new Page<>(current, size), queryType, text);
-      System.out.println(list);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -69,7 +68,7 @@ public class VideoController {
     try {
       boolean b = videoService.removeByIds(ids);
       if (b) {
-        return resultOk(b);
+        return resultOk(true);
       } else {
         throw new NullPointerException();
       }

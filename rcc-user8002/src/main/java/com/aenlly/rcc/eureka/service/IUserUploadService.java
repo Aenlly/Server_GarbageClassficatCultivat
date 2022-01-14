@@ -1,6 +1,6 @@
 package com.aenlly.rcc.eureka.service;
 
-import com.aenlly.rcc.eureka.service.impl.WasteTurnTreasureUploadServiceImpl;
+import com.aenlly.rcc.eureka.service.impl.UserUploadServiceImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -13,12 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @projectName RefuseClassificationCultivate
  */
 @Component
-@FeignClient(value = "resource", fallback = WasteTurnTreasureUploadServiceImpl.class) // 服务名称
-public interface IWasteTurnTreasureUploadService {
+@FeignClient(value = "resource", fallback = UserUploadServiceImpl.class) // 服务名称
+public interface IUserUploadService {
 
-  @PostMapping(
-      value = "/wasteTurnTreasureUpload/uploadImage",
-      consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(value = "/userUpload/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   String uploadImage(
       @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files);
 
@@ -28,7 +26,7 @@ public interface IWasteTurnTreasureUploadService {
    * <p>使用注解@RequestBody 发送小程序分块上传的内容
    */
   @PostMapping(
-      value = "/wasteTurnTreasureUpload/uploadTmpFile",
+      value = "/userUpload/uploadTmpFile",
       consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
   String uploadTmpFile(
       @RequestBody byte[] bytes,
@@ -47,7 +45,7 @@ public interface IWasteTurnTreasureUploadService {
    * @param fileName 文件名
    * @return 线上存储路径
    */
-  @GetMapping(value = "/wasteTurnTreasureUpload/mergeTmpFile")
+  @GetMapping(value = "/userUpload/mergeTmpFile")
   String mergeTmpFile(
       @RequestParam("identifier") String identifier, @RequestParam("fileName") String fileName);
 }
