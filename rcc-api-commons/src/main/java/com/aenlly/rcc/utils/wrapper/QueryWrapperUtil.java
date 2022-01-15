@@ -8,8 +8,6 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.Serializable;
-
 /**
  * @author Aenlly
  * @create by date 2021/12/12 14:15
@@ -17,51 +15,6 @@ import java.io.Serializable;
  */
 public class QueryWrapperUtil {
   private QueryWrapperUtil() {}
-
-  /**
-   * 根据用户id获得操作对象
-   *
-   * @param id 用户id
-   * @return 查询对象
-   */
-  public static Wrapper<User> getUserById(Serializable id) {
-    QueryWrapper<User> wrapper = new QueryWrapper<>();
-    wrapper
-        .select(
-            "user_id",
-            "nick_name",
-            "avatar_url",
-            "accumulative_points",
-            "remaining_points",
-            "answer_points",
-            "points_id")
-        .eq("user_id", id);
-    return wrapper;
-  }
-
-  /**
-   * 获得用户信息根据积分排序的操作对象
-   *
-   * @return 查询对象
-   */
-  public static Wrapper<User> getUserListByPoint() {
-    QueryWrapper<User> wrapper = new QueryWrapper<>();
-    wrapper
-        .select("nick_name", "avatar_url", "accumulative_points")
-        .orderByDesc("accumulative_points");
-    return wrapper;
-  }
-
-  /**
-   * 获得用户信息根据答题积分排序的操作对象
-   *
-   * @return 查询对象
-   */
-  public static Wrapper<User> getUserListByAnswerPoints() {
-    QueryWrapper<User> wrapper = new QueryWrapper<>();
-    wrapper.select("nick_name", "avatar_url", "answer_points").orderByDesc("answer_points");
-    return wrapper;
-  }
 
   /**
    * 获得根据垃圾类型查询操作对象

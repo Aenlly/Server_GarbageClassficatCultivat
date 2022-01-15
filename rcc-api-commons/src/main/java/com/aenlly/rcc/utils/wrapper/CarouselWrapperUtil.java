@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 
 /**
- * 轮播图的数据库操作对象获取工具类
+ * 轮播信息的实体封装操作对象获取工具类
  *
  * @author Aenlly
  * @create by date 2022/01/14 16:58

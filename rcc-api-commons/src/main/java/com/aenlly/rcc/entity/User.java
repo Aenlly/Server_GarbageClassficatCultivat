@@ -1,6 +1,7 @@
 package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,12 +11,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 用户信息表
+ *
  * @author aenlly
  * @since 2021-12-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "用户实体对象", description = "")
+@JsonIgnoreProperties({"createTime", "updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
+@ApiModel(value = "User对象", description = "用户信息表")
 public class User implements Serializable {
 
   private static final long serialVersionUID = -3678482271957347982L;

@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,12 +12,21 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 所属垃圾类型信息条目表
+ *
  * @author aenlly
  * @since 2021-12-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "垃圾类型所属详情对象", description = "")
+@JsonIgnoreProperties({
+  "garbageId",
+  "createTime",
+  "updateTime",
+  "deleteFlag",
+  "version"
+}) // json序列传递前端时忽略
+@ApiModel(value = "垃圾类型所属详情对象", description = "所属垃圾类型信息条目表")
 public class GarbageList implements Serializable {
 
   private static final long serialVersionUID = -2015484827969168645L;
