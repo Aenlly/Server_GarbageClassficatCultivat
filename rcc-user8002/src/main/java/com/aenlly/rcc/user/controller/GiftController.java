@@ -2,6 +2,7 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.user.service.IGiftService;
 import com.aenlly.rcc.utils.CommonResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import static com.aenlly.rcc.utils.ResultUtil.*;
  * @since 2021-12-25
  */
 @RestController
+@Api(tags = "礼品信息管理控制器")
 @RequestMapping("/gift")
 public class GiftController {
 

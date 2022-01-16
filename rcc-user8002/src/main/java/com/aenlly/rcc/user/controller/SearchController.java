@@ -3,8 +3,8 @@ package com.aenlly.rcc.user.controller;
 import com.aenlly.rcc.entity.GarbageLibrary;
 import com.aenlly.rcc.entity.UserSearch;
 import com.aenlly.rcc.enums.SearchTypeEnum;
-import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.user.utils.ISearchService;
+import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -25,8 +25,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-14
  */
 @RestController
-@RequestMapping("/search")
 @Api(tags = "用户首页-垃圾搜索管理控制器")
+@RequestMapping("/search")
 public class SearchController {
 
   @Resource ISearchService searchService;

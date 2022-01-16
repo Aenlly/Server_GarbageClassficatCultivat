@@ -5,7 +5,6 @@ import com.aenlly.rcc.user.service.ILoginService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,6 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  */
 @RestController
 @Api(tags = "登录管理")
-@Slf4j
 public class LoginController {
 
   @Resource private ILoginService loginService;

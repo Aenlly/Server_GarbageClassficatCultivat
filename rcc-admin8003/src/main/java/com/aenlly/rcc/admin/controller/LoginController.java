@@ -3,6 +3,7 @@ package com.aenlly.rcc.admin.controller;
 import com.aenlly.rcc.admin.service.IAdminTableService;
 import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.utils.CommonResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @projectName RefuseClassificationCultivate
  */
 @RestController
-@ApiOperation("管理员登录控制器")
+@Api(tags = "管理员登录信息管理控制器")
 public class LoginController {
 
   @Resource private IAdminTableService adminTableService;

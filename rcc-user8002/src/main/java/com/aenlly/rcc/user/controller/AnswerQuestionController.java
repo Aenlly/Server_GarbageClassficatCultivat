@@ -2,8 +2,9 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.PaperTables;
 import com.aenlly.rcc.entity.QuestionnaireTopics;
-import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.user.utils.IAnswerQuestionService;
+import com.aenlly.rcc.utils.CommonResult;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @projectName RefuseClassificationCultivate
  */
 @RestController
-@ApiOperation("知识测验-管理控制器")
+@Api(tags = "用户服务-知识测验管理控制器")
 @RequestMapping("/answer-question")
 public class AnswerQuestionController {
 

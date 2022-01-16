@@ -6,11 +6,12 @@ import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.UserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
-import com.aenlly.rcc.eureka.service.IUserUploadService;
+import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.user.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.CommonResult;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
@@ -32,14 +33,14 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-18
  */
 @RestController
+@Api(tags = "用户服务-变废为宝管理控制器")
 @RequestMapping("/waste-turn-treasure")
 public class WasteTurnTreasureController {
 
   /** 变废为宝表-服务对象 */
-  @Resource
-  IWasteTurnTreasureService wasteTurnTreasureService;
+  @Resource IWasteTurnTreasureService wasteTurnTreasureService;
   /** 变废为宝上传服务调用接口 */
-  @Resource IUserUploadService uploadService;
+  @Resource IResourceUploadService uploadService;
 
   @Resource IUserService userService;
 

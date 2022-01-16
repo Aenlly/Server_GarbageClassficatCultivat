@@ -20,8 +20,8 @@ import java.util.List;
  * @since 2021-12-11
  */
 @RestController
+@Api(tags = "用户首页-轮播图视图管理控制器")
 @RequestMapping("/carousel-user-view")
-@Api(tags = "轮播图视图管理")
 public class CarouselUserViewController {
 
   @Resource ICarouselUserViewService carouselUserService;

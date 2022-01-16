@@ -1,10 +1,11 @@
 package com.aenlly.rcc.admin.controller;
 
-import com.aenlly.rcc.entity.Garbage;
 import com.aenlly.rcc.admin.service.IGarbageService;
+import com.aenlly.rcc.entity.Garbage;
 import com.aenlly.rcc.utils.CommonResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2022-01-14
  */
 @RestController
+@Api(tags = "垃圾类型信息管理控制器")
 @RequestMapping("/garbage")
 public class GarbageController {
 

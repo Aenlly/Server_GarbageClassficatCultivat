@@ -7,6 +7,7 @@ import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.enums.QueryVideoType;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2022-01-11
  */
 @RestController
-@ApiOperation("公益视频信息管理控制器")
+@Api(tags = "公益视频信息管理控制器")
 @RequestMapping("/video")
 public class VideoController {
   /** 视频信息表服务类 */

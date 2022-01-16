@@ -20,8 +20,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-12
  */
 @RestController
+@Api(tags = "点赞管理控制器")
 @RequestMapping("/like-entity")
-@Api(tags = "点赞管理")
 public class LikeEntityController {
 
   @Resource ILikeEntityService likeEntityService;

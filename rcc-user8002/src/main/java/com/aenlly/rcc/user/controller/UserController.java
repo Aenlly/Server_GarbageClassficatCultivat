@@ -5,7 +5,6 @@ import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +24,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-11
  */
 @RestController
-@Log4j2
-@Api(tags = "用户管理")
+@Api(tags = "用户信息管理控制器")
 @RequestMapping("/user")
 public class UserController {
 

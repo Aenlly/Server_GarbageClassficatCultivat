@@ -1,6 +1,9 @@
 package com.aenlly.rcc.utils.wrapper;
 
+import com.aenlly.rcc.entity.OrderUserView;
+import com.aenlly.rcc.entity.PointsLog;
 import com.aenlly.rcc.entity.User;
+import com.aenlly.rcc.vo.UserVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -21,8 +24,8 @@ public class UserWrapperUtil {
    * @param text 查询内容
    * @return 查询对象
    */
-  public static Wrapper<User> queryListPage(String text) {
-    QueryWrapper<User> wrapper = new QueryWrapper<>();
+  public static Wrapper<UserVo> queryListPage(String text) {
+    QueryWrapper<UserVo> wrapper = new QueryWrapper<>();
     wrapper.like("name", text).orderByDesc("show_flag").orderBy(true, false, "update_time");
     return wrapper;
   }
@@ -69,6 +72,30 @@ public class UserWrapperUtil {
   public static Wrapper<User> getUserListByAnswerPoints() {
     QueryWrapper<User> wrapper = new QueryWrapper<>();
     wrapper.select("nick_name", "avatar_url", "answer_points").orderByDesc("answer_points");
+    return wrapper;
+  }
+
+  /**
+   * 根据用户编号获取实体操作对象
+   *
+   * @param userId 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<OrderUserView> getOrderListById(String userId) {
+    QueryWrapper<OrderUserView> wrapper = new QueryWrapper<>();
+    wrapper.eq("user_id", userId);
+    return wrapper;
+  }
+
+  /**
+   * 根据用户编号获取实体操作对象
+   *
+   * @param userId 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<PointsLog> getPointsListById(String userId) {
+    QueryWrapper<PointsLog> wrapper = new QueryWrapper<>();
+    wrapper.eq("user_id", userId);
     return wrapper;
   }
 }

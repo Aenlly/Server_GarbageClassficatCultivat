@@ -21,8 +21,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-13
  */
 @RestController
+@Api(tags = "用户服务-收藏管理控制器")
 @RequestMapping("/collect-entity")
-@Api(tags = "收藏管理")
 public class CollectEntityController {
 
   @Resource ICollectEntityService collectEntityService;

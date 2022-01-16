@@ -24,8 +24,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2021-12-11
  */
 @RestController
-@RequestMapping("/points")
 @Api(tags = "积分头衔管理控制器")
+@RequestMapping("/points")
 public class PointsController {
   @Resource private IPointsService pointsService;
 

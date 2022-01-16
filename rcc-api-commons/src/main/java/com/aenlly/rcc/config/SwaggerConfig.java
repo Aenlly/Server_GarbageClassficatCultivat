@@ -22,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
   /***
+   * 访问地址：IP+端口/swagger-ui/index.html
    *创建API
    */
   @Bean
@@ -43,7 +44,7 @@ public class SwaggerConfig {
         // any():扫描全部，none()：不扫描
         // withClassAnnotation(): 扫描类上的注解
         // withMethodAnnotation(): 扫描方法上的注解
-        .apis(RequestHandlerSelectors.basePackage("com.aenlly.rcc.controller"))
+        .apis(RequestHandlerSelectors.basePackage("com.aenlly.rcc"))
         // 过滤路径
         // .paths(PathSelectors.any())
         .build();
