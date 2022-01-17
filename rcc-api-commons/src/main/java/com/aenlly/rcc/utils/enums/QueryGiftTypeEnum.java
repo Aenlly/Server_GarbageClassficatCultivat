@@ -6,16 +6,17 @@ import lombok.Getter;
 
 /**
  * @author Aenlly
- * @create by date 2022/01/11 16:36
+ * @create by date 2022/01/17 22:30
  * @projectName RefuseClassificationCultivate
  */
-@AllArgsConstructor
 @Getter
-public enum QueryVideoType implements BaseEnum {
-  /** 根据标题查询 */
-  TITLE(0, "video_title"),
-  /** 根据描述查询 */
-  DESC(1, "video_desc");
+@AllArgsConstructor
+public enum QueryGiftTypeEnum implements BaseEnum {
+
+  /** 根据礼品名称查询 */
+  GIFT_NAME(0, "gift_name"),
+  /** 根据礼品描述查询 */
+  GIFT_DESC(1, "gift_desc");
 
   private Integer name;
   private String value;

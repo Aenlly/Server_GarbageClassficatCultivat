@@ -2,7 +2,7 @@ package com.aenlly.rcc.admin.service;
 
 import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
-import com.aenlly.rcc.utils.enums.QueryVideoType;
+import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,7 +23,7 @@ public interface IVideoService extends IService<Video> {
    * @param text 查询字段内容
    * @return 分页对象
    */
-  IPage<Video> getList(Page<Video> page, QueryVideoType queryType, String text);
+  IPage<Video> getList(Page<Video> page, QueryVideoTypeEnum queryType, String text);
 
   /**
    * 根据编号修改视频状态

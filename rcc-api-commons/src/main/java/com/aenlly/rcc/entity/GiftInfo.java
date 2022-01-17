@@ -31,6 +31,7 @@ public class GiftInfo implements Serializable {
 
   @ApiModelProperty(value = "礼品id")
   @TableField("gift_id")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long giftId;
 
   @ApiModelProperty(value = "礼品状态，1代表未售出，0代表售出")

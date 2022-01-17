@@ -11,12 +11,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 礼品类型表
+ *
  * @author aenlly
  * @since 2021-12-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "礼品类型实体对象", description = "")
+@ApiModel(value = "礼品类型实体对象", description = "礼品类型表")
 public class GiftType implements Serializable {
 
   private static final long serialVersionUID = -3000496852084582776L;

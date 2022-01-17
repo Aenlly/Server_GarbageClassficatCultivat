@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 礼品类型表 Mapper 接口
  * </p>
  *
  * @author aenlly
- * @since 2021-12-15
+ * @since 2022-01-17
  */
 public interface GiftTypeMapper extends BaseMapper<GiftType> {
 

@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.service;
+package com.aenlly.rcc.admin.service;
 
 import com.aenlly.rcc.entity.GiftType;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -9,14 +9,15 @@ import java.util.List;
  * 礼品类型表 服务类
  *
  * @author aenlly
- * @since 2021-12-15
+ * @since 2022-01-17
  */
 public interface IGiftTypeService extends IService<GiftType> {
 
   /**
-   * 用户礼品兑换展示类型内容查询
+   * 根据条件查询礼品类型信息
    *
-   * @return 礼品类型
+   * @param text 类型名称
+   * @return 信息集合
    */
-  List<GiftType> getUserGiftTypeList();
+  List<GiftType> getSelectListBy(String text);
 }

@@ -26,7 +26,7 @@ public class UserWrapperUtil {
    */
   public static Wrapper<UserVo> queryListPage(String text) {
     QueryWrapper<UserVo> wrapper = new QueryWrapper<>();
-    wrapper.like("name", text).orderByDesc("show_flag").orderBy(true, false, "update_time");
+    wrapper.like("nick_name", text);
     return wrapper;
   }
 

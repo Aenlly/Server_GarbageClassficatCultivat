@@ -25,7 +25,7 @@ public class Gift implements Serializable {
   private static final long serialVersionUID = -5829242303562279347L;
 
   @ApiModelProperty(value = "礼品编号，自增")
-  @TableId(value = "gift_id", type = IdType.AUTO)
+  @TableId(value = "gift_id", type = IdType.ASSIGN_ID)
   @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long giftId;
 
@@ -42,7 +42,7 @@ public class Gift implements Serializable {
   private String imgUrl;
 
   @ApiModelProperty(value = "所需积分")
-  private Integer point;
+  private Long point;
 
   @ApiModelProperty(value = "礼品价格")
   private BigDecimal price;

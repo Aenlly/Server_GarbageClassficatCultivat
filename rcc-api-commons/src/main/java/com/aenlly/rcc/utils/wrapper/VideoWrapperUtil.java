@@ -2,7 +2,7 @@ package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
-import com.aenlly.rcc.utils.enums.QueryVideoType;
+import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -21,7 +21,7 @@ public class VideoWrapperUtil {
    * @param text 查询内容
    * @return 查询对象
    */
-  public static Wrapper<Video> queryVideoListPage(QueryVideoType queryType, String text) {
+  public static Wrapper<Video> queryVideoListPage(QueryVideoTypeEnum queryType, String text) {
     QueryWrapper<Video> wrapper = new QueryWrapper<>();
     wrapper
         .like(queryType.getValue(), text)

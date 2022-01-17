@@ -6,7 +6,7 @@ import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.VideoMapper;
 import com.aenlly.rcc.service.ITmpFileService;
-import com.aenlly.rcc.utils.enums.QueryVideoType;
+import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.VideoWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -43,7 +43,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 分页对象
    */
   @Override
-  public IPage<Video> getList(Page<Video> page, QueryVideoType queryType, String text) {
+  public IPage<Video> getList(Page<Video> page, QueryVideoTypeEnum queryType, String text) {
     Wrapper<Video> wrapper = VideoWrapperUtil.queryVideoListPage(queryType, text);
     return baseMapper.selectPage(page, wrapper);
   }

@@ -1,7 +1,9 @@
 package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.GiftInfo;
+import com.aenlly.rcc.entity.GiftListView;
 import com.aenlly.rcc.enums.GiftStateEnum;
+import com.aenlly.rcc.utils.enums.QueryGiftTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -27,6 +29,23 @@ public class GiftWrapperUtil {
         .eq("gift_id", giftId)
         .eq("state", GiftStateEnum.NOT_SOLD.getName())
         .last("limit 1");
+    return wrapper;
+  }
+
+  /**
+   * 根据查询依据条件与查询条件内容，以及礼品类型编号，获取操作对象
+   *
+   * @param queryType 查询依据条件
+   * @param text 查询内容
+   * @param typeId 礼品类型编号，可为null
+   */
+  public static Wrapper<GiftListView> queryListPage(
+      QueryGiftTypeEnum queryType, String text, Long typeId) {
+    QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
+    wrapper.like(queryType.getValue(), text);
+    if (typeId != null) {
+      wrapper.eq("type_id", typeId);
+    }
     return wrapper;
   }
 }

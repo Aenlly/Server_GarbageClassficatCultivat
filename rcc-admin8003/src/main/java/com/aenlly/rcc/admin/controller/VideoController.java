@@ -4,7 +4,7 @@ import com.aenlly.rcc.admin.service.IVideoService;
 import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.utils.CommonResult;
-import com.aenlly.rcc.utils.enums.QueryVideoType;
+import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -30,17 +30,17 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/video")
 public class VideoController {
   /** 视频信息表服务类 */
-  @Resource private IVideoService videoService;
+  @Resource private IVideoService service;
 
   @ApiOperation(value = "请求视频信息数据据", httpMethod = "GET")
   @GetMapping("/getList")
   public CommonResult<IPage<Video>> getVideoList(
       @Param("当前页码") @RequestParam("current") Integer current,
       @Param("每页数量") @RequestParam("size") Integer size,
-      @Param("查询类型") @RequestParam("queryType") QueryVideoType queryType,
+      @Param("查询类型") @RequestParam("queryType") QueryVideoTypeEnum queryType,
       @Param("查询内容") @RequestParam("text") String text) {
     try {
-      IPage<Video> list = videoService.getList(new Page<>(current, size), queryType, text);
+      IPage<Video> list = service.getList(new Page<>(current, size), queryType, text);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -51,7 +51,7 @@ public class VideoController {
   @DeleteMapping("/delById")
   public CommonResult<Boolean> delById(@Param("主键") @RequestParam("id") Long id) {
     try {
-      boolean b = videoService.removeById(id);
+      boolean b = service.removeById(id);
       if (b) {
         return resultOk(b);
       } else {
@@ -66,7 +66,7 @@ public class VideoController {
   @DeleteMapping("/delByIds")
   public CommonResult<Boolean> delVideoByIds(@Param("主键集合") @RequestBody List<Long> ids) {
     try {
-      boolean b = videoService.removeByIds(ids);
+      boolean b = service.removeByIds(ids);
       if (b) {
         return resultOk(true);
       } else {
@@ -81,7 +81,7 @@ public class VideoController {
   @PutMapping("/publish/{id}")
   public CommonResult<Boolean> publish(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.PUBLISH_OK);
+      Boolean check = service.updateByIdCheck(id, VideoCheckEnum.PUBLISH_OK);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -92,7 +92,7 @@ public class VideoController {
   @PutMapping("/shelf/{id}")
   public CommonResult<Boolean> shelf(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.PUBLISH_NOT);
+      Boolean check = service.updateByIdCheck(id, VideoCheckEnum.PUBLISH_NOT);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -103,7 +103,7 @@ public class VideoController {
   @PutMapping("/top/{id}")
   public CommonResult<Boolean> top(@Param("主键") @PathVariable("id") Long id) {
     try {
-      Boolean check = videoService.updateByIdCheck(id, VideoCheckEnum.TOP);
+      Boolean check = service.updateByIdCheck(id, VideoCheckEnum.TOP);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();
@@ -115,7 +115,7 @@ public class VideoController {
   public CommonResult<String> uploadVideo(
       @Param("视频文件") @RequestPart("videoFile") MultipartFile file) {
     try {
-      String filePath = videoService.uploadVideo(file);
+      String filePath = service.uploadVideo(file);
       return resultOk(filePath);
     } catch (Exception e) {
       return resultError();
@@ -127,7 +127,7 @@ public class VideoController {
   public CommonResult<String> uploadImage(
       @Param("封面文件") @RequestPart("imageFile") MultipartFile file) {
     try {
-      String filePath = videoService.uploadImage(file);
+      String filePath = service.uploadImage(file);
       return resultOk(filePath);
     } catch (Exception e) {
       return resultError();
@@ -138,7 +138,7 @@ public class VideoController {
   @PostMapping("/create")
   public CommonResult<Boolean> create(@Param("视频信息") Video video) {
     try {
-      Boolean save = videoService.create(video);
+      Boolean save = service.create(video);
       return resultOk(save);
     } catch (Exception e) {
       return resultError();
@@ -149,7 +149,7 @@ public class VideoController {
   @PutMapping("/update")
   public CommonResult<Boolean> update(@Param("视频信息") Video video) {
     try {
-      Boolean save = videoService.update(video);
+      Boolean save = service.update(video);
       return resultOk(save);
     } catch (Exception e) {
       return resultError();
