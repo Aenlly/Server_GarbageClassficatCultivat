@@ -79,7 +79,7 @@ public class GarbageListController {
   @ApiOperation(value = "上传垃圾图标请求", httpMethod = "POST")
   @PostMapping("/uploadImage")
   public CommonResult<String> uploadImage(
-      @Param("轮播图") @RequestPart("imageFile") MultipartFile file) {
+      @Param("垃圾类条目图标") @RequestPart("imageFile") MultipartFile file) {
     try {
       String filePath = service.uploadImage(file);
       return resultOk(filePath);
@@ -90,7 +90,7 @@ public class GarbageListController {
 
   @ApiOperation(value = "新增所属垃圾类型条目信息请求", httpMethod = "POST")
   @PostMapping("/create")
-  public CommonResult<Boolean> create(@Param("轮播信息") GarbageList entity) {
+  public CommonResult<Boolean> create(@Param("垃圾类条目信息") GarbageList entity) {
     try {
       Boolean save = service.create(entity);
       return resultOk(save);
@@ -101,7 +101,7 @@ public class GarbageListController {
 
   @ApiOperation(value = "更新所属垃圾类型条目信息请求", httpMethod = "PUT")
   @PutMapping("/update")
-  public CommonResult<Boolean> update(@Param("轮播信息") GarbageList entity) {
+  public CommonResult<Boolean> update(@Param("垃圾类条目信息") GarbageList entity) {
     try {
       Boolean save = service.update(entity);
       return resultOk(save);

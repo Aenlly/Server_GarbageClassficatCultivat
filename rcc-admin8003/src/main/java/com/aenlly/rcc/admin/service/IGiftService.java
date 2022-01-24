@@ -43,4 +43,30 @@ public interface IGiftService extends IService<Gift> {
    * @return 是否成功
    */
   Boolean create(GiftListView entity);
+
+  /**
+   * 更新信息到数据库中
+   *
+   * @param entity 更新实体
+   * @return 是否成功
+   */
+  Boolean update(GiftListView entity);
+
+  /**
+   * 增加礼品的库存值
+   *
+   * @param id 礼品编号
+   * @param number 增加的数量
+   * @return 是否成功
+   */
+  Boolean addNumber(Long id, Long number);
+
+  /**
+   * 减少礼品的库存值
+   *
+   * @param id 礼品编号
+   * @param number 增加的数量
+   * @return 是否成功
+   */
+  Boolean cutNumber(Long id, Long number);
 }

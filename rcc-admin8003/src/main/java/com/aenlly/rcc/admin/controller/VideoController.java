@@ -64,7 +64,7 @@ public class VideoController {
 
   @ApiOperation(value = "根据id集合执行批量删除请求", httpMethod = "DELETE")
   @DeleteMapping("/delByIds")
-  public CommonResult<Boolean> delVideoByIds(@Param("主键集合") @RequestBody List<Long> ids) {
+  public CommonResult<Boolean> delByIds(@Param("主键集合") @RequestBody List<Long> ids) {
     try {
       boolean b = service.removeByIds(ids);
       if (b) {

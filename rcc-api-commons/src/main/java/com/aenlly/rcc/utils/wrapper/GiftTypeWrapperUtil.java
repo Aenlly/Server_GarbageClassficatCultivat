@@ -24,4 +24,15 @@ public class GiftTypeWrapperUtil {
     wrapper.select("id", "type_name").like("type_name", text);
     return wrapper;
   }
+
+  /**
+   * 根据查询内容，获取操作对象
+   *
+   * @param text 查询内容
+   */
+  public static Wrapper<GiftType> queryListPage(String text) {
+    QueryWrapper<GiftType> wrapper = new QueryWrapper<>();
+    wrapper.like("type_name", text);
+    return wrapper;
+  }
 }

@@ -57,7 +57,7 @@ public class GarbageController {
   @ApiOperation(value = "上传图标请求", httpMethod = "POST")
   @PostMapping("/uploadImage")
   public CommonResult<String> uploadImage(
-      @Param("轮播图") @RequestPart("imageFile") MultipartFile file) {
+      @Param("垃圾类型图标") @RequestPart("imageFile") MultipartFile file) {
     try {
       String filePath = service.uploadImage(file);
       return resultOk(filePath);
@@ -68,7 +68,7 @@ public class GarbageController {
 
   @ApiOperation(value = "更新垃圾类型信息请求", httpMethod = "PUT")
   @PutMapping("/update")
-  public CommonResult<Boolean> update(@Param("轮播信息") Garbage entity) {
+  public CommonResult<Boolean> update(@Param("垃圾类型信息") Garbage entity) {
     try {
       Boolean save = service.update(entity);
       return resultOk(save);

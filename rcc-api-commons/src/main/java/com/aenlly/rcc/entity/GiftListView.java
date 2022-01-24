@@ -22,7 +22,7 @@ import java.math.BigDecimal;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({"typeId", "deleteFlag", "version"}) // json序列传递前端时忽略
+@JsonIgnoreProperties({"deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "礼品信息视图GiftListView对象", description = "礼品信息表与礼品条目表 联合视图")
 public class GiftListView implements Serializable {
 
@@ -50,6 +50,7 @@ public class GiftListView implements Serializable {
   private Long point;
 
   @ApiModelProperty(value = "礼品价格")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private BigDecimal price;
 
   @ApiModelProperty(value = "浏览量")

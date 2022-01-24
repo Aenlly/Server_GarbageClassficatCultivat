@@ -42,6 +42,7 @@ public class Gift implements Serializable {
   private String imgUrl;
 
   @ApiModelProperty(value = "所需积分")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long point;
 
   @ApiModelProperty(value = "礼品价格")
@@ -52,15 +53,16 @@ public class Gift implements Serializable {
   private Integer typeId;
 
   @ApiModelProperty(value = "浏览量")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   @TableField("browse_count")
   private Long browseCount;
 
   @ApiModelProperty(value = "信息插入时间")
-  @TableField("create_time")
+  @TableField(value = "create_time", fill = FieldFill.INSERT)
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
-  @TableField("update_time")
+  @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")

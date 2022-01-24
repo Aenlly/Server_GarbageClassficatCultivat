@@ -48,4 +48,10 @@ public class GiftWrapperUtil {
     }
     return wrapper;
   }
+
+  public static Wrapper<GiftInfo> delByGiftId(Long id, Long number) {
+    QueryWrapper<GiftInfo> wrapper = new QueryWrapper<>();
+    wrapper.select("id").eq("gift_id", id).eq("state", 1).last("limit " + number);
+    return wrapper;
+  }
 }

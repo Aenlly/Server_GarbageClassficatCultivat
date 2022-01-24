@@ -38,7 +38,7 @@ public class GiftController {
       @Param("每页数量") @RequestParam("size") Integer size,
       @Param("查询类型") @RequestParam("queryType") QueryGiftTypeEnum queryType,
       @Param("查询内容") @RequestParam("text") String text,
-      @Param("核销状态(非必须)") @RequestParam(value = "giftType", required = false) Long typeId) {
+      @Param("类型编号(非必须)") @RequestParam(value = "giftType", required = false) Long typeId) {
     try {
       IPage<GiftListView> list =
           service.getList(new Page<>(current, size), queryType, text, typeId);
@@ -96,6 +96,43 @@ public class GiftController {
     try {
       Boolean save = service.create(entity);
       return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "更新礼品信息请求", httpMethod = "PUT")
+  @PutMapping("/update")
+  public CommonResult<Boolean> update(@Param("礼品信息") GiftListView entity) {
+    try {
+      Boolean save = service.update(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "增加库存", httpMethod = "PUT")
+  @PutMapping("/addNumber")
+  public CommonResult<Boolean> addNumber(
+      @Param("主键") @RequestParam("id") Long id,
+      @Param("增加的库存值") @RequestParam("number") Long number) {
+    try {
+      Boolean check = service.addNumber(id, number);
+      return resultOk(check);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "减少库存", httpMethod = "PUT")
+  @PutMapping("/cutNumber")
+  public CommonResult<Boolean> cutNumber(
+      @Param("主键") @RequestParam("id") Long id,
+      @Param("减少的库存值") @RequestParam("number") Long number) {
+    try {
+      Boolean check = service.cutNumber(id, number);
+      return resultOk(check);
     } catch (Exception e) {
       return resultError();
     }
