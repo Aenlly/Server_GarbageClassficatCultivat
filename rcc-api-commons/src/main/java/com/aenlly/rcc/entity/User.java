@@ -38,15 +38,15 @@ public class User implements Serializable {
 
   @ApiModelProperty(value = "累计积分")
   @TableField("accumulative_points")
-  private Integer accumulativePoints;
+  private Long accumulativePoints;
 
   @ApiModelProperty(value = "剩余积分")
   @TableField("remaining_points")
-  private Integer remainingPoints;
+  private Long remainingPoints;
 
   @ApiModelProperty(value = "答题总积分")
   @TableField("answer_points")
-  private Integer answerPoints;
+  private Long answerPoints;
 
   @ApiModelProperty(value = "头衔id")
   @TableField("points_id")

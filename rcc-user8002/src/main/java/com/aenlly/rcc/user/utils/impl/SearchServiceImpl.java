@@ -3,14 +3,14 @@ package com.aenlly.rcc.user.utils.impl;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.aenlly.rcc.entity.GarbageLibrary;
-import com.aenlly.rcc.entity.UserSearch;
+import com.aenlly.rcc.entity.SearchLibrary;
+import com.aenlly.rcc.entity.SearchUser;
 import com.aenlly.rcc.enums.SearchTypeEnum;
-import com.aenlly.rcc.user.service.IGarbageLibraryService;
-import com.aenlly.rcc.user.service.IUserSearchService;
-import com.aenlly.rcc.utils.AuthService;
-import com.aenlly.rcc.user.utils.GarbageLibraryAdd;
+import com.aenlly.rcc.service.ISearchLibraryService;
+import com.aenlly.rcc.service.ISearchUserService;
 import com.aenlly.rcc.user.utils.ISearchService;
+import com.aenlly.rcc.user.utils.SearchLibraryAdd;
+import com.aenlly.rcc.utils.AuthService;
 import com.aenlly.rcc.utils.baidu.Base64Util;
 import com.aenlly.rcc.utils.baidu.HttpUtil;
 import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
@@ -44,13 +44,13 @@ import static com.aenlly.rcc.utils.SearchApi.*;
 @Slf4j
 public class SearchServiceImpl implements ISearchService {
   /** 垃圾分类库的服务 */
-  @Resource private IGarbageLibraryService garbageLibraryService;
+  @Resource private ISearchLibraryService searchLibraryService;
   /** http请求对象 */
   @Resource private RestTemplate template;
   /** 用户搜索服务对象 */
-  @Resource private IUserSearchService userSearchService;
+  @Resource private ISearchUserService searchUserService;
   /** 插入数据库未拥有的数据对象 */
-  @Resource private GarbageLibraryAdd garbageLibraryAdd;
+  @Resource private SearchLibraryAdd searchLibraryAdd;
 
   /**
    * 垃圾类型文本搜索
@@ -61,24 +61,24 @@ public class SearchServiceImpl implements ISearchService {
    * @return 搜索的垃圾所属类型集合
    */
   @Override
-  public Collection<GarbageLibrary> searchText(
+  public Collection<SearchLibrary> searchText(
       String name, String userId, SearchTypeEnum searchTypeEnum) {
     // 增加搜索记录
     if (StringUtils.isNotBlank(userId)) {
-      UserSearch userSearch = new UserSearch(name, searchTypeEnum, userId);
-      boolean save = userSearchService.save(userSearch);
+      SearchUser searchUser = new SearchUser(name, searchTypeEnum, userId);
+      boolean save = searchUserService.save(searchUser);
       if (!save) {
         return null;
       }
     }
     // 下列进行搜索，单个查询，然后进行去重
     char[] chars = name.toCharArray();
-    Map<Integer, GarbageLibrary> map = new HashMap<>();
+    Map<Integer, SearchLibrary> map = new HashMap<>();
     for (char c : chars) {
-      Wrapper<GarbageLibrary> queryWrapper = QueryWrapperUtil.getSearchText(c);
-      List<GarbageLibrary> list = garbageLibraryService.list(queryWrapper);
-      for (GarbageLibrary garbageLibrary : list) {
-        map.put(garbageLibrary.getId(), garbageLibrary);
+      Wrapper<SearchLibrary> queryWrapper = QueryWrapperUtil.getSearchText(c);
+      List<SearchLibrary> list = searchLibraryService.list(queryWrapper);
+      for (SearchLibrary searchLibrary : list) {
+        map.put(searchLibrary.getId(), searchLibrary);
       }
     }
     // 在服务器库中存在垃圾分类的记录，则返回
@@ -124,10 +124,10 @@ public class SearchServiceImpl implements ISearchService {
    * @return 搜索记录列表
    */
   @Override
-  public List<UserSearch> getSearchList(String userId) {
+  public List<SearchUser> getSearchList(String userId) {
     isNotUserId(userId);
-    Wrapper<UserSearch> queryWrapper = QueryWrapperUtil.getSearchList(userId);
-    return userSearchService.list(queryWrapper);
+    Wrapper<SearchUser> queryWrapper = QueryWrapperUtil.getSearchList(userId);
+    return searchUserService.list(queryWrapper);
   }
 
   /**
@@ -138,11 +138,11 @@ public class SearchServiceImpl implements ISearchService {
    * @return 结果集
    */
   @Override
-  public List<UserSearch> getSearchByName(String userId, String name) {
+  public List<SearchUser> getSearchByName(String userId, String name) {
     isNotUserId(userId);
     if (StringUtils.isNotBlank(name)) {
-      Wrapper<UserSearch> queryWrapper = QueryWrapperUtil.getSearchByName(userId, name);
-      return userSearchService.list(queryWrapper);
+      Wrapper<SearchUser> queryWrapper = QueryWrapperUtil.getSearchByName(userId, name);
+      return searchUserService.list(queryWrapper);
     } else {
       return getSearchList(userId);
     }
@@ -166,8 +166,8 @@ public class SearchServiceImpl implements ISearchService {
    * @param name 垃圾名称
    * @return 集合
    */
-  public Collection<GarbageLibrary> transferTextApi(String name) {
-    List<GarbageLibrary> list = new ArrayList<>();
+  public Collection<SearchLibrary> transferTextApi(String name) {
+    List<SearchLibrary> list = new ArrayList<>();
     // 拼接url,使用的api天行
     // TODO:更换调用API：TEXT_API.getValue()：http://api.tianapi.com/lajifenlei/index?key=接口key&word=%s
     String format = String.format(TEXT_API.getValue(), name);
@@ -182,7 +182,7 @@ public class SearchServiceImpl implements ISearchService {
             String name1 = next.get("name", String.class);
             Integer type = next.get("type", Integer.class);
             // 0为可回收垃圾，1为有害垃圾，2为厨余垃圾(湿垃圾)，3为其他垃圾(干垃圾)
-            GarbageLibrary library = new GarbageLibrary();
+            SearchLibrary library = new SearchLibrary();
             library.setName(name1);
             switch (type) {
               case 0:
@@ -201,7 +201,7 @@ public class SearchServiceImpl implements ISearchService {
             list.add(library);
           }
         }
-        garbageLibraryAdd.garbageLibraryAdd(list);
+        searchLibraryAdd.searchLibraryAdd(list);
 
         return list;
       }

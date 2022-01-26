@@ -1,7 +1,7 @@
 package com.aenlly.rcc.user.controller;
 
-import com.aenlly.rcc.entity.GarbageLibrary;
-import com.aenlly.rcc.entity.UserSearch;
+import com.aenlly.rcc.entity.SearchLibrary;
+import com.aenlly.rcc.entity.SearchUser;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.aenlly.rcc.user.utils.ISearchService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -33,11 +33,11 @@ public class SearchController {
 
   @ApiOperation(value = "文本搜索垃圾所属分类请求", httpMethod = "GET")
   @GetMapping("/getSearchText")
-  public CommonResult<Collection<GarbageLibrary>> getSearchText(
+  public CommonResult<Collection<SearchLibrary>> getSearchText(
       @Param("垃圾名称") @RequestParam("name") String name,
       @Param("用户编号") @RequestParam("userId") String userId,
       @Param("搜索类型") @RequestParam("type") SearchTypeEnum typeEnum) {
-    Collection<GarbageLibrary> list = searchService.searchText(name, userId, typeEnum);
+    Collection<SearchLibrary> list = searchService.searchText(name, userId, typeEnum);
     if (list != null) {
       return resultOk(list);
     }
@@ -70,10 +70,10 @@ public class SearchController {
 
   @ApiOperation(value = "用户所有搜索记录查询", httpMethod = "GET")
   @GetMapping("/get")
-  public CommonResult<List<UserSearch>> getSearchList(
+  public CommonResult<List<SearchUser>> getSearchList(
       @Param("用户编号") @RequestParam("userId") String userId) {
     try {
-      List<UserSearch> list = searchService.getSearchList(userId);
+      List<SearchUser> list = searchService.getSearchList(userId);
       return resultOk(list);
     } catch (Exception e) {
       e.printStackTrace();
@@ -83,11 +83,11 @@ public class SearchController {
 
   @ApiOperation(value = "用户搜索记录条件查询", httpMethod = "GET")
   @GetMapping("/getSearchByName")
-  public CommonResult<List<UserSearch>> getSearchByName(
+  public CommonResult<List<SearchUser>> getSearchByName(
       @Param("用户编号") @RequestParam("userId") String userId,
       @Param("搜索记录中的垃圾名称") @RequestParam("name") String name) {
     try {
-      List<UserSearch> list = searchService.getSearchByName(userId, name);
+      List<SearchUser> list = searchService.getSearchByName(userId, name);
       return resultOk(list);
     } catch (Exception e) {
       e.printStackTrace();

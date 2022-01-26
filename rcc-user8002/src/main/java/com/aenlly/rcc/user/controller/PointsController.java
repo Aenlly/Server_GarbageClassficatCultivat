@@ -36,8 +36,8 @@ public class PointsController {
       List<Points> list = pointsService.list();
       list.sort(
           (o1, o2) -> {
-            Integer integer = o1.getPointsRequire();
-            Integer integer1 = o2.getPointsRequire();
+            Long integer = o1.getPointsRequire();
+            Long integer1 = o2.getPointsRequire();
             return integer.compareTo(integer1);
           });
       return resultOk(list);

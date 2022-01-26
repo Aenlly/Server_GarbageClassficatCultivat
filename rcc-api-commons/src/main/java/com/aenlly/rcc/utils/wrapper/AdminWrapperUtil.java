@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
  * @create by date 2022/01/08 20:08
  * @projectName RefuseClassificationCultivate
  */
-public class adminWrapperUtil {
+public class AdminWrapperUtil {
 
   /**
    * 利用账号与密码，创建查询对象

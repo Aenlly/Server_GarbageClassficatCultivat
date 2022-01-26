@@ -51,5 +51,5 @@ public interface IUserService extends IService<User> {
    * @param point 所减少的量
    * @return 是否成功
    */
-  Boolean updatePointReduce(User user, Integer point);
+  Boolean updatePointReduce(User user, Long point);
 }

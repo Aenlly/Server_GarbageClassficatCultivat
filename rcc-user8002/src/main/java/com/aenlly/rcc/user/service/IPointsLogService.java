@@ -49,5 +49,5 @@ public interface IPointsLogService extends IService<PointsLog> {
    * @param desc 描述
    * @return 是否成功
    */
-  boolean giftLog(String userId, Integer points, String desc);
+  boolean giftLog(String userId, Long points, String desc);
 }

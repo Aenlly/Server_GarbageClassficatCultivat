@@ -3,6 +3,7 @@ package com.aenlly.rcc.entity;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -14,15 +15,25 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 首页用户搜索库表
+ *
  * @author aenlly
- * @since 2021-12-14
+ * @since 2022-01-26
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "用户搜索记录对象", description = "")
-public class UserSearch implements Serializable {
+@JsonIgnoreProperties({
+  "searchId",
+  "userId",
+  "createTime",
+  "updateTime",
+  "deleteFlag",
+  "version"
+}) // json序列传递前端时忽略
+@ApiModel(value = "用户搜索记录对象", description = "首页用户搜索库表")
+public class SearchUser implements Serializable {
 
   private static final long serialVersionUID = 8406083679967308845L;
 
@@ -60,7 +71,7 @@ public class UserSearch implements Serializable {
   @Version
   private Integer version;
 
-  public UserSearch(String name, SearchTypeEnum type, String userId) {
+  public SearchUser(String name, SearchTypeEnum type, String userId) {
     this.name = name;
     this.type = type;
     this.userId = userId;

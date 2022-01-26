@@ -1,7 +1,7 @@
 package com.aenlly.rcc.user.utils;
 
-import com.aenlly.rcc.entity.GarbageLibrary;
-import com.aenlly.rcc.entity.UserSearch;
+import com.aenlly.rcc.entity.SearchLibrary;
+import com.aenlly.rcc.entity.SearchUser;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +21,7 @@ public interface ISearchService {
    * @param name 垃圾名称
    * @return 搜索的垃圾所属类型集合
    */
-  Collection<GarbageLibrary> searchText(String name, String userId, SearchTypeEnum searchTypeEnum);
+  Collection<SearchLibrary> searchText(String name, String userId, SearchTypeEnum searchTypeEnum);
 
   /**
    * 垃圾类型语音搜索
@@ -45,7 +45,7 @@ public interface ISearchService {
    * @param userId 用户编号
    * @return 搜索记录列表
    */
-  List<UserSearch> getSearchList(String userId);
+  List<SearchUser> getSearchList(String userId);
 
   /**
    * 查询用户搜索记录
@@ -54,5 +54,5 @@ public interface ISearchService {
    * @param name 搜索名称
    * @return 结果集
    */
-  List<UserSearch> getSearchByName(String userId, String name);
+  List<SearchUser> getSearchByName(String userId, String name);
 }

@@ -4,7 +4,7 @@ import com.aenlly.rcc.admin.service.IAdminTableService;
 import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.enums.AdminLoginEnum;
 import com.aenlly.rcc.mapper.AdminTableMapper;
-import com.aenlly.rcc.utils.wrapper.adminWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.AdminWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,11 +33,11 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
    */
   @Override
   public AdminTable adminLogin(String username, String password) {
-    QueryWrapper<AdminTable> telWrapper = adminWrapperUtil.adminLogin(username, AdminLoginEnum.TEL);
+    QueryWrapper<AdminTable> telWrapper = AdminWrapperUtil.adminLogin(username, AdminLoginEnum.TEL);
     AdminTable adminTable = this.baseMapper.selectOne(telWrapper);
     if (adminTable == null) {
       QueryWrapper<AdminTable> emailWrapper =
-          adminWrapperUtil.adminLogin(username, AdminLoginEnum.EMAIL);
+          AdminWrapperUtil.adminLogin(username, AdminLoginEnum.EMAIL);
       adminTable = this.baseMapper.selectOne(emailWrapper);
       if (adminTable == null) {
         throw new NullPointerException();

@@ -37,7 +37,7 @@ public class PointsLog implements Serializable {
 
   @ApiModelProperty(value = "增加/消耗的积分")
   @TableField("number")
-  private Integer number;
+  private Long number;
 
   @ApiModelProperty(value = "积分记录类型，1：增加/-1：减少")
   @TableField("type")

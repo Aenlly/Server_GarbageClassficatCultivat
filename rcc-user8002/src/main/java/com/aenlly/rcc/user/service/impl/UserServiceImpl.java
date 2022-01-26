@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
    */
   @Override
   @Transactional
-  public Boolean updatePointReduce(User user, Integer point) {
+  public Boolean updatePointReduce(User user, Long point) {
     user.setRemainingPoints(user.getRemainingPoints() - point);
     return baseMapper.updateById(user) > 0;
   }

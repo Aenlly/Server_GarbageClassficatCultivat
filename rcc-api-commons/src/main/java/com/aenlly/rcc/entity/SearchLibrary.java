@@ -11,13 +11,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 文本垃圾分类搜索库表
+ *
  * @author aenlly
- * @since 2021-12-14
+ * @since 2022-01-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "GarbageLibrary对象", description = "")
-public class GarbageLibrary implements Serializable {
+@ApiModel(value = "GarbageLibrary对象", description = "文本垃圾分类搜索库表")
+public class SearchLibrary implements Serializable {
 
   private static final long serialVersionUID = -2089535698007728855L;
 

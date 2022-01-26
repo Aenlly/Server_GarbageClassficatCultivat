@@ -160,8 +160,8 @@ public class QueryWrapperUtil {
    * @param c 搜索文本
    * @return 查询对象
    */
-  public static Wrapper<GarbageLibrary> getSearchText(char c) {
-    QueryWrapper<GarbageLibrary> wrapper = new QueryWrapper<>();
+  public static Wrapper<SearchLibrary> getSearchText(char c) {
+    QueryWrapper<SearchLibrary> wrapper = new QueryWrapper<>();
     wrapper.likeRight("name", String.valueOf(c));
     return wrapper;
   }
@@ -172,8 +172,8 @@ public class QueryWrapperUtil {
    * @param userId 用户编号
    * @return 查询对象
    */
-  public static Wrapper<UserSearch> getSearchList(String userId) {
-    QueryWrapper<UserSearch> wrapper = new QueryWrapper<>();
+  public static Wrapper<SearchUser> getSearchList(String userId) {
+    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
     wrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
     return wrapper;
   }
@@ -185,8 +185,8 @@ public class QueryWrapperUtil {
    * @param name 搜索垃圾名称
    * @return 查询对象
    */
-  public static Wrapper<UserSearch> getSearchByName(String userId, String name) {
-    QueryWrapper<UserSearch> wrapper = new QueryWrapper<>();
+  public static Wrapper<SearchUser> getSearchByName(String userId, String name) {
+    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
     wrapper
         .select("name", "type")
         .eq("user_id", userId)

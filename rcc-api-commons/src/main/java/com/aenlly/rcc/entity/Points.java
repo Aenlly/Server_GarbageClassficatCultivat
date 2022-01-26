@@ -32,7 +32,8 @@ public class Points implements Serializable {
 
   @ApiModelProperty(value = "所需积分")
   @TableField("points_require")
-  private Integer pointsRequire;
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
+  private Long pointsRequire;
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)

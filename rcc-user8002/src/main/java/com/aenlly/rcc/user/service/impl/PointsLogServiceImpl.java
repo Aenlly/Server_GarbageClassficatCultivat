@@ -83,7 +83,7 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
    * @return 是否成功
    */
   @Override
-  public boolean giftLog(String userId, Integer points, String desc) {
+  public boolean giftLog(String userId, Long points, String desc) {
     // 设置值
     pointsLog.setId(null);
     pointsLog.setUserId(userId);
