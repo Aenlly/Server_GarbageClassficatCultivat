@@ -1,5 +1,7 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.SearchTypeEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,8 +25,10 @@ public class SearchUserChartView implements Serializable {
   @ApiModelProperty(value = "搜索的垃圾名称")
   private String name;
 
+  // @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
+  @JsonProperty("data") // 指定返回的时键名
   private Long sum;
 
   @ApiModelProperty(value = "搜索类型，文本搜索，语音搜索，图片识别")
-  private Integer type;
+  private SearchTypeEnum type;
 }

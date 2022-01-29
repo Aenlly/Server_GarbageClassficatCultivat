@@ -1,7 +1,9 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.GarbageTypeEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({"updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "GarbageLibrary对象", description = "文本垃圾分类搜索库表")
 public class SearchLibrary implements Serializable {
 
@@ -31,11 +34,12 @@ public class SearchLibrary implements Serializable {
   @ApiModelProperty(value = "垃圾名称")
   private String name;
 
-  @ApiModelProperty(value = "垃圾类型")
-  private String type;
+  @ApiModelProperty(value = "垃圾类型，0：可回收垃圾，1：有害垃圾，2厨余垃圾，3其他垃圾")
+  private GarbageTypeEnum type;
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")

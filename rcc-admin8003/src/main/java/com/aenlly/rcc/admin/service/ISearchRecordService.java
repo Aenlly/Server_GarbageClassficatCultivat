@@ -16,6 +16,13 @@ import java.util.List;
  * @projectName RefuseClassificationCultivate
  */
 public interface ISearchRecordService {
+  /**
+   * 查询信息集合
+   *
+   * @param page 分页对象
+   * @param typeEnum 搜索类型
+   * @return 分页对象
+   */
   IPage<SearchUser> getList(Page<SearchUser> page, SearchTypeEnum typeEnum);
 
   /**

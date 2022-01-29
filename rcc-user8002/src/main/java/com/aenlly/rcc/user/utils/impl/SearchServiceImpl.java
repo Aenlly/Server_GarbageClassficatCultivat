@@ -5,6 +5,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.entity.SearchLibrary;
 import com.aenlly.rcc.entity.SearchUser;
+import com.aenlly.rcc.enums.GarbageTypeEnum;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.aenlly.rcc.service.ISearchLibraryService;
 import com.aenlly.rcc.service.ISearchUserService;
@@ -22,7 +23,6 @@ import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.profile.ClientProfile;
 import com.tencentcloudapi.common.profile.HttpProfile;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -41,7 +41,6 @@ import static com.aenlly.rcc.utils.SearchApi.*;
  * @projectName RefuseClassificationCultivate
  */
 @Service
-@Slf4j
 public class SearchServiceImpl implements ISearchService {
   /** 垃圾分类库的服务 */
   @Resource private ISearchLibraryService searchLibraryService;
@@ -186,16 +185,16 @@ public class SearchServiceImpl implements ISearchService {
             library.setName(name1);
             switch (type) {
               case 0:
-                library.setType("可回收垃圾");
+                library.setType(GarbageTypeEnum.RECYCLABLE);
                 break;
               case 1:
-                library.setType("有害垃圾");
+                library.setType(GarbageTypeEnum.HARMFUL);
                 break;
               case 2:
-                library.setType("厨余垃圾");
+                library.setType(GarbageTypeEnum.KITCHEN);
                 break;
               case 3:
-                library.setType("其他垃圾");
+                library.setType(GarbageTypeEnum.OTHER);
                 break;
             }
             list.add(library);

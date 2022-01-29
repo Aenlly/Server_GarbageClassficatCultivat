@@ -30,6 +30,13 @@ public class SearchRecordServiceImpl implements ISearchRecordService {
   /** 用户搜索记录图表数据服务对象 */
   @Resource private ISearchUserChartViewService searchUserChartViewService;
 
+  /**
+   * 查询信息集合
+   *
+   * @param page 分页对象
+   * @param typeEnum 搜索类型
+   * @return 分页对象
+   */
   @Override
   public IPage<SearchUser> getList(Page<SearchUser> page, SearchTypeEnum typeEnum) {
     Wrapper<SearchUser> wrapper = SearchWrapperUtil.queryListPage(typeEnum);
