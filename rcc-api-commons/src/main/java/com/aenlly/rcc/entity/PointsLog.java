@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 用户积分记录实体类
+ *
  * @author aenlly
  * @since 2021-12-16
  */
@@ -21,7 +23,7 @@ import java.time.LocalDateTime;
 @Component
 @EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties({"updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
-@ApiModel(value = "积分记录实体对象", description = "")
+@ApiModel(value = "积分记录实体对象", description = "用户积分记录")
 public class PointsLog implements Serializable {
 
   private static final long serialVersionUID = -4272680964553763349L;
@@ -37,6 +39,7 @@ public class PointsLog implements Serializable {
 
   @ApiModelProperty(value = "增加/消耗的积分")
   @TableField("number")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long number;
 
   @ApiModelProperty(value = "积分记录类型，1：增加/-1：减少")
@@ -49,6 +52,7 @@ public class PointsLog implements Serializable {
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")

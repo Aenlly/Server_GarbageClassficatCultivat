@@ -37,6 +37,7 @@ public class Points implements Serializable {
 
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")

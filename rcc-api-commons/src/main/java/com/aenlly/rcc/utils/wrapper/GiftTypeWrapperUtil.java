@@ -35,4 +35,15 @@ public class GiftTypeWrapperUtil {
     wrapper.like("type_name", text);
     return wrapper;
   }
+
+  /**
+   * 获得用户积分礼品显示的类型内容操作对象
+   *
+   * @return 查询对象
+   */
+  public static Wrapper<GiftType> getUserGiftTypeList() {
+    QueryWrapper<GiftType> wrapper = new QueryWrapper<>();
+    wrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
+    return wrapper;
+  }
 }

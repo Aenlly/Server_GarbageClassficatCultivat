@@ -2,7 +2,6 @@ package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.OrderStateEnum;
-import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -141,61 +140,6 @@ public class QueryWrapperUtil {
   }
 
   /**
-   * 用户服务-公益视频根据标题获得操作对象
-   *
-   * @param title 标题
-   * @return 查询对象
-   */
-  public static Wrapper<VideoUserView> getVideoByTitleList(String title) {
-    QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
-    wrapper
-        .likeRight("video_title", title)
-        .in("video_check", VideoCheckEnum.PUBLISH_OK, VideoCheckEnum.TOP);
-    return wrapper;
-  }
-
-  /**
-   * 获得用户首页-文本搜索根据文本查询对象
-   *
-   * @param c 搜索文本
-   * @return 查询对象
-   */
-  public static Wrapper<SearchLibrary> getSearchText(char c) {
-    QueryWrapper<SearchLibrary> wrapper = new QueryWrapper<>();
-    wrapper.likeRight("name", String.valueOf(c));
-    return wrapper;
-  }
-
-  /**
-   * 用户首页-搜索记录，根据用户id获得操作对象
-   *
-   * @param userId 用户编号
-   * @return 查询对象
-   */
-  public static Wrapper<SearchUser> getSearchList(String userId) {
-    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
-    wrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
-    return wrapper;
-  }
-
-  /**
-   * 用户首页-搜索记录，根据用户id与搜索垃圾名称获得操作对象
-   *
-   * @param userId 用户编号
-   * @param name 搜索垃圾名称
-   * @return 查询对象
-   */
-  public static Wrapper<SearchUser> getSearchByName(String userId, String name) {
-    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
-    wrapper
-        .select("name", "type")
-        .eq("user_id", userId)
-        .likeRight("name", name)
-        .orderBy(true, false, "create_time");
-    return wrapper;
-  }
-
-  /**
    * 根据用户id与查询标题 变废为宝的收藏需要加上实体名称 来获得操作对象
    *
    * @param userId 用户id
@@ -224,33 +168,6 @@ public class QueryWrapperUtil {
   }
 
   /**
-   * 根据礼品名称、类型获得操作对象
-   *
-   * @param name 礼品名称
-   * @param type 礼品类型
-   * @return 查询对象
-   */
-  public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
-    QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
-    wrapper.select("gift_id", "gift_name", "img_url", "point", "price").like("gift_name", name);
-    if (type != -1) {
-      wrapper.eq("type_id", type);
-    }
-    return wrapper;
-  }
-
-  /**
-   * 获得用户积分礼品显示的类型内容操作对象
-   *
-   * @return 查询对象
-   */
-  public static Wrapper<GiftType> getUserGiftTypeList() {
-    QueryWrapper<GiftType> wrapper = new QueryWrapper<>();
-    wrapper.select("id", "type_name", "img_url").eq("gift_show", 1).last("limit 4");
-    return wrapper;
-  }
-
-  /**
    * 根据用户编号与订单状态获得操作对象
    *
    * @param userId 用户编号
@@ -260,73 +177,6 @@ public class QueryWrapperUtil {
   public static Wrapper<OrderUserView> getOrderUserList(String userId, OrderStateEnum state) {
     QueryWrapper<OrderUserView> wrapper = new QueryWrapper<>();
     wrapper.eq("user_id", userId).eq("state", state.getName()).orderByDesc("create_time");
-    return wrapper;
-  }
-
-  /**
-   * 根据累积积分获得下一等级操作对象
-   *
-   * @param points 累积积分
-   * @return 查询对象
-   */
-  public static Wrapper<Points> getNextLevel(Integer points) {
-    QueryWrapper<Points> wrapper = new QueryWrapper<>();
-    wrapper
-        .select("points_id", "points_name", "points_require")
-        .gt("points_require", points)
-        .last("limit 1");
-    return wrapper;
-  }
-
-  /**
-   * 根据累积积分获得当前等级操作对象
-   *
-   * @param points 累积积分
-   * @return 查询对象
-   */
-  public static Wrapper<Points> getCurrentLevel(Integer points) {
-    QueryWrapper<Points> wrapper = new QueryWrapper<>();
-    wrapper
-        .select("points_id", "points_name", "points_require")
-        .le("points_require", points)
-        .orderByDesc("points_require")
-        .last("limit 1");
-    return wrapper;
-  }
-
-  public static Wrapper<PointsLog> getPointsLogBy(String userId, Integer type) {
-    QueryWrapper<PointsLog> wrapper = new QueryWrapper<>();
-    wrapper.select("log_desc", "number", "type", "create_time").eq("user_id", userId);
-    if (type != 0) {
-      wrapper.eq("type", type);
-    }
-    return wrapper;
-  }
-
-  /**
-   * 签到前根据用户编号判断是否已签到，获得操作对象
-   *
-   * @param userId 用户编号
-   * @return 查询对象
-   */
-  public static Wrapper<PointsLog> isDailyCheck(String userId) {
-    QueryWrapper<PointsLog> wrapper = new QueryWrapper<>();
-    wrapper
-        .eq("user_id", userId)
-        .apply("TO_DAYS(create_time) = TO_DAYS(NOW())") // 查询当天的数据
-        .eq("log_desc", PointsLogDescEnum.DAILY_CHECK.getValue());
-    return wrapper;
-  }
-
-  /**
-   * 根据用户编号 只获取昵称与头像操作对象
-   *
-   * @param id 用户编号
-   * @return 查询对象
-   */
-  public static Wrapper<User> getNameAndAvatarById(String id) {
-    QueryWrapper<User> wrapper = new QueryWrapper<>();
-    wrapper.select("nick_name", "avatar_url").eq("user_id", id);
     return wrapper;
   }
 }

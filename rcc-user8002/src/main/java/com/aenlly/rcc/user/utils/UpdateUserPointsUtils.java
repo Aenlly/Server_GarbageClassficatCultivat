@@ -23,11 +23,14 @@ import javax.annotation.Resource;
 @Component
 public class UpdateUserPointsUtils {
 
-  @Resource PointsLog pointsLog;
-  @Resource IUserService userService;
-  @Resource IPointsLogService pointsLogService;
-
-  @Resource IPointsService pointsService;
+  /** 用户积分记录实体对象 */
+  @Resource private PointsLog pointsLog;
+  /** 用户信息服务对象 */
+  @Resource private IUserService userService;
+  /** 积分记录服务对象 */
+  @Resource private IPointsLogService pointsLogService;
+  /** 积分头衔服务对象 */
+  @Resource private IPointsService pointsService;
 
   /**
    * 签到获取获取判断
@@ -106,7 +109,7 @@ public class UpdateUserPointsUtils {
   private boolean pointsLogAdd(String userId, Integer points) {
     // 设置积分记录类型
     pointsLog.setType(PointsLogTypeEnum.ADD);
-    return savePointsLog(userId, points);
+    return savePointsLog(userId, Long.valueOf(points));
   }
 
   /**
@@ -116,7 +119,7 @@ public class UpdateUserPointsUtils {
    * @param points 积分
    */
   @Transactional
-  public boolean savePointsLog(String userId, Integer points) {
+  public boolean savePointsLog(String userId, Long points) {
     pointsLog.setId(null);
     // 设置积分值
     pointsLog.setNumber(points);

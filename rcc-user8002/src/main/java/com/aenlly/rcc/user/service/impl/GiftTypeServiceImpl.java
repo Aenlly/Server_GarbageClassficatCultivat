@@ -3,7 +3,7 @@ package com.aenlly.rcc.user.service.impl;
 import com.aenlly.rcc.entity.GiftType;
 import com.aenlly.rcc.mapper.GiftTypeMapper;
 import com.aenlly.rcc.user.service.IGiftTypeService;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.GiftTypeWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class GiftTypeServiceImpl extends ServiceImpl<GiftTypeMapper, GiftType>
    */
   @Override
   public List<GiftType> getUserGiftTypeList() {
-    Wrapper<GiftType> wrapper = QueryWrapperUtil.getUserGiftTypeList();
+    Wrapper<GiftType> wrapper = GiftTypeWrapperUtil.getUserGiftTypeList();
     return baseMapper.selectList(wrapper);
   }
 }

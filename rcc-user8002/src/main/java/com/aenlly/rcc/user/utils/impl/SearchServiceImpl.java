@@ -14,7 +14,7 @@ import com.aenlly.rcc.user.utils.SearchLibraryAdd;
 import com.aenlly.rcc.utils.AuthService;
 import com.aenlly.rcc.utils.baidu.Base64Util;
 import com.aenlly.rcc.utils.baidu.HttpUtil;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.SearchWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.tencentcloudapi.asr.v20190614.AsrClient;
 import com.tencentcloudapi.asr.v20190614.models.SentenceRecognitionRequest;
@@ -74,7 +74,7 @@ public class SearchServiceImpl implements ISearchService {
     char[] chars = name.toCharArray();
     Map<Integer, SearchLibrary> map = new HashMap<>();
     for (char c : chars) {
-      Wrapper<SearchLibrary> queryWrapper = QueryWrapperUtil.getSearchText(c);
+      Wrapper<SearchLibrary> queryWrapper = SearchWrapperUtil.getSearchText(c);
       List<SearchLibrary> list = searchLibraryService.list(queryWrapper);
       for (SearchLibrary searchLibrary : list) {
         map.put(searchLibrary.getId(), searchLibrary);
@@ -125,7 +125,7 @@ public class SearchServiceImpl implements ISearchService {
   @Override
   public List<SearchUser> getSearchList(String userId) {
     isNotUserId(userId);
-    Wrapper<SearchUser> queryWrapper = QueryWrapperUtil.getSearchList(userId);
+    Wrapper<SearchUser> queryWrapper = SearchWrapperUtil.getSearchList(userId);
     return searchUserService.list(queryWrapper);
   }
 
@@ -140,7 +140,7 @@ public class SearchServiceImpl implements ISearchService {
   public List<SearchUser> getSearchByName(String userId, String name) {
     isNotUserId(userId);
     if (StringUtils.isNotBlank(name)) {
-      Wrapper<SearchUser> queryWrapper = QueryWrapperUtil.getSearchByName(userId, name);
+      Wrapper<SearchUser> queryWrapper = SearchWrapperUtil.getSearchByName(userId, name);
       return searchUserService.list(queryWrapper);
     } else {
       return getSearchList(userId);

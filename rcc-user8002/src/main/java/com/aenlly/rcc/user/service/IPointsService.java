@@ -24,5 +24,5 @@ public interface IPointsService extends IService<Points> {
    * @param points 累积积分
    * @return 当前等级
    */
-  Points getCurrentLevel(Integer points);
+  Points getCurrentLevel(Long points);
 }

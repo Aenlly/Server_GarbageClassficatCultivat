@@ -54,4 +54,20 @@ public class GiftWrapperUtil {
     wrapper.select("id").eq("gift_id", id).eq("state", 1).last("limit " + number);
     return wrapper;
   }
+
+  /**
+   * 根据礼品名称、类型获得操作对象
+   *
+   * @param name 礼品名称
+   * @param type 礼品类型
+   * @return 查询对象
+   */
+  public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
+    QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
+    wrapper.select("gift_id", "gift_name", "img_url", "point", "price").like("gift_name", name);
+    if (type != -1) {
+      wrapper.eq("type_id", type);
+    }
+    return wrapper;
+  }
 }

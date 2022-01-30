@@ -3,7 +3,7 @@ package com.aenlly.rcc.user.service.impl;
 import com.aenlly.rcc.entity.Points;
 import com.aenlly.rcc.mapper.PointsMapper;
 import com.aenlly.rcc.user.service.IPointsService;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.PointsWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
    */
   @Override
   public Points getNextLevel(Integer points) {
-    Wrapper<Points> wrapper = QueryWrapperUtil.getNextLevel(points);
+    Wrapper<Points> wrapper = PointsWrapperUtil.getNextLevel(points);
     return baseMapper.selectOne(wrapper);
   }
 
@@ -35,8 +35,8 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
    * @return 当前等级
    */
   @Override
-  public Points getCurrentLevel(Integer points) {
-    Wrapper<Points> wrapper = QueryWrapperUtil.getCurrentLevel(points);
+  public Points getCurrentLevel(Long points) {
+    Wrapper<Points> wrapper = PointsWrapperUtil.getCurrentLevel(points);
     return baseMapper.selectOne(wrapper);
   }
 }

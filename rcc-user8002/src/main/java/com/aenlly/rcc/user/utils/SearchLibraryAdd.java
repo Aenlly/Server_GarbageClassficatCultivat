@@ -6,6 +6,7 @@ package com.aenlly.rcc.user.utils;
  * @projectName RefuseClassificationCultivate
  */
 import com.aenlly.rcc.entity.SearchLibrary;
+import com.aenlly.rcc.service.ISearchLibraryService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

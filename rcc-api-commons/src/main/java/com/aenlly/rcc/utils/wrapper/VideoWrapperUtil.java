@@ -1,6 +1,7 @@
 package com.aenlly.rcc.utils.wrapper;
 
 import com.aenlly.rcc.entity.Video;
+import com.aenlly.rcc.entity.VideoUserView;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -52,6 +53,20 @@ public class VideoWrapperUtil {
   public static Wrapper<Video> updateVideoByCheck(VideoCheckEnum videoCheckEnum) {
     UpdateWrapper<Video> wrapper = new UpdateWrapper<>();
     wrapper.set("video_check", VideoCheckEnum.PUBLISH_OK).eq("video_check", videoCheckEnum);
+    return wrapper;
+  }
+
+  /**
+   * 用户服务-公益视频根据标题获得操作对象
+   *
+   * @param title 标题
+   * @return 查询对象
+   */
+  public static Wrapper<VideoUserView> getVideoByTitleList(String title) {
+    QueryWrapper<VideoUserView> wrapper = new QueryWrapper<>();
+    wrapper
+        .likeRight("video_title", title)
+        .in("video_check", VideoCheckEnum.PUBLISH_OK, VideoCheckEnum.TOP);
     return wrapper;
   }
 }

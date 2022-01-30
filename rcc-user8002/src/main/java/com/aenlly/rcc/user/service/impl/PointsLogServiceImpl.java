@@ -6,7 +6,7 @@ import com.aenlly.rcc.enums.PointsLogTypeEnum;
 import com.aenlly.rcc.mapper.PointsLogMapper;
 import com.aenlly.rcc.user.service.IPointsLogService;
 import com.aenlly.rcc.user.utils.UpdateUserPointsUtils;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.PointsWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
    */
   @Override
   public List<PointsLog> getPointsLogByUserIdList(String userId, Integer type) {
-    Wrapper<PointsLog> wrapper = QueryWrapperUtil.getPointsLogBy(userId, type);
+    Wrapper<PointsLog> wrapper = PointsWrapperUtil.getPointsLogBy(userId, type);
     return baseMapper.selectList(wrapper);
   }
 
@@ -51,7 +51,7 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
   @Override
   @Transactional // 事务回滚
   public boolean dailyCheck(String userId) {
-    Wrapper<PointsLog> wrapper = QueryWrapperUtil.isDailyCheck(userId);
+    Wrapper<PointsLog> wrapper = PointsWrapperUtil.isDailyCheck(userId);
     // 判断是否已签到
     Long count = baseMapper.selectCount(wrapper);
     if (count == 0) {

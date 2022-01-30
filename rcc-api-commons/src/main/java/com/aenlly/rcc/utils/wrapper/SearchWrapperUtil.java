@@ -38,4 +38,45 @@ public class SearchWrapperUtil {
     wrapper.like("name", text);
     return wrapper;
   }
+
+  /**
+   * 获得用户首页-文本搜索根据文本查询对象
+   *
+   * @param c 搜索文本
+   * @return 查询对象
+   */
+  public static Wrapper<SearchLibrary> getSearchText(char c) {
+    QueryWrapper<SearchLibrary> wrapper = new QueryWrapper<>();
+    wrapper.likeRight("name", String.valueOf(c));
+    return wrapper;
+  }
+
+  /**
+   * 用户首页-搜索记录，根据用户id获得操作对象
+   *
+   * @param userId 用户编号
+   * @return 查询对象
+   */
+  public static Wrapper<SearchUser> getSearchList(String userId) {
+    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
+    wrapper.select("name", "type").eq("user_id", userId).orderBy(true, false, "create_time");
+    return wrapper;
+  }
+
+  /**
+   * 用户首页-搜索记录，根据用户id与搜索垃圾名称获得操作对象
+   *
+   * @param userId 用户编号
+   * @param name 搜索垃圾名称
+   * @return 查询对象
+   */
+  public static Wrapper<SearchUser> getSearchByName(String userId, String name) {
+    QueryWrapper<SearchUser> wrapper = new QueryWrapper<>();
+    wrapper
+        .select("name", "type")
+        .eq("user_id", userId)
+        .likeRight("name", name)
+        .orderBy(true, false, "create_time");
+    return wrapper;
+  }
 }

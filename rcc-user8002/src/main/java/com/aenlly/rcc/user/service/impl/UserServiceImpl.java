@@ -3,7 +3,6 @@ package com.aenlly.rcc.user.service.impl;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.mapper.UserMapper;
 import com.aenlly.rcc.user.service.IUserService;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.aenlly.rcc.utils.wrapper.UserWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -63,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
    */
   @Override
   public User getNameAndAvatarById(String id) {
-    Wrapper<User> wrapper = QueryWrapperUtil.getNameAndAvatarById(id);
+    Wrapper<User> wrapper = UserWrapperUtil.getNameAndAvatarById(id);
     return baseMapper.selectOne(wrapper);
   }
 

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 订单信息查询类型枚举类
+ *
  * @author Aenlly
  * @create by date 2022/01/17 16:19
  * @projectName RefuseClassificationCultivate

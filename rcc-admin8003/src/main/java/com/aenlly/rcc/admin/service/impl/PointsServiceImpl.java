@@ -1,9 +1,8 @@
 package com.aenlly.rcc.admin.service.impl;
 
-import com.aenlly.rcc.admin.service.IPointsLogService;
-import com.aenlly.rcc.entity.PointsLog;
-import com.aenlly.rcc.mapper.PointsLogMapper;
-import com.aenlly.rcc.utils.enums.QueryPointsLogTypeEnum;
+import com.aenlly.rcc.admin.service.IPointsService;
+import com.aenlly.rcc.entity.Points;
+import com.aenlly.rcc.mapper.PointsMapper;
 import com.aenlly.rcc.utils.wrapper.PointsWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,26 +11,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
- * 用户积分记录 服务实现类
+ * 积分头衔 服务实现类
  *
  * @author aenlly
- * @since 2022-01-16
+ * @since 2022-01-30
  */
 @Service
-public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog>
-    implements IPointsLogService {
+public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> implements IPointsService {
   /**
    * 查询信息集合
    *
    * @param page 分页对象
-   * @param queryType 查询类型
    * @param text 查询内容
    * @return 分页对象
    */
   @Override
-  public IPage<PointsLog> getList(
-      Page<PointsLog> page, QueryPointsLogTypeEnum queryType, String text) {
-    Wrapper<PointsLog> wrapper = PointsWrapperUtil.queryListPage(queryType, text);
+  public IPage<Points> getList(Page<Points> page, String text) {
+    Wrapper<Points> wrapper = PointsWrapperUtil.queryListPage(text);
     return this.page(page, wrapper);
   }
 }

@@ -3,7 +3,7 @@ package com.aenlly.rcc.user.service.impl;
 import com.aenlly.rcc.entity.GiftListView;
 import com.aenlly.rcc.mapper.GiftListViewMapper;
 import com.aenlly.rcc.user.service.IGiftListViewService;
-import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
+import com.aenlly.rcc.utils.wrapper.GiftWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class GiftListViewServiceImpl extends ServiceImpl<GiftListViewMapper, Gif
    */
   @Override
   public List<GiftListView> getUserGiftList(String name, Integer type) {
-    Wrapper<GiftListView> wrapper = QueryWrapperUtil.getUserGiftList(name, type);
+    Wrapper<GiftListView> wrapper = GiftWrapperUtil.getUserGiftList(name, type);
     return baseMapper.selectList(wrapper);
   }
 }
