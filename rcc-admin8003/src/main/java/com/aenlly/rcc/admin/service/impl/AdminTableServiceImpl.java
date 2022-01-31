@@ -34,11 +34,11 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
   @Override
   public AdminTable adminLogin(String username, String password) {
     QueryWrapper<AdminTable> telWrapper = AdminWrapperUtil.adminLogin(username, AdminLoginEnum.TEL);
-    AdminTable adminTable = this.baseMapper.selectOne(telWrapper);
+    AdminTable adminTable = this.getOne(telWrapper);
     if (adminTable == null) {
       QueryWrapper<AdminTable> emailWrapper =
           AdminWrapperUtil.adminLogin(username, AdminLoginEnum.EMAIL);
-      adminTable = this.baseMapper.selectOne(emailWrapper);
+      adminTable = this.getOne(emailWrapper);
       if (adminTable == null) {
         throw new NullPointerException();
       }

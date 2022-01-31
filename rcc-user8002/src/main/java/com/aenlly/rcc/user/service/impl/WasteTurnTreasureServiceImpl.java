@@ -38,7 +38,7 @@ public class WasteTurnTreasureServiceImpl
   public List<WasteTurnTreasure> queryListByTag(WasteTagEnum wasteTagEnum) {
     Wrapper<WasteTurnTreasure> wrapper =
         WasteWrapperUtil.getListByTag(null, wasteTagEnum, AuditEnum.THROUGH);
-    return baseMapper.selectList(wrapper);
+    return this.list(wrapper);
   }
 
   /**
@@ -51,7 +51,7 @@ public class WasteTurnTreasureServiceImpl
   public List<WasteTurnTreasure> queryListSearchByTitle(String title) {
     Wrapper<WasteTurnTreasure> wrapper =
         WasteWrapperUtil.getListByTitle(title, AuditEnum.THROUGH, null);
-    return baseMapper.selectList(wrapper);
+    return this.list(wrapper);
   }
 
   /**
@@ -62,9 +62,9 @@ public class WasteTurnTreasureServiceImpl
    */
   @Override
   public Boolean updateShareCount(Long id) {
-    WasteTurnTreasure view = baseMapper.selectById(id);
+    WasteTurnTreasure view = this.getById(id);
     view.setShareCount(view.getShareCount() + 1);
-    return baseMapper.updateById(view) > 0;
+    return this.updateById(view);
   }
 
   /**
@@ -90,7 +90,7 @@ public class WasteTurnTreasureServiceImpl
   @Override
   public List<WasteTurnTreasure> queryListSearchByUserIdAndTitle(String userId, String title) {
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getListByTitle(title, null, userId);
-    return baseMapper.selectList(wrapper);
+    return this.list(wrapper);
   }
 
   /**
@@ -102,7 +102,7 @@ public class WasteTurnTreasureServiceImpl
   @Override
   public Boolean removeByUserIdAndId(String userId, Long id) {
     Wrapper<WasteTurnTreasure> wrapper = WasteWrapperUtil.getDelByUserIdAndId(userId, id);
-    return baseMapper.delete(wrapper) > 0;
+    return this.remove(wrapper);
   }
 
   /**
@@ -114,8 +114,8 @@ public class WasteTurnTreasureServiceImpl
   @Override
   @Transactional
   public Boolean createUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
-    int insert = baseMapper.insert(wasteTurnTreasure);
-    if (insert > 0) {
+    boolean save = this.save(wasteTurnTreasure);
+    if (save) {
       return tmpFileService.updateBatchTmpInfo(
           wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
     }
@@ -131,8 +131,8 @@ public class WasteTurnTreasureServiceImpl
   @Override
   @Transactional
   public Boolean updateUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
-    int insert = baseMapper.updateById(wasteTurnTreasure);
-    if (insert > 0) {
+    boolean update = this.updateById(wasteTurnTreasure);
+    if (update) {
       return tmpFileService.updateBatchTmpInfo(
           wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
     }

@@ -45,7 +45,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
   @Override
   public IPage<Video> getList(Page<Video> page, QueryVideoTypeEnum queryType, String text) {
     Wrapper<Video> wrapper = VideoWrapperUtil.queryVideoListPage(queryType, text);
-    return baseMapper.selectPage(page, wrapper);
+    return this.page(page, wrapper);
   }
 
   /**
@@ -67,7 +67,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
       }
     }
     wrapper = VideoWrapperUtil.updateVideoByIdPutCheck(id, videoCheckEnum);
-    return baseMapper.update(null, wrapper) > 0;
+    return this.update(wrapper);
   }
 
   /**
@@ -103,10 +103,10 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
   public Boolean create(Video entity) {
     if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
-      baseMapper.update(null, wrapper);
+      this.update(wrapper);
     }
-    int insert = baseMapper.insert(entity);
-    if (insert > 0) {
+    boolean save = this.save(entity);
+    if (save) {
       return tmpFileService.updateBatchTmpInfo(entity.getVideoUrl(), entity.getVideoImg());
     }
     throw new NullPointerException();
@@ -121,10 +121,10 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
   public Boolean update(Video entity) {
     if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
-      baseMapper.update(null, wrapper);
+      this.update(wrapper);
     }
-    int insert = baseMapper.updateById(entity);
-    if (insert > 0) {
+    boolean b = this.updateById(entity);
+    if (b) {
       return tmpFileService.updateBatchTmpInfo(entity.getVideoUrl(), entity.getVideoImg());
     }
     throw new NullPointerException();

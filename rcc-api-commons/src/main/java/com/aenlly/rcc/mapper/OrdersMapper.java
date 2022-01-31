@@ -30,7 +30,7 @@ public interface OrdersMapper extends BaseMapper<Orders> {
   @Select(
       "select o.order_id,gi.gift_id,o.user_id,g.gift_name,gi.code,o.state,o.create_time from orders o left join "
           + "gift_info gi on o"
-          + ".gift_info_id=gi.id left join gift g  on gi.gift_id=g.gift_id ${ew.customSqlSegment}")
+          + ".gift_info_id=gi.id left join gift g  on gi.gift_id=g.gift_id  ${ew.customSqlSegment}")
   IPage<OrderVo> getOrdersInfo(
       Page<OrderVo> page, @Param(Constants.WRAPPER) Wrapper<OrderVo> wrapper);
 }

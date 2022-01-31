@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum UserUploadEnum implements BaseEnum {
+public enum IsUserUploadEnum implements BaseEnum {
   /** 是用户上传，数据库插入1 */
   YES(1, "是"),
   /** 非用户上传，数据库拆入0，默认值 */

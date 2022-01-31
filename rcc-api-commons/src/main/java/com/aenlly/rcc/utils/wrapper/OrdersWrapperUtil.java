@@ -28,7 +28,7 @@ public class OrdersWrapperUtil {
   public static Wrapper<OrderVo> queryListPage(
       QueryOrderTypeEnum queryType, String text, OrderStateEnum state) {
     QueryWrapper<OrderVo> wrapper = new QueryWrapper<>();
-    wrapper.like(queryType.getValue(), text);
+    wrapper.like(queryType.getValue(), text).eq("o.delete_flag", 0);
     if (state != null) {
       wrapper.eq("o.state", state);
     }

@@ -1,9 +1,12 @@
-package com.aenlly.rcc.entity;
+package com.aenlly.rcc.vo;
 
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.IsUserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
@@ -15,18 +18,17 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 变废为宝表
- *
- * @author aenlly
- * @since 2021-12-18
+ * @author Aenlly
+ * @create by date 2022/01/31 15:34
+ * @projectName RefuseClassificationCultivate
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({"updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
-@ApiModel(value = "WasteTurnTreasure对象", description = "变废为宝表")
-public class WasteTurnTreasure implements Serializable {
+@JsonIgnoreProperties({"deleteFlag", "version"}) // json序列传递前端时忽略
+@ApiModel(value = "变废为宝信息对象", description = "变废为宝与收藏/点赞多表")
+public class WasteTurnTreasureVo implements Serializable {
 
-  private static final long serialVersionUID = 7774823841079931305L;
+  private static final long serialVersionUID = 8450078958935227993L;
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "id", type = IdType.AUTO)
@@ -52,7 +54,7 @@ public class WasteTurnTreasure implements Serializable {
   @TableField("img_url")
   private String imgUrl;
 
-  @ApiModelProperty(value = "信息审核，-1未通过，0待审核，1已通过，3已下架")
+  @ApiModelProperty(value = "信息审核，-1未通过，0待审核，1已发布，3已下架")
   private AuditEnum audit;
 
   @ApiModelProperty(value = "是用户上传，0不是，1是")
@@ -63,8 +65,19 @@ public class WasteTurnTreasure implements Serializable {
   @TableField("promulgator_id")
   private String promulgatorId;
 
+  @ApiModelProperty(value = "点赞总数")
+  @TableField("like_count")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string,避免精度丢失
+  private Long likeCount;
+
+  @ApiModelProperty(value = "收藏总数")
+  @TableField("collect_count")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string,避免精度丢失
+  private Long collectCount;
+
   @ApiModelProperty(value = "分享总数")
   @TableField("share_count")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string,避免精度丢失
   private Long shareCount;
 
   @ApiModelProperty(value = "插入时间")
@@ -72,20 +85,8 @@ public class WasteTurnTreasure implements Serializable {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
-  @ApiModelProperty(value = "更新时间")
-  @TableField("update_time")
-  private LocalDateTime updateTime;
-
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")
   @TableField("delete_flag")
   @TableLogic
   private Boolean deleteFlag;
-
-  @ApiModelProperty(value = "版本号，用于乐观锁")
-  @Version
-  private Integer version;
-
-  @ApiModelProperty("发布者信息")
-  @TableField(exist = false) // 非数据库字段
-  private User user;
 }

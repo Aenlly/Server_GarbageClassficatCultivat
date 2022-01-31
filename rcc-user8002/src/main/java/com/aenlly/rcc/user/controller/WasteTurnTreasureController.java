@@ -4,7 +4,7 @@ import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.enums.AuditEnum;
-import com.aenlly.rcc.enums.UserUploadEnum;
+import com.aenlly.rcc.enums.IsUserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.user.service.IUserService;
@@ -74,8 +74,8 @@ public class WasteTurnTreasureController {
   public CommonResult<WasteTurnTreasure> getOneById(@Param("变废为宝编号") @PathVariable("id") Long id) {
     try {
       WasteTurnTreasure wasteTurnTreasure = wasteTurnTreasureService.getById(id);
-      if (wasteTurnTreasure.getIsUserUpload().equals(UserUploadEnum.YES)) {
-        User user = userService.getNameAndAvatarById(wasteTurnTreasure.getUserId());
+      if (wasteTurnTreasure.getIsUserUpload().equals(IsUserUploadEnum.YES)) {
+        User user = userService.getNameAndAvatarById(wasteTurnTreasure.getPromulgatorId());
         wasteTurnTreasure.setUser(user);
       }
       return resultOk(wasteTurnTreasure);

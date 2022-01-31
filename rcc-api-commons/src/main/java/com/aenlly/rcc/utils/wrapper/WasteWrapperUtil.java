@@ -64,7 +64,7 @@ public class WasteWrapperUtil {
    */
   public static Wrapper<WasteTurnTreasure> getDelByUserIdAndId(String userId, Long id) {
     QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
-    wrapper.eq("user_id", userId).eq("id", id);
+    wrapper.eq("promulgator_id", userId).eq("id", id);
     return wrapper;
   }
 }

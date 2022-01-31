@@ -19,8 +19,8 @@ public enum AuditEnum implements BaseEnum {
   Not_THROUGH(-1, "未通过"),
   /** 待审核，数据库插入0 */
   TO_AUDIT(0, "待审核"),
-  /** 已通过，数据库插入1 */
-  THROUGH(1, "已通过"),
+  /** 已发布，数据库插入1 */
+  THROUGH(1, "已发布"),
   /** 已下架，数据库插入3 */
   OFF(2, "已下架");
 

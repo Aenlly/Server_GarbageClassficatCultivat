@@ -26,7 +26,7 @@ public class UserWrapperUtil {
    */
   public static Wrapper<UserVo> queryListPage(String text) {
     QueryWrapper<UserVo> wrapper = new QueryWrapper<>();
-    wrapper.like("nick_name", text);
+    wrapper.like("nick_name", text).eq("user.delete_flag", 0);
     return wrapper;
   }
 
