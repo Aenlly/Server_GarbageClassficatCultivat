@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 变废为宝表 服务类
  *
@@ -27,6 +29,7 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
    * @param text 查询内容
    * @param textTag 订单状态，可为null
    * @param isUserUploadEnum 是否用户上传
+   * @param auditEnums 审核状态集合
    * @return 分页对象
    */
   IPage<WasteTurnTreasureVo> getList(
@@ -34,7 +37,8 @@ public interface IWasteTurnTreasureService extends IService<WasteTurnTreasure> {
       QueryWasteTypeEnum queryType,
       String text,
       WasteTagEnum textTag,
-      IsUserUploadEnum isUserUploadEnum);
+      IsUserUploadEnum isUserUploadEnum,
+      List<AuditEnum> auditEnums);
 
   /**
    * 根据编号修改审核状态

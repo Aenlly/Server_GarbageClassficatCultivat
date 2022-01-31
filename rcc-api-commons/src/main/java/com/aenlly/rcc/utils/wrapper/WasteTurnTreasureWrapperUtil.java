@@ -28,7 +28,7 @@ public class WasteTurnTreasureWrapperUtil {
    * @param text 查询内容
    * @param textTag 标签条件，可为null
    * @param isUserUploadEnum 是否用户上传
-   * @param auditEnums 审核状态
+   * @param auditEnums 审核状态集合
    * @return 查询对象
    */
   public static Wrapper<WasteTurnTreasureVo> queryListPage(

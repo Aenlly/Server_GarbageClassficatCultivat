@@ -33,7 +33,7 @@ public class WasteTurnTreasureController {
 
   @Resource private IWasteTurnTreasureService service;
 
-  @ApiOperation(value = "请求变废为宝信息数据", httpMethod = "GET")
+  @ApiOperation(value = "请求已发与已下架的变废为宝信息数据", httpMethod = "GET")
   @GetMapping("/getList")
   public CommonResult<IPage<WasteTurnTreasureVo>> getList(
       @Param("当前页码") @RequestParam("current") Integer current,
@@ -44,7 +44,61 @@ public class WasteTurnTreasureController {
       @Param("是否用户上传") @RequestParam("isUserUpload") IsUserUploadEnum isUserUploadEnum) {
     try {
       IPage<WasteTurnTreasureVo> list =
-          service.getList(new Page<>(current, size), queryType, text, textTag, isUserUploadEnum);
+          service.getList(
+              new Page<>(current, size),
+              queryType,
+              text,
+              textTag,
+              isUserUploadEnum,
+              List.of(AuditEnum.THROUGH, AuditEnum.OFF));
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "请求待审核变废为宝信息数据", httpMethod = "GET")
+  @GetMapping("/getAuditList")
+  public CommonResult<IPage<WasteTurnTreasureVo>> getAuditList(
+      @Param("当前页码") @RequestParam("current") Integer current,
+      @Param("每页数量") @RequestParam("size") Integer size,
+      @Param("查询类型") @RequestParam("queryType") QueryWasteTypeEnum queryType,
+      @Param("查询内容") @RequestParam("text") String text,
+      @Param("标签(非必须)") @RequestParam(value = "textTag", required = false) WasteTagEnum textTag,
+      @Param("是否用户上传") @RequestParam("isUserUpload") IsUserUploadEnum isUserUploadEnum) {
+    try {
+      IPage<WasteTurnTreasureVo> list =
+          service.getList(
+              new Page<>(current, size),
+              queryType,
+              text,
+              textTag,
+              isUserUploadEnum,
+              List.of(AuditEnum.TO_AUDIT));
+      return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "请求未通过的变废为宝信息数据", httpMethod = "GET")
+  @GetMapping("/getNotThroughList")
+  public CommonResult<IPage<WasteTurnTreasureVo>> getNotThroughList(
+      @Param("当前页码") @RequestParam("current") Integer current,
+      @Param("每页数量") @RequestParam("size") Integer size,
+      @Param("查询类型") @RequestParam("queryType") QueryWasteTypeEnum queryType,
+      @Param("查询内容") @RequestParam("text") String text,
+      @Param("标签(非必须)") @RequestParam(value = "textTag", required = false) WasteTagEnum textTag,
+      @Param("是否用户上传") @RequestParam("isUserUpload") IsUserUploadEnum isUserUploadEnum) {
+    try {
+      IPage<WasteTurnTreasureVo> list =
+          service.getList(
+              new Page<>(current, size),
+              queryType,
+              text,
+              textTag,
+              isUserUploadEnum,
+              List.of(AuditEnum.Not_THROUGH));
       return resultOk(list);
     } catch (Exception e) {
       return resultError();
@@ -86,6 +140,17 @@ public class WasteTurnTreasureController {
   public CommonResult<Boolean> publish(@Param("主键") @PathVariable("id") Long id) {
     try {
       Boolean check = service.updateByIdRevise(id, AuditEnum.THROUGH);
+      return resultOk(check);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "根据id审核数据不通过", httpMethod = "PUT")
+  @PutMapping("/notThrough/{id}")
+  public CommonResult<Boolean> notThrough(@Param("主键") @PathVariable("id") Long id) {
+    try {
+      Boolean check = service.updateByIdRevise(id, AuditEnum.Not_THROUGH);
       return resultOk(check);
     } catch (Exception e) {
       return resultError();

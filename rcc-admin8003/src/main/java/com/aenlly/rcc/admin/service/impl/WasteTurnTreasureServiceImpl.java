@@ -47,6 +47,7 @@ public class WasteTurnTreasureServiceImpl
    * @param text 查询内容
    * @param textTag 标签，可为null
    * @param isUserUploadEnum 是否用户上传
+   * @param auditEnums 审核状态集合
    * @return 分页对象
    */
   @Override
@@ -55,11 +56,12 @@ public class WasteTurnTreasureServiceImpl
       QueryWasteTypeEnum queryType,
       String text,
       WasteTagEnum textTag,
-      IsUserUploadEnum isUserUploadEnum) {
+      IsUserUploadEnum isUserUploadEnum,
+      List<AuditEnum> auditEnums) {
 
     Wrapper<WasteTurnTreasureVo> wrapper =
         WasteTurnTreasureWrapperUtil.queryListPage(
-            queryType, text, textTag, isUserUploadEnum, List.of(AuditEnum.THROUGH, AuditEnum.OFF));
+            queryType, text, textTag, isUserUploadEnum, auditEnums);
 
     return baseMapper.getWasteInfo(page, wrapper);
   }

@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({"updateTime", "deleteFlag", "version"}) // json序列传递前端时忽略
+@JsonIgnoreProperties({"update_date", "deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "WasteTurnTreasure对象", description = "变废为宝表")
 public class WasteTurnTreasure implements Serializable {
 

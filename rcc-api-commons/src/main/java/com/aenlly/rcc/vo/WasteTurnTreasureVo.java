@@ -85,6 +85,11 @@ public class WasteTurnTreasureVo implements Serializable {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
+  @ApiModelProperty(value = "更新时间")
+  @TableField("update_time")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
+  private LocalDateTime updateTime;
+
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")
   @TableField("delete_flag")
   @TableLogic
