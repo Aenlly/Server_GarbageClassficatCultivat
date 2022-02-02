@@ -19,7 +19,7 @@ import org.apache.ibatis.annotations.Select;
 public interface WasteTurnTreasureMapper extends BaseMapper<WasteTurnTreasure> {
 
   /**
-   * 多表联查，订单表、礼品条目表、礼品表
+   * 多表联查，变废为宝表、收藏表、点赞表
    *
    * <p>${ew.customSqlSegment}让wrapper对象条件拼接
    *

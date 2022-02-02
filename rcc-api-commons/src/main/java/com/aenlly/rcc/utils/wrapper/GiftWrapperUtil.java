@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 /**
- * 礼品数据操作对象类
+ * 礼品信息表实体封装操作对象获取工具类
  *
  * @author Aenlly
  * @create by date 2021/12/25 21:51

@@ -1,5 +1,6 @@
 package com.aenlly.rcc.entity;
 
+import com.aenlly.rcc.enums.HotInfoStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -11,19 +12,20 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 热门资讯实体类
+ *
  * @author aenlly
- * @since 2021-12-12
+ * @since 2022-02-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "热门资讯实体对象", description = "")
+@ApiModel(value = "HotInfo对象", description = "热门资讯表")
 public class HotInfo implements Serializable {
 
-  private static final long serialVersionUID = -7106883385043369916L;
+  private static final long serialVersionUID = -4210439474306394295L;
 
   @ApiModelProperty(value = "自增标识")
   @TableId(value = "hot_info_id", type = IdType.AUTO)
-  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Integer hotInfoId;
 
   @ApiModelProperty(value = "资讯封面")
@@ -50,8 +52,13 @@ public class HotInfo implements Serializable {
   @TableField("source_text")
   private String sourceText;
 
+  @ApiModelProperty(value = "资讯状态，0:待发布、1:已发布、-1已下线")
+  @TableField("hot_info_state")
+  private HotInfoStateEnum hotInfoState;
+
   @ApiModelProperty(value = "信息创建时间")
   @TableField(value = "create_time", fill = FieldFill.INSERT)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
@@ -62,4 +69,8 @@ public class HotInfo implements Serializable {
   @TableField("delete_flag")
   @TableLogic
   private Boolean deleteFlag;
+
+  @ApiModelProperty(value = "版本号，用于乐观锁")
+  @Version
+  private Integer version;
 }

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * VIEW 服务类
+ * 热门资讯VIEW 服务类
  *
  * @author aenlly
  * @since 2021-12-12

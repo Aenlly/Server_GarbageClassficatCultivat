@@ -53,7 +53,7 @@ public class VideoController {
     try {
       boolean b = service.removeById(id);
       if (b) {
-        return resultOk(b);
+        return resultOk(true);
       } else {
         throw new NullPointerException();
       }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 文件保存地址枚举类
+ *
  * @author Aenlly
  * @create by date 2021/12/19 22:10
  * @projectName RefuseClassificationCultivate
@@ -35,9 +37,9 @@ public enum UploadPathNameEnum {
   WASTE_TEMP_FILE_NAME("/waste/tmp/%s"),
   /** 占位的地方分别填写用户名，年份-月份，文件名 */
   WASTE_FILE_NAME("/waste/video/%s/%s"),
-  /** 变废为宝的封面文件地址，占位的地方填写年份-月份 */
+  /** 管理员上传的变废为宝，占位的地方填写年份-月份 */
   WASTE_ADMIN_IMAGE_NAME("/waste/image/%s"),
-  /** 占位的地方填写年份-月份 */
+  /** 管理员上传的变废为宝视频文件占位的地方填写年份-月份 */
   WASTE_ADMIN_FILE_NAME("/waste/video/%s");
 
   private String name;

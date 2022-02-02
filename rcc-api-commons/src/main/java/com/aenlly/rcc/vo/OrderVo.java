@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +21,9 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "订单信息对象", description = "订单表与礼品表与礼品详情表")
-public class OrderVo {
+public class OrderVo implements Serializable {
+
+  private static final long serialVersionUID = -7300872268069858615L;
 
   @ApiModelProperty(value = "订单编号")
   @TableId("order_id")

@@ -6,9 +6,7 @@ import com.aenlly.rcc.enums.WasteTagEnum;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +22,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({"deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "变废为宝信息对象", description = "变废为宝与收藏/点赞多表")
 public class WasteTurnTreasureVo implements Serializable {
 
@@ -89,9 +86,4 @@ public class WasteTurnTreasureVo implements Serializable {
   @TableField("update_time")
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime updateTime;
-
-  @ApiModelProperty(value = "逻辑删除,0未删除，1删除")
-  @TableField("delete_flag")
-  @TableLogic
-  private Boolean deleteFlag;
 }

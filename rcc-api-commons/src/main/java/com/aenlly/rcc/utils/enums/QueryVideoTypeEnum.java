@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 视频查询条件类型枚举类
+ *
  * @author Aenlly
  * @create by date 2022/01/11 16:36
  * @projectName RefuseClassificationCultivate
