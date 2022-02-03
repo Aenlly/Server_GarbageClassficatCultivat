@@ -1,6 +1,7 @@
 package com.aenlly.rcc.admin.controller;
 
 import com.aenlly.rcc.admin.service.IHotInfoService;
+import com.aenlly.rcc.entity.HotInfo;
 import com.aenlly.rcc.enums.HotInfoStateEnum;
 import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.enums.QueryHotInfoTypeEnum;
@@ -11,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -42,6 +44,17 @@ public class HotInfoController {
     try {
       IPage<HotInfoVo> list = service.getList(new Page<>(current, size), queryType, text, state);
       return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "根据id请求热门资讯信息数据", httpMethod = "GET")
+  @GetMapping("/getById/{id}")
+  public CommonResult<HotInfo> getById(@Param("资讯编号") @PathVariable("id") Long id) {
+    try {
+      HotInfo hotInfo = service.getById(id);
+      return resultOk(hotInfo);
     } catch (Exception e) {
       return resultError();
     }
@@ -94,6 +107,18 @@ public class HotInfoController {
     try {
       Boolean check = service.updateByIdCheck(id, HotInfoStateEnum.PUBLISH_NOT);
       return resultOk(check);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "上传封面请求", httpMethod = "POST")
+  @PostMapping("/uploadImage")
+  public CommonResult<String> uploadImage(
+      @Param("封面文件") @RequestPart("imageFile") MultipartFile file) {
+    try {
+      String filePath = service.uploadImage(file);
+      return resultOk(filePath);
     } catch (Exception e) {
       return resultError();
     }

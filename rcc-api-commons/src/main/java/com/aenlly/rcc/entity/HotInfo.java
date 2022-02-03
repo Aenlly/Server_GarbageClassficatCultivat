@@ -3,6 +3,7 @@ package com.aenlly.rcc.entity;
 import com.aenlly.rcc.enums.HotInfoStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({"hotInfoState", "createTime", "deleteFlag", "version"}) // json序列传递前端时忽略
 @ApiModel(value = "HotInfo对象", description = "热门资讯表")
 public class HotInfo implements Serializable {
 
@@ -46,6 +48,7 @@ public class HotInfo implements Serializable {
 
   @ApiModelProperty(value = "发布时间")
   @TableField("release_time")
+  @JsonFormat(pattern = "yyyy-MM-dd") // 输出的格式
   private LocalDateTime releaseTime;
 
   @ApiModelProperty(value = "来源")

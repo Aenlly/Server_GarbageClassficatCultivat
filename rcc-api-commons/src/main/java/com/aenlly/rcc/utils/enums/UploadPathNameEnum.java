@@ -40,7 +40,10 @@ public enum UploadPathNameEnum {
   /** 管理员上传的变废为宝，占位的地方填写年份-月份 */
   WASTE_ADMIN_IMAGE_NAME("/waste/image/%s"),
   /** 管理员上传的变废为宝视频文件占位的地方填写年份-月份 */
-  WASTE_ADMIN_FILE_NAME("/waste/video/%s");
+  WASTE_ADMIN_FILE_NAME("/waste/video/%s"),
+
+  /** 热门资讯的封面文件占位的地方填写年份-月份 */
+  HOT_INFO_IMAGE_NAME("/hotInfo/image/%s");
 
   private String name;
 }
