@@ -74,4 +74,34 @@ public class HotInfoServiceImpl extends ServiceImpl<HotInfoMapper, HotInfo>
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.HOT_INFO_IMAGE_NAME);
   }
+
+  /**
+   * 添加信息到数据库中
+   *
+   * @param entity 添加实体
+   * @return 是否成功
+   */
+  @Override
+  public Boolean create(HotInfo entity) {
+    boolean save = this.save(entity);
+    if (save) {
+      return tmpFileService.updateBatchTmpInfo(entity.getImgUrl());
+    }
+    throw new NullPointerException();
+  }
+
+  /**
+   * 更新信息到数据库中
+   *
+   * @param entity 更新实体
+   * @return 是否成功
+   */
+  @Override
+  public Boolean update(HotInfo entity) {
+    boolean b = this.updateById(entity);
+    if (b) {
+      return tmpFileService.updateBatchTmpInfo(entity.getImgUrl());
+    }
+    throw new NullPointerException();
+  }
 }

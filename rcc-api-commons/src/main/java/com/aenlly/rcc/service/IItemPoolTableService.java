@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.service;
+package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.ItemPoolTable;
 import com.baomidou.mybatisplus.extension.service.IService;

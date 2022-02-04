@@ -123,4 +123,26 @@ public class HotInfoController {
       return resultError();
     }
   }
+
+  @ApiOperation(value = "新增热门资讯信息请求", httpMethod = "POST")
+  @PostMapping("/create")
+  public CommonResult<Boolean> create(@Param("热门资讯") HotInfo entity) {
+    try {
+      Boolean save = service.create(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "编辑更新热门资讯信息请求", httpMethod = "PUT")
+  @PutMapping("/update")
+  public CommonResult<Boolean> update(@Param("热门资讯") HotInfo entity) {
+    try {
+      Boolean save = service.update(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
 }

@@ -45,4 +45,20 @@ public interface IHotInfoService extends IService<HotInfo> {
    * @return 远程图片存储地址
    */
   String uploadImage(MultipartFile file);
+
+  /**
+   * 添加信息到数据库中
+   *
+   * @param entity 添加实体
+   * @return 是否成功
+   */
+  Boolean create(HotInfo entity);
+
+  /**
+   * 更新信息到数据库中
+   *
+   * @param entity 更新实体
+   * @return 是否成功
+   */
+  Boolean update(HotInfo entity);
 }

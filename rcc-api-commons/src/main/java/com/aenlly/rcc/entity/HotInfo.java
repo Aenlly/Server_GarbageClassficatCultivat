@@ -8,8 +8,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -49,7 +51,8 @@ public class HotInfo implements Serializable {
   @ApiModelProperty(value = "发布时间")
   @TableField("release_time")
   @JsonFormat(pattern = "yyyy-MM-dd") // 输出的格式
-  private LocalDateTime releaseTime;
+  @DateTimeFormat(pattern = "yyyy-MM-dd") // 接收日期类型转换，yyyy-MM-dd使用类型LocalDate
+  private LocalDate releaseTime; // yyyy-MM-dd HH:mm:ss类型使用LocalDateTime
 
   @ApiModelProperty(value = "来源")
   @TableField("source_text")

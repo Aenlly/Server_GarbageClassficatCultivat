@@ -1,8 +1,8 @@
-package com.aenlly.rcc.user.service.impl;
+package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.ItemPoolTable;
 import com.aenlly.rcc.mapper.ItemPoolTableMapper;
-import com.aenlly.rcc.user.service.IItemPoolTableService;
+import com.aenlly.rcc.service.IItemPoolTableService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
