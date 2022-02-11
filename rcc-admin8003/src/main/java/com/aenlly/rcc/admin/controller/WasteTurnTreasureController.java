@@ -10,6 +10,7 @@ import com.aenlly.rcc.utils.enums.QueryWasteTypeEnum;
 import com.aenlly.rcc.vo.WasteTurnTreasureVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2022-01-31
  */
 @RestController
+@Api(tags = "变废为宝管理控制器")
 @RequestMapping("/waste-turn-treasure")
 public class WasteTurnTreasureController {
 

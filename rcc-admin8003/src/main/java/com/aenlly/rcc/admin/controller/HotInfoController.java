@@ -27,7 +27,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2022-02-03
  */
 @RestController
-@Api("热门资讯管理控制器")
+@Api(tags = "热门资讯管理控制器")
 @RequestMapping("/hot-info")
 public class HotInfoController {
 

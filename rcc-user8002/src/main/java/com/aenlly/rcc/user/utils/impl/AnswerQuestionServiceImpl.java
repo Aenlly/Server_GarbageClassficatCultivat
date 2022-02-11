@@ -5,9 +5,10 @@ import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.TopicStateEnum;
+import com.aenlly.rcc.service.IOptionsTableService;
 import com.aenlly.rcc.user.service.*;
-import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.user.utils.IAnswerQuestionService;
+import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.wrapper.QuizWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import org.springframework.stereotype.Service;
@@ -33,24 +34,19 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
 
   /** 问卷表-服务对象 */
-  @Resource
-  IQuestionnaireService questionnaireService;
+  @Resource IQuestionnaireService questionnaireService;
   /** 答卷-答案表-服务对象 */
   @Resource IAnswerSheetService answerSheetService;
   /** 问卷题目对应表-服务对象 */
   @Resource IQuestionnaireTopicsService questionnaireTopicsService;
   /** 答卷表-服务对象 */
-  @Resource
-  IPaperTablesService paperTablesService;
+  @Resource IPaperTablesService paperTablesService;
   /** 题目表-服务对象 */
-  @Resource
-  ISubjectTableService subjectTableService;
+  @Resource ISubjectTableService subjectTableService;
   /** 选项表-服务对象 */
-  @Resource
-  IOptionsTableService optionsTableService;
+  @Resource IOptionsTableService optionsTableService;
   /** 用户表-服务对象 */
-  @Resource
-  IUserService userService;
+  @Resource IUserService userService;
   /** 积分记录表-服务对象 */
   @Resource IPointsLogService pointsLogService;
 

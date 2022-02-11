@@ -42,7 +42,7 @@ public class QuestionBankController {
 
   @ApiOperation(value = "更新题库信息请求", httpMethod = "PUT")
   @PutMapping("/update")
-  public CommonResult<Boolean> update(@Param("垃圾类型信息") ItemPoolTable entity) {
+  public CommonResult<Boolean> update(@Param("题库信息") ItemPoolTable entity) {
     try {
       Boolean save = service.update(entity);
       return resultOk(save);

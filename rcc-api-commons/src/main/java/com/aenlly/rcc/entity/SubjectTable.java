@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +19,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({
+  "databankName",
+  "databankId",
+  "createTime",
+  "deleteFlag",
+  "version"
+}) // json序列传递前端时忽略
 @ApiModel(value = "SubjectTable对象", description = "题目表")
 public class SubjectTable implements Serializable {
 
