@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties({
   "belongTopicName",
-  "belongTopicId",
   "createTime",
+  "updateTime",
   "deleteFlag",
   "version"
 }) // json序列传递前端时忽略
@@ -65,4 +65,10 @@ public class OptionsTable implements Serializable {
   @TableField("delete_flag")
   @TableLogic
   private Boolean deleteFlag;
+
+  public OptionsTable(String optionName, Long belongTopicId, CorrectlyOrNotEnum correctlyOrNot) {
+    this.optionName = optionName;
+    this.belongTopicId = belongTopicId;
+    this.correctlyOrNot = correctlyOrNot;
+  }
 }

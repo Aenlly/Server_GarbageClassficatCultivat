@@ -3,6 +3,8 @@ package com.aenlly.rcc.execl;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -17,13 +19,18 @@ public class QuizSubjectExecl implements Serializable {
 
   private static final long serialVersionUID = 3631833824229018674L;
 
+  private Long id;
+
   @Excel(name = "题目")
+  @Pattern(regexp = "[\\w\\s\\d\\r\\D]{1,200}")
   private String subject;
 
   @Excel(name = "分值")
+  @Max(value = 100, message = "最大不能超过100")
   private Integer score;
 
   @Excel(name = "题目解析")
+  @Pattern(regexp = "[\\w\\s\\d\\r\\D]{1,200}")
   private String analysis;
 
   @Excel(

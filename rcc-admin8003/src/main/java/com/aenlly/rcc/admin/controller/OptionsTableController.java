@@ -45,16 +45,40 @@ public class OptionsTableController {
     try {
       boolean b = service.removeById(id);
       if (b) {
-        return resultOk(b);
-      } else {
-        throw new NullPointerException();
+        return resultOk(true);
       }
+      throw new NullPointerException();
     } catch (Exception e) {
       return resultError();
     }
   }
 
-  @ApiOperation(value = "更新选项信息请求", httpMethod = "PUT")
+  @ApiOperation(value = "更新选项是正确还是错误请求", httpMethod = "PUT")
+  @PutMapping("/updateOffOrOnById")
+  public CommonResult<Boolean> updateOffOrOnById(@Param("选项信息") OptionsTable entity) {
+    try {
+      boolean save = service.updateOffOrOnById(entity);
+      if (save) {
+        return resultOk(true);
+      }
+      throw new NullPointerException();
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "新增选项信息请求", httpMethod = "POST")
+  @PostMapping("/create")
+  public CommonResult<Boolean> create(@Param("选项信息") OptionsTable entity) {
+    try {
+      Boolean save = service.create(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "更新选项内容信息请求", httpMethod = "PUT")
   @PutMapping("/update")
   public CommonResult<Boolean> update(@Param("选项信息") OptionsTable entity) {
     try {

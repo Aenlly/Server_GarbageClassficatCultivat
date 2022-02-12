@@ -1,25 +1,18 @@
 package com.aenlly.rcc.admin.controller;
 
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.aenlly.rcc.admin.service.ISubjectTableService;
 import com.aenlly.rcc.entity.SubjectTable;
-import com.aenlly.rcc.execl.QuizSubjectExecl;
 import com.aenlly.rcc.utils.CommonResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.aenlly.rcc.utils.ResultUtil.resultError;
@@ -82,28 +75,48 @@ public class SubjectTableController {
     }
   }
 
-  @ApiOperation(value = "获得题目导入模板")
+  @ApiOperation(value = "上传题目导入文件", httpMethod = "post")
+  @PostMapping("/uploadExcelFile/{belongId}")
+  public CommonResult<Boolean> uploadExcelFile(
+      @Param("题目文件") @RequestPart("excelFile") MultipartFile file,
+      @Param("所属题库") @PathVariable("belongId") Long belongId) {
+    try {
+      Boolean b = service.uploadExcelFile(file, belongId);
+      return resultOk(b);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "获得题目导入模板", httpMethod = "GET")
   @GetMapping("/getExcelFile")
   public void getExcelFile(HttpServletResponse response) {
-    // 设置响应输出的头类型(设置响应类型)
-    response.setHeader("content-Type", "application/force-download");
     try {
-      // 下载文件的默认名称(设置下载文件的默认名称)
-      response.setHeader(
-          "Content-Disposition",
-          "attachment;filename=" + URLEncoder.encode("题目导入模板.xls", StandardCharsets.UTF_8));
-      ExportParams exportParams = new ExportParams("提示：文本长度不能大于200个字符(上传时该行删除)", "题目导入");
-      // 设置表头颜色
-      exportParams.setColor(HSSFColor.HSSFColorPredefined.YELLOW.getIndex());
-      // 列宽自动适用
-      exportParams.setAutoSize(true);
-      // 导出操作
-      Workbook workbook =
-          ExcelExportUtil.exportExcel(exportParams, QuizSubjectExecl.class, new ArrayList<>());
-      workbook.write(response.getOutputStream());
-      workbook.close();
+      service.getExcelFile(response);
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  @ApiOperation(value = "新增选项信息请求", httpMethod = "POST")
+  @PostMapping("/create")
+  public CommonResult<Boolean> create(@Param("选项信息") SubjectTable entity) {
+    try {
+      Boolean save = service.save(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
+    }
+  }
+
+  @ApiOperation(value = "更新题目数据请求", httpMethod = "PUT")
+  @PutMapping("/update")
+  public CommonResult<Boolean> update(@Param("选项信息") SubjectTable entity) {
+    try {
+      Boolean save = service.updateById(entity);
+      return resultOk(save);
+    } catch (Exception e) {
+      return resultError();
     }
   }
 }

@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
   "databankName",
   "databankId",
   "createTime",
+  "updateTime",
   "deleteFlag",
   "version"
 }) // json序列传递前端时忽略
