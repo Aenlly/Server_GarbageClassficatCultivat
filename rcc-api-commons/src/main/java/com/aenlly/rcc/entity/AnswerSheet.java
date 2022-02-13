@@ -3,6 +3,7 @@ package com.aenlly.rcc.entity;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +20,15 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({
+  "selectedOptionId",
+  "belongTopicId",
+  "belongPaperTables",
+  "createTime",
+  "updateTime",
+  "deleteFlag",
+  "version"
+}) // json序列传递前端时忽略
 @ApiModel(value = "AnswerSheet对象", description = "答卷-答案表")
 public class AnswerSheet implements Serializable {
 

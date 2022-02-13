@@ -44,10 +44,12 @@ public class Orders implements Serializable {
 
   @ApiModelProperty(value = "信息插入时间")
   @TableField("create_time")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime createTime;
 
   @ApiModelProperty(value = "信息更新时间")
   @TableField("update_time")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "逻辑删除,0未删除，1删除")

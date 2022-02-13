@@ -1,12 +1,16 @@
-package com.aenlly.rcc.user.service;
+package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.AnswerSheet;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
+ * <p>
  * 答卷-答案表 服务类
+ * </p>
  *
  * @author aenlly
- * @since 2021-12-17
+ * @since 2022-02-13
  */
-public interface IAnswerSheetService extends IService<AnswerSheet> {}
+public interface IAnswerSheetService extends IService<AnswerSheet> {
+
+}

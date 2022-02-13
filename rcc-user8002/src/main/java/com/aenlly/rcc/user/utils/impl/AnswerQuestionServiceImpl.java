@@ -5,7 +5,9 @@ import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.TopicStateEnum;
+import com.aenlly.rcc.service.IAnswerSheetService;
 import com.aenlly.rcc.service.IOptionsTableService;
+import com.aenlly.rcc.service.IPaperTablesService;
 import com.aenlly.rcc.user.service.*;
 import com.aenlly.rcc.user.utils.IAnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -275,7 +277,8 @@ public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
     // 生成随机组卷批次号
     String randomBatchIndex = UUID.randomUUID().toString();
     Wrapper<SubjectTable> subjectTableLimitTen =
-        QuizWrapperUtil.getSubjectTableLimitTen(entity.getDatabankId());
+        QuizWrapperUtil.getSubjectTableLimitTen(
+            entity.getDatabankId(), entity.getSingleSelection());
     // 随机取十条题目数据
     List<SubjectTable> list = subjectTableService.list(subjectTableLimitTen);
 

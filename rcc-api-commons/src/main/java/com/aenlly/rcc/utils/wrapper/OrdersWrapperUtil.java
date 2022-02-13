@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 
 /**
- * 订单信息实体表封装操作对象获取根据类
+ * 订单信息实体表封装操作对象获取工具类
  *
  * @author Aenlly
  * @create by date 2022/01/17 16:38

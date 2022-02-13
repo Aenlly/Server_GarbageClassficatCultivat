@@ -3,6 +3,7 @@ package com.aenlly.rcc.entity;
 import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,6 +20,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({
+  "belongQuestionnaireId",
+  "createTime",
+  "updateTime",
+  "deleteFlag",
+  "version"
+}) // json序列传递前端时忽略
 @ApiModel(value = "PaperTables对象", description = "答卷表")
 public class PaperTables implements Serializable {
 
@@ -35,6 +43,7 @@ public class PaperTables implements Serializable {
 
   @ApiModelProperty(value = "所属问卷编号")
   @TableField("belong_questionnaire_id")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long belongQuestionnaireId;
 
   @ApiModelProperty(value = "总得分")
@@ -63,6 +72,7 @@ public class PaperTables implements Serializable {
 
   @ApiModelProperty(value = "答卷提交时间")
   @TableField("submit_time")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 输出的格式
   private LocalDateTime submitTime;
 
   @ApiModelProperty(value = "用户编号")

@@ -64,11 +64,13 @@ public class QuizWrapperUtil {
    * 根据题库id,随机取10个数据条 获得题目表操作对象
    *
    * @param databankId 题库id
+   * @param topicCount 单选题目数量
    * @return 查询对象
    */
-  public static Wrapper<SubjectTable> getSubjectTableLimitTen(int databankId) {
+  public static Wrapper<SubjectTable> getSubjectTableLimitTen(
+      Integer databankId, Integer topicCount) {
     QueryWrapper<SubjectTable> wrapper = new QueryWrapper<>();
-    wrapper.eq("databank_id", databankId).last("ORDER BY  RAND() LIMIT 10");
+    wrapper.eq("databank_id", databankId).last("ORDER BY  RAND() LIMIT " + topicCount);
     return wrapper;
   }
 

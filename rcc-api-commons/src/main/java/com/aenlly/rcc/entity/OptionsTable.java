@@ -47,6 +47,7 @@ public class OptionsTable implements Serializable {
 
   @ApiModelProperty(value = "所属题目id")
   @TableField("belong_topic_id")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string
   private Long belongTopicId;
 
   @ApiModelProperty(value = "是否正确答案,1正确，-1错误")
@@ -66,6 +67,13 @@ public class OptionsTable implements Serializable {
   @TableLogic
   private Boolean deleteFlag;
 
+  /**
+   * 该构造方法用于导入时使用
+   *
+   * @param optionName 选项信息
+   * @param belongTopicId 所属题目id
+   * @param correctlyOrNot 是否正确答案
+   */
   public OptionsTable(String optionName, Long belongTopicId, CorrectlyOrNotEnum correctlyOrNot) {
     this.optionName = optionName;
     this.belongTopicId = belongTopicId;
