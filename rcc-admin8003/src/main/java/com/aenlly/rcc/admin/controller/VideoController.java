@@ -5,6 +5,7 @@ import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
+import com.aenlly.rcc.vo.VideoVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -34,13 +35,13 @@ public class VideoController {
 
   @ApiOperation(value = "请求视频信息数据据", httpMethod = "GET")
   @GetMapping("/getList")
-  public CommonResult<IPage<Video>> getVideoList(
+  public CommonResult<IPage<VideoVo>> getVideoList(
       @Param("当前页码") @RequestParam("current") Integer current,
       @Param("每页数量") @RequestParam("size") Integer size,
       @Param("查询类型") @RequestParam("queryType") QueryVideoTypeEnum queryType,
       @Param("查询内容") @RequestParam("text") String text) {
     try {
-      IPage<Video> list = service.getList(new Page<>(current, size), queryType, text);
+      IPage<VideoVo> list = service.getList(new Page<>(current, size), queryType, text);
       return resultOk(list);
     } catch (Exception e) {
       return resultError();

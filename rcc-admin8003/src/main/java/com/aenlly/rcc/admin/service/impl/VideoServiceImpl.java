@@ -9,6 +9,7 @@ import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.VideoWrapperUtil;
+import com.aenlly.rcc.vo.VideoVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -43,9 +44,9 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 分页对象
    */
   @Override
-  public IPage<Video> getList(Page<Video> page, QueryVideoTypeEnum queryType, String text) {
-    Wrapper<Video> wrapper = VideoWrapperUtil.queryVideoListPage(queryType, text);
-    return this.page(page, wrapper);
+  public IPage<VideoVo> getList(Page<VideoVo> page, QueryVideoTypeEnum queryType, String text) {
+    Wrapper<VideoVo> wrapper = VideoWrapperUtil.queryVideoListPage(queryType, text);
+    return baseMapper.getVideoInfo(page, wrapper);
   }
 
   /**

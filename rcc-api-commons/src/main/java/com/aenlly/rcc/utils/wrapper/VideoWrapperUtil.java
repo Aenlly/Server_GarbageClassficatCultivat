@@ -4,6 +4,7 @@ import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.entity.VideoUserView;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
+import com.aenlly.rcc.vo.VideoVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
@@ -22,8 +23,8 @@ public class VideoWrapperUtil {
    * @param text 查询内容
    * @return 查询对象
    */
-  public static Wrapper<Video> queryVideoListPage(QueryVideoTypeEnum queryType, String text) {
-    QueryWrapper<Video> wrapper = new QueryWrapper<>();
+  public static Wrapper<VideoVo> queryVideoListPage(QueryVideoTypeEnum queryType, String text) {
+    QueryWrapper<VideoVo> wrapper = new QueryWrapper<>();
     wrapper
         .like(queryType.getValue(), text)
         .orderByDesc("video_check")
