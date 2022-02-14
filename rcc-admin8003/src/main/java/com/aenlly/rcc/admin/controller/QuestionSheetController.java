@@ -6,6 +6,7 @@ import com.aenlly.rcc.entity.PaperTables;
 import com.aenlly.rcc.utils.CommonResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @since 2022-02-13
  */
 @RestController
+@Api(tags = "答卷信息管理控制器")
 @RequestMapping("/questionSheet")
 public class QuestionSheetController {
 

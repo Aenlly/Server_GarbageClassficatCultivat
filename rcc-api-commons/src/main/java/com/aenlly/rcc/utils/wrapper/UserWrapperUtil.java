@@ -3,6 +3,7 @@ package com.aenlly.rcc.utils.wrapper;
 import com.aenlly.rcc.entity.OrderUserView;
 import com.aenlly.rcc.entity.PointsLog;
 import com.aenlly.rcc.entity.User;
+import com.aenlly.rcc.utils.enums.QueryPointsTypeEnum;
 import com.aenlly.rcc.vo.UserVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,11 +23,15 @@ public class UserWrapperUtil {
    * 根据查询条件获取操作对象
    *
    * @param text 查询内容
+   * @param typeEnum 排序条件，可省略
    * @return 查询对象
    */
-  public static Wrapper<UserVo> queryListPage(String text) {
+  public static Wrapper<UserVo> queryListPage(String text, QueryPointsTypeEnum typeEnum) {
     QueryWrapper<UserVo> wrapper = new QueryWrapper<>();
     wrapper.like("nick_name", text).eq("user.delete_flag", 0);
+    if (typeEnum != null) {
+      wrapper.orderBy(true, false, typeEnum.getValue());
+    }
     return wrapper;
   }
 

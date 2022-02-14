@@ -1,62 +1,43 @@
 package com.aenlly.rcc.admin.service.impl;
 
-import com.aenlly.rcc.admin.service.IOrderUserViewService;
 import com.aenlly.rcc.admin.service.IPointsLogService;
+import com.aenlly.rcc.admin.service.IPointsRankingService;
 import com.aenlly.rcc.admin.service.IUserService;
-import com.aenlly.rcc.entity.OrderUserView;
 import com.aenlly.rcc.entity.PointsLog;
-import com.aenlly.rcc.entity.User;
-import com.aenlly.rcc.mapper.UserMapper;
 import com.aenlly.rcc.utils.enums.QueryPointsTypeEnum;
 import com.aenlly.rcc.utils.wrapper.UserWrapperUtil;
 import com.aenlly.rcc.vo.UserVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 /**
- * 用户信息表 服务实现类
+ * 积分排名查看 服务实现类
  *
- * @author aenlly
- * @since 2022-01-15
+ * @author Aenlly
+ * @create by date 2022/02/14 23:32
+ * @projectName RefuseClassificationCultivate
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-
-  /** 订单记录表服务对象 */
-  @Resource private IOrderUserViewService orderUserViewService;
-  /** 积分记录表服务对象 */
+public class PointsRankingServiceImpl implements IPointsRankingService {
+  /** 用户信息服务对象 */
+  @Resource private IUserService userService;
+  /** 积分记录服务对象 */
   @Resource private IPointsLogService pointsLogService;
-
   /**
-   * 查询信息集合
+   * 查询用户积分信息分页集合
    *
    * @param page 分页对象
    * @param text 查询内容
-   * @param typeEnum 排序条件，可省略
+   * @param typeEnum 积分排序类型
    * @return 分页对象
    */
   @Override
   public IPage<UserVo> getList(Page<UserVo> page, String text, QueryPointsTypeEnum typeEnum) {
-    Wrapper<UserVo> wrapper = UserWrapperUtil.queryListPage(text, typeEnum);
-    return baseMapper.getUserPoints(page, wrapper);
-  }
-
-  /**
-   * 查询订单记录信息集合
-   *
-   * @param page 分页对象
-   * @param userId 户id
-   * @return 分页对象
-   */
-  @Override
-  public IPage<OrderUserView> getOrderListById(Page<OrderUserView> page, String userId) {
-    Wrapper<OrderUserView> wrapper = UserWrapperUtil.getOrderListById(userId);
-    return orderUserViewService.page(page, wrapper);
+    return userService.getList(page, text, typeEnum);
   }
 
   /**
