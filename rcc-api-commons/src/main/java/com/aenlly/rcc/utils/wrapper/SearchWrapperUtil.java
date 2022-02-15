@@ -3,6 +3,8 @@ package com.aenlly.rcc.utils.wrapper;
 import com.aenlly.rcc.entity.SearchLibrary;
 import com.aenlly.rcc.entity.SearchUser;
 import com.aenlly.rcc.enums.SearchTypeEnum;
+import com.aenlly.rcc.utils.enums.QueryTimeTypeEnum;
+import com.aenlly.rcc.vo.SearchNameChartVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -77,6 +79,21 @@ public class SearchWrapperUtil {
         .eq("user_id", userId)
         .likeRight("name", name)
         .orderBy(true, false, "create_time");
+    return wrapper;
+  }
+
+  /**
+   * 按照搜索名称分组获得操作对象
+   *
+   * @return 查询对象
+   */
+  public static Wrapper<SearchNameChartVo> getSearchNameChart() {
+    QueryWrapper<SearchNameChartVo> wrapper = new QueryWrapper<>();
+    wrapper
+        .apply(QueryTimeTypeEnum.THIRTY_DAYS.getValue())
+        .groupBy("name")
+        .orderBy(true, false, "y")
+        .last(" limit 10");
     return wrapper;
   }
 }

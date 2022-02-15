@@ -1,7 +1,7 @@
 package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.CollectEntity;
-import com.aenlly.rcc.user.service.ICollectEntityService;
+import com.aenlly.rcc.service.ICollectEntityService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

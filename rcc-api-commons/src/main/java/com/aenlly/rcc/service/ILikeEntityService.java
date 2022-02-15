@@ -1,10 +1,10 @@
-package com.aenlly.rcc.user.service;
+package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.LikeEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * 服务类
+ * 点赞实体 服务类
  *
  * @author aenlly
  * @since 2021-12-12

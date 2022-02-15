@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.service;
+package com.aenlly.rcc.service;
 
 import com.aenlly.rcc.entity.CollectEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * 服务类
+ * 收藏实体 服务类
  *
  * @author aenlly
  * @since 2021-12-13

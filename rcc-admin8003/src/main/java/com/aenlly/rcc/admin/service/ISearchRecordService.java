@@ -1,12 +1,13 @@
 package com.aenlly.rcc.admin.service;
 
 import com.aenlly.rcc.entity.SearchUser;
-import com.aenlly.rcc.entity.SearchUserChartView;
 import com.aenlly.rcc.enums.SearchTypeEnum;
+import com.aenlly.rcc.vo.SearchNameChartVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 搜索记录服务接口
@@ -37,5 +38,5 @@ public interface ISearchRecordService {
    *
    * @return 数据集合
    */
-  List<SearchUserChartView> getSearchChart();
+  List<Map<String, SearchNameChartVo>> getSearchChart();
 }

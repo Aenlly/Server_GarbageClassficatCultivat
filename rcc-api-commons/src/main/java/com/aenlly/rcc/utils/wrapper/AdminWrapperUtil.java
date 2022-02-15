@@ -21,7 +21,6 @@ public class AdminWrapperUtil {
   public static QueryWrapper<AdminTable> adminLogin(
       String username, AdminLoginEnum adminLoginEnum) {
     QueryWrapper<AdminTable> wrapper = new QueryWrapper<>();
-    wrapper.select("id", "img_url", "name", "password");
     if (adminLoginEnum.equals(AdminLoginEnum.EMAIL)) {
       wrapper.eq("email", username);
     } else if (adminLoginEnum.equals(AdminLoginEnum.TEL)) {

@@ -1,7 +1,7 @@
 package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.LikeEntity;
-import com.aenlly.rcc.user.service.ILikeEntityService;
+import com.aenlly.rcc.service.ILikeEntityService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

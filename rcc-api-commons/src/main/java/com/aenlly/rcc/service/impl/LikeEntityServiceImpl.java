@@ -1,8 +1,8 @@
-package com.aenlly.rcc.user.service.impl;
+package com.aenlly.rcc.service.impl;
 
 import com.aenlly.rcc.entity.LikeEntity;
 import com.aenlly.rcc.mapper.LikeEntityMapper;
-import com.aenlly.rcc.user.service.ILikeEntityService;
+import com.aenlly.rcc.service.ILikeEntityService;
 import com.aenlly.rcc.utils.wrapper.QueryWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 服务实现类
+ * 点赞实体 服务实现类
  *
  * @author aenlly
  * @since 2021-12-12

@@ -2,9 +2,9 @@ package com.aenlly.rcc.admin.controller;
 
 import com.aenlly.rcc.admin.service.ISearchRecordService;
 import com.aenlly.rcc.entity.SearchUser;
-import com.aenlly.rcc.entity.SearchUserChartView;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.vo.SearchNameChartVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 import static com.aenlly.rcc.utils.ResultUtil.resultError;
 import static com.aenlly.rcc.utils.ResultUtil.resultOk;
@@ -62,9 +63,9 @@ public class SearchRecordController {
 
   @ApiOperation(value = "获取搜索记录图表型数据", httpMethod = "GET")
   @GetMapping("/getSearchChart")
-  public CommonResult<List<SearchUserChartView>> getSearchChart() {
+  public CommonResult<List<Map<String, SearchNameChartVo>>> getSearchChart() {
     try {
-      List<SearchUserChartView> list = service.getSearchChart();
+      List<Map<String, SearchNameChartVo>> list = service.getSearchChart();
       return resultOk(list);
     } catch (Exception e) {
       return resultError();

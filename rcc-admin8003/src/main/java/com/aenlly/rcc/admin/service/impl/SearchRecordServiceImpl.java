@@ -2,11 +2,10 @@ package com.aenlly.rcc.admin.service.impl;
 
 import com.aenlly.rcc.admin.service.ISearchRecordService;
 import com.aenlly.rcc.entity.SearchUser;
-import com.aenlly.rcc.entity.SearchUserChartView;
 import com.aenlly.rcc.enums.SearchTypeEnum;
-import com.aenlly.rcc.service.ISearchUserChartViewService;
 import com.aenlly.rcc.service.ISearchUserService;
 import com.aenlly.rcc.utils.wrapper.SearchWrapperUtil;
+import com.aenlly.rcc.vo.SearchNameChartVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 搜索记录服务实现类
@@ -27,8 +27,6 @@ import java.util.List;
 public class SearchRecordServiceImpl implements ISearchRecordService {
   /** 用户搜索记录服务对象 */
   @Resource private ISearchUserService searchUserService;
-  /** 用户搜索记录图表数据服务对象 */
-  @Resource private ISearchUserChartViewService searchUserChartViewService;
 
   /**
    * 查询信息集合
@@ -63,7 +61,8 @@ public class SearchRecordServiceImpl implements ISearchRecordService {
    * @return 数据集合
    */
   @Override
-  public List<SearchUserChartView> getSearchChart() {
-    return searchUserChartViewService.list();
+  public List<Map<String, SearchNameChartVo>> getSearchChart() {
+    Wrapper<SearchNameChartVo> wrapper = SearchWrapperUtil.getSearchNameChart();
+    return searchUserService.getChart(wrapper);
   }
 }
