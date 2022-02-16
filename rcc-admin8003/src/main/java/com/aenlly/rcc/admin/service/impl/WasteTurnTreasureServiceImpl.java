@@ -1,6 +1,8 @@
 package com.aenlly.rcc.admin.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.admin.service.IWasteTurnTreasureService;
+import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.IsUserUploadEnum;
@@ -8,6 +10,7 @@ import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.WasteTurnTreasureMapper;
 import com.aenlly.rcc.service.ITmpFileService;
+import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.enums.QueryWasteTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.WasteTurnTreasureWrapperUtil;
@@ -16,6 +19,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -109,6 +113,10 @@ public class WasteTurnTreasureServiceImpl
    */
   @Override
   public Boolean create(WasteTurnTreasure entity) {
+    Claims claims = JWTUtil.parseJWT(entity.getPromulgatorId());
+    String json = claims.getSubject();
+    AdminTable adminTable = JSONUtil.toBean(json, AdminTable.class);
+    entity.setPromulgatorId(adminTable.getId().toString());
     entity.setIsUserUpload(IsUserUploadEnum.NO);
     entity.setAudit(AuditEnum.THROUGH);
     boolean save = this.save(entity);

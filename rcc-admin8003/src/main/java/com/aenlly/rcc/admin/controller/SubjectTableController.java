@@ -75,7 +75,7 @@ public class SubjectTableController {
     }
   }
 
-  @ApiOperation(value = "上传题目导入文件", httpMethod = "post")
+  @ApiOperation(value = "上传题目导入文件", httpMethod = "POST")
   @PostMapping("/uploadExcelFile/{belongId}")
   public CommonResult<Boolean> uploadExcelFile(
       @Param("题目文件") @RequestPart("excelFile") MultipartFile file,

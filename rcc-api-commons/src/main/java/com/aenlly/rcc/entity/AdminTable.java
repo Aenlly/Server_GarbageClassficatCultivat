@@ -41,7 +41,4 @@ public class AdminTable implements Serializable {
 
   @ApiModelProperty(value = "密码，加密")
   private String password;
-
-  @TableField(exist = false)
-  private String token;
 }

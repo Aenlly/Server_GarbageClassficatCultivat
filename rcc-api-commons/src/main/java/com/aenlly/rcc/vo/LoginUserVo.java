@@ -1,29 +1,23 @@
 package com.aenlly.rcc.vo;
 
+import com.aenlly.rcc.entity.Points;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * @author Aenlly
- * @create by date 2022/01/16 13:31
+ * @create by date 2022/02/17 0:21
  * @projectName RefuseClassificationCultivate
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "用户信息列表对象", description = "用户信息与积分头衔表")
-public class UserVo implements Serializable {
+@AllArgsConstructor
+public class LoginUserVo implements Serializable {
 
-  private static final long serialVersionUID = 1382315921089272697L;
-
-  @ApiModelProperty(value = "用户唯一标识")
-  @TableId("user_id")
-  private String userId;
+  private static final long serialVersionUID = 4049587316197351583L;
 
   @ApiModelProperty(value = "用户昵称")
   @TableField("nick_name")
@@ -35,21 +29,25 @@ public class UserVo implements Serializable {
 
   @ApiModelProperty(value = "累计积分")
   @TableField("accumulative_points")
-  private Integer accumulativePoints;
+  private Long accumulativePoints;
 
   @ApiModelProperty(value = "剩余积分")
   @TableField("remaining_points")
-  private Integer remainingPoints;
+  private Long remainingPoints;
 
   @ApiModelProperty(value = "答题总积分")
   @TableField("answer_points")
-  private Integer answerPoints;
+  private Long answerPoints;
 
   @ApiModelProperty(value = "头衔id")
   @TableField("points_id")
   private Integer pointsId;
 
-  @ApiModelProperty(value = "头衔名称")
-  @TableField("points_name")
-  private String pointsName;
+  @ApiModelProperty(value = "积分头衔对象")
+  @TableField(exist = false) // 非数据库字段
+  private Points points;
+
+  @ApiModelProperty(value = "token")
+  @TableField(exist = false) // 非数据库字段
+  private String token;
 }

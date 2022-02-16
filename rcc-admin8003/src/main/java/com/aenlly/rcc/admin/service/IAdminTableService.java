@@ -1,6 +1,7 @@
 package com.aenlly.rcc.admin.service;
 
 import com.aenlly.rcc.entity.AdminTable;
+import com.aenlly.rcc.vo.LoginVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -15,17 +16,18 @@ public interface IAdminTableService extends IService<AdminTable> {
    *
    * @param username 账号
    * @param password 密码
-   * @return 管理员信息
+   * @return 基础信息
    */
-  AdminTable adminLogin(String username, String password);
+  LoginVo adminLogin(String username, String password);
 
   /**
    * 修改密码
    *
-   * @param entity 管理员修改实体
+   * @param id 管理员id
+   * @param password 新密码
    * @return 是否成功
    */
-  Boolean changePwd(AdminTable entity);
+  Boolean changePwd(Long id, String password);
 
   /**
    * 修改管理员信息

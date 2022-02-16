@@ -1,8 +1,8 @@
 package com.aenlly.rcc.user.controller;
 
-import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.user.service.ILoginService;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.vo.LoginUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -27,12 +27,12 @@ public class LoginController {
 
   @ApiOperation(value = "用户登录请求", httpMethod = "GET")
   @GetMapping("/login")
-  public CommonResult<User> userLogin(
+  public CommonResult<LoginUserVo> userLogin(
       @Param(value = "用户临时登录凭证") String code,
       @Param(value = "用户昵称") String nickName,
       @Param(value = "头像地址") String avatarUrl) {
     try {
-      User user = loginService.userLogin(code, nickName, avatarUrl);
+      LoginUserVo user = loginService.userLogin(code, nickName, avatarUrl);
       return resultOk(user);
     } catch (Exception e) {
       return resultError();

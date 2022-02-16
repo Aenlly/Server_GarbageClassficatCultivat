@@ -7,7 +7,9 @@ import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.user.service.ILoginService;
 import com.aenlly.rcc.user.service.IPointsService;
 import com.aenlly.rcc.user.service.IUserService;
+import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.WxParam;
+import com.aenlly.rcc.vo.LoginUserVo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -36,7 +38,7 @@ public class LoginServiceImpl implements ILoginService {
    * @return 用户信息
    */
   @Override
-  public User userLogin(String code, String nickName, String avatarUrl) {
+  public LoginUserVo userLogin(String code, String nickName, String avatarUrl) {
     // 使用临时登录凭证换取微信唯一标识openid
     String user_id = getOpenIdByCode(code);
     // 查询库中是否有该用户
@@ -56,8 +58,19 @@ public class LoginServiceImpl implements ILoginService {
     // 获得积分头衔
     Points points = pointsService.getById(user.getPointsId());
     // 设置积分头衔对象
+
     user.setPoints(points);
-    return user;
+
+    String token = JWTUtil.createToken(user_id);
+    return new LoginUserVo(
+        user.getNickName(),
+        user.getAvatarUrl(),
+        user.getAccumulativePoints(),
+        user.getRemainingPoints(),
+        user.getAnswerPoints(),
+        user.getPointsId(),
+        points,
+        token);
   }
 
   /**

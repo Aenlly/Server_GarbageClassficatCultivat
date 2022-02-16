@@ -26,7 +26,7 @@ public class WasteWrapperUtil {
     QueryWrapper<WasteTurnTreasure> wrapper = new QueryWrapper<>();
     wrapper.select("id", "text", "text_desc", "img_url", "text_tag", "audit").eq("audit", audit);
     if (userId != null) {
-      wrapper.eq("user_id", userId);
+      wrapper.eq("promulgator_id", userId);
     }
     if (tag != null) {
       wrapper.eq("text_tag", tag);
@@ -50,7 +50,7 @@ public class WasteWrapperUtil {
       wrapper.eq("audit", audit);
     }
     if (userId != null) {
-      wrapper.eq("user_id", userId);
+      wrapper.eq("promulgator_id", userId);
     }
     return wrapper;
   }

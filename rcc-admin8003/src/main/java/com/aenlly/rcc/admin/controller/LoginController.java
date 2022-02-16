@@ -1,8 +1,8 @@
 package com.aenlly.rcc.admin.controller;
 
 import com.aenlly.rcc.admin.service.IAdminTableService;
-import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.vo.LoginVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -28,12 +28,12 @@ public class LoginController {
 
   @ApiOperation(value = "登录请求", httpMethod = "POST")
   @PostMapping("/login")
-  public CommonResult<AdminTable> login(
+  public CommonResult<LoginVo> login(
       @Param("账号") @RequestParam("username") String username,
       @Param("密码") @RequestParam("password") String password) {
     try {
-      AdminTable adminTable = adminTableService.adminLogin(username, password);
-      return resultOk(adminTable);
+      LoginVo token = adminTableService.adminLogin(username, password);
+      return resultOk(token);
     } catch (Exception e) {
       return resultError();
     }

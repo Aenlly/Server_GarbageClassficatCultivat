@@ -1,12 +1,20 @@
 package com.aenlly.rcc.admin.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.admin.service.IAdminTableService;
 import com.aenlly.rcc.entity.AdminTable;
+import com.aenlly.rcc.entity.Login;
 import com.aenlly.rcc.enums.AdminLoginEnum;
 import com.aenlly.rcc.mapper.AdminTableMapper;
+import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.wrapper.AdminWrapperUtil;
+import com.aenlly.rcc.vo.LoginVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,51 +32,47 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
 
   @Resource private PasswordEncoder passwordEncoder;
 
+  @Resource private AuthenticationManager authenticationManager;
+
   /**
    * 登录
    *
    * @param username 账号
    * @param password 密码
-   * @return 管理员信息
+   * @return 基础信息
    */
   @Override
-  public AdminTable adminLogin(String username, String password) {
-    QueryWrapper<AdminTable> telWrapper = AdminWrapperUtil.adminLogin(username, AdminLoginEnum.TEL);
-    // 先按照手机号进行查询
-    AdminTable adminTable = this.getOne(telWrapper);
-    // 不存在则查邮箱
-    if (adminTable == null) {
-      // 按照邮箱进行查询
-      QueryWrapper<AdminTable> emailWrapper =
-          AdminWrapperUtil.adminLogin(username, AdminLoginEnum.EMAIL);
-      adminTable = this.getOne(emailWrapper);
-      // 邮箱不存在则抛出异常
-      if (adminTable == null) {
-        throw new NullPointerException();
-      }
-    }
-    // 与加密后的密码进行比对
-    boolean matches = passwordEncoder.matches(password, adminTable.getPassword());
-    String encode = passwordEncoder.encode(adminTable.getPassword());
-    adminTable.setToken(encode);
-    adminTable.setPassword(null);
+  public LoginVo adminLogin(String username, String password) {
+    UsernamePasswordAuthenticationToken authenticationToken =
+        new UsernamePasswordAuthenticationToken(username, password);
+    Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
-    if (!matches) {
+    // 认证未通过
+    if (ObjectUtil.isNull(authenticate)) {
       throw new NullPointerException();
     }
-    return adminTable;
+
+    Login login = (Login) authenticate.getPrincipal();
+    String json = JSONUtil.toJsonPrettyStr(login.getAdminTable());
+
+    String token = JWTUtil.createToken(json);
+
+    return new LoginVo(token, login.getAdminTable().getName(), login.getAdminTable().getImgUrl());
   }
 
   /**
    * 修改密码
    *
-   * @param entity 管理员修改实体
+   * @param id 管理员id
+   * @param password 新密码
    * @return 是否成功
    */
   @Override
-  public Boolean changePwd(AdminTable entity) {
-    String encode = passwordEncoder.encode(entity.getPassword());
+  public Boolean changePwd(Long id, String password) {
+    String encode = passwordEncoder.encode(password);
+    AdminTable entity = new AdminTable();
     entity.setPassword(encode);
+    entity.setId(id);
     return this.updateById(entity);
   }
 

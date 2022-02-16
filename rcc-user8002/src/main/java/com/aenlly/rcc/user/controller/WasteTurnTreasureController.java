@@ -1,5 +1,6 @@
 package com.aenlly.rcc.user.controller;
 
+import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.entity.WxUploadVideoInfo;
@@ -7,6 +8,7 @@ import com.aenlly.rcc.enums.AuditEnum;
 import com.aenlly.rcc.enums.IsUserUploadEnum;
 import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
+import com.aenlly.rcc.user.service.IAdminTableService;
 import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.user.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.CommonResult;
@@ -44,6 +46,8 @@ public class WasteTurnTreasureController {
 
   @Resource IUserService userService;
 
+  @Resource IAdminTableService adminTableService;
+
   @ApiOperation(value = "用户服务-变废为宝-初始请求-根据标签搜索，获取信息请求", httpMethod = "GET")
   @GetMapping("/getListByTag/{tag}")
   @JsonCreator
@@ -74,10 +78,15 @@ public class WasteTurnTreasureController {
   public CommonResult<WasteTurnTreasure> getOneById(@Param("变废为宝编号") @PathVariable("id") Long id) {
     try {
       WasteTurnTreasure wasteTurnTreasure = wasteTurnTreasureService.getById(id);
+      User user = new User();
       if (wasteTurnTreasure.getIsUserUpload().equals(IsUserUploadEnum.YES)) {
-        User user = userService.getNameAndAvatarById(wasteTurnTreasure.getPromulgatorId());
-        wasteTurnTreasure.setUser(user);
+        user = userService.getNameAndAvatarById(wasteTurnTreasure.getPromulgatorId());
+      } else {
+        AdminTable adminTable = adminTableService.getById(wasteTurnTreasure.getPromulgatorId());
+        user.setAvatarUrl(adminTable.getImgUrl());
+        user.setNickName(adminTable.getName());
       }
+      wasteTurnTreasure.setUser(user);
       return resultOk(wasteTurnTreasure);
     } catch (Exception e) {
       return resultError();

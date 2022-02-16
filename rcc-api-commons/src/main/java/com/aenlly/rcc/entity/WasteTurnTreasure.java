@@ -65,6 +65,7 @@ public class WasteTurnTreasure implements Serializable {
 
   @ApiModelProperty(value = "分享总数")
   @TableField("share_count")
+  @JsonFormat(shape = JsonFormat.Shape.STRING) // 使其返回类型为string,避免精度丢失
   private Long shareCount;
 
   @ApiModelProperty(value = "插入时间")

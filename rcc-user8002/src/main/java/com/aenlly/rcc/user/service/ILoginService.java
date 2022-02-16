@@ -1,6 +1,6 @@
 package com.aenlly.rcc.user.service;
 
-import com.aenlly.rcc.entity.User;
+import com.aenlly.rcc.vo.LoginUserVo;
 
 /**
  * @author Aenlly
@@ -17,5 +17,5 @@ public interface ILoginService {
    * @param avatarUrl 头像地址
    * @return 用户信息
    */
-  User userLogin(String code, String nickName, String avatarUrl);
+  LoginUserVo userLogin(String code, String nickName, String avatarUrl);
 }
