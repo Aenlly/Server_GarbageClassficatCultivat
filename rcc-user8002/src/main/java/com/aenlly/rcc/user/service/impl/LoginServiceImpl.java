@@ -1,7 +1,9 @@
 package com.aenlly.rcc.user.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.aenlly.rcc.entity.LoginUser;
 import com.aenlly.rcc.entity.Points;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.user.service.ILoginService;
@@ -10,6 +12,9 @@ import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.WxParam;
 import com.aenlly.rcc.vo.LoginUserVo;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +33,8 @@ public class LoginServiceImpl implements ILoginService {
   @Resource private IPointsService pointsService;
   /** http请求服务对象 */
   @Resource private RestTemplate restTemplate;
+
+  @Resource AuthenticationManager authenticationManager;
 
   /**
    * 用户登录，不存在则创建
@@ -61,7 +68,18 @@ public class LoginServiceImpl implements ILoginService {
 
     user.setPoints(points);
 
-    String token = JWTUtil.createToken(user_id);
+    UsernamePasswordAuthenticationToken authenticationToken =
+        new UsernamePasswordAuthenticationToken(user_id, user_id);
+    Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+    // 认证未通过
+    if (ObjectUtil.isNull(authenticate)) {
+      throw new NullPointerException();
+    }
+
+    LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+    String json = JSONUtil.toJsonPrettyStr(loginUser);
+    String token = JWTUtil.createToken(json);
+
     return new LoginUserVo(
         user.getNickName(),
         user.getAvatarUrl(),

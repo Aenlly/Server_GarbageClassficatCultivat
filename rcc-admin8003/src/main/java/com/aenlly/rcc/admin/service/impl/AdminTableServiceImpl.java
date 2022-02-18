@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.admin.service.IAdminTableService;
 import com.aenlly.rcc.entity.AdminTable;
-import com.aenlly.rcc.entity.Login;
+import com.aenlly.rcc.entity.LoginAdmin;
 import com.aenlly.rcc.enums.AdminLoginEnum;
 import com.aenlly.rcc.mapper.AdminTableMapper;
 import com.aenlly.rcc.utils.JWTUtil;
@@ -52,12 +52,13 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
       throw new NullPointerException();
     }
 
-    Login login = (Login) authenticate.getPrincipal();
-    String json = JSONUtil.toJsonPrettyStr(login.getAdminTable());
+    LoginAdmin loginAdmin = (LoginAdmin) authenticate.getPrincipal();
+    String json = JSONUtil.toJsonPrettyStr(loginAdmin.getAdminTable());
 
     String token = JWTUtil.createToken(json);
 
-    return new LoginVo(token, login.getAdminTable().getName(), login.getAdminTable().getImgUrl());
+    return new LoginVo(
+        token, loginAdmin.getAdminTable().getName(), loginAdmin.getAdminTable().getImgUrl());
   }
 
   /**

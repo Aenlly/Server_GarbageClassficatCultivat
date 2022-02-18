@@ -18,8 +18,8 @@ import java.util.UUID;
  */
 public class JWTUtil {
 
-  /** 过期时间 */
-  private static final Long JWT_TTL = 60 * 60 * 1000L;
+  /** 过期时间:24小时 */
+  private static final Long JWT_TTL = 24 * 60 * 60 * 1000L;
 
   /** 密匙 */
   private static final String JWT_Key = "Aenlly";
@@ -116,5 +116,17 @@ public class JWTUtil {
    */
   public static Claims parseJWT(String token) throws NullPointerException {
     return Jwts.parser().setSigningKey(getEncryptKey()).parseClaimsJws(token).getBody();
+  }
+
+  /**
+   * 判断是否过期
+   *
+   * @param token token
+   * @return 是否过期
+   */
+  public static boolean ValidateToken(String token) {
+    Claims claims = parseJWT(token);
+    Date expiration = claims.getExpiration();
+    return expiration.before(new Date());
   }
 }

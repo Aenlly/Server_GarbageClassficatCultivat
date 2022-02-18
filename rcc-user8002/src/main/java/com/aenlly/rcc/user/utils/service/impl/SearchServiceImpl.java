@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.utils.impl;
+package com.aenlly.rcc.user.utils.service.impl;
 
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
@@ -9,8 +9,8 @@ import com.aenlly.rcc.enums.GarbageTypeEnum;
 import com.aenlly.rcc.enums.SearchTypeEnum;
 import com.aenlly.rcc.service.ISearchLibraryService;
 import com.aenlly.rcc.service.ISearchUserService;
-import com.aenlly.rcc.user.utils.ISearchService;
-import com.aenlly.rcc.user.utils.SearchLibraryAdd;
+import com.aenlly.rcc.user.utils.service.ISearchService;
+import com.aenlly.rcc.user.utils.service.SearchLibraryAdd;
 import com.aenlly.rcc.utils.AuthService;
 import com.aenlly.rcc.utils.baidu.Base64Util;
 import com.aenlly.rcc.utils.baidu.HttpUtil;

@@ -2,6 +2,7 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.CollectEntity;
 import com.aenlly.rcc.service.ICollectEntityService;
+import com.aenlly.rcc.user.utils.TokenUtil;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,9 +31,10 @@ public class CollectEntityController {
   @ApiOperation(value = "用户收藏-列表请求", httpMethod = "GET")
   @GetMapping("/getByUserId")
   public CommonResult<List<CollectEntity>> getListByUserId(
-      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param("搜索内容，用于搜索时使用") @RequestParam("name") String name) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<CollectEntity> list = collectEntityService.getListByUserId(userId, name);
       return resultOk(list);
     } catch (Exception e) {
@@ -43,10 +45,11 @@ public class CollectEntityController {
   @ApiOperation(value = "用户服务-变废为宝-收藏-列表请求", httpMethod = "GET")
   @GetMapping("/getByUserIdAndEntityName")
   public CommonResult<List<CollectEntity>> getByUserIdAndEntityName(
-      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param("搜索内容，用于搜索时使用") @RequestParam("name") String name,
       @Param("搜索实体名称") @RequestParam("entityName") String entityName) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<CollectEntity> list =
           collectEntityService.getByUserIdAndEntityName(userId, name, entityName);
       return resultOk(list);
@@ -55,7 +58,7 @@ public class CollectEntityController {
     }
   }
 
-  @ApiOperation(value = "请求数据点赞量", httpMethod = "GET")
+  @ApiOperation(value = "请求数据收藏量", httpMethod = "GET")
   @GetMapping("/getCountByDataId")
   public CommonResult<Long> getCountByDataId(
       @Param(value = "收藏的实体名称") String entityName, @Param("收藏的数据ID") String dataId) {
@@ -66,10 +69,11 @@ public class CollectEntityController {
   @ApiOperation(value = "请求判断当前用户是否收藏", httpMethod = "GET")
   @GetMapping("/getIsByUserId")
   public CommonResult<Boolean> getIsByUserId(
-      @Param(value = "用户唯一标识") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param(value = "收藏的实体") String entityName,
       @Param("点赞数据ID") String dataId) {
     try {
+      String userId = TokenUtil.toUserId(token);
       Boolean isCollect = collectEntityService.getIsByUserId(userId, entityName, dataId);
       return resultOk(isCollect);
     } catch (Exception e) {
@@ -80,13 +84,17 @@ public class CollectEntityController {
 
   @ApiOperation(value = "请求收藏创建", httpMethod = "POST")
   @PostMapping("/createCollect")
-  public CommonResult<Boolean> createLike(@Param("收藏接收实体") CollectEntity collectEntity) {
+  public CommonResult<Boolean> createLike(
+      @Param("token") @RequestHeader("token") String token,
+      @Param("收藏接收实体") CollectEntity collectEntity) {
     try {
+      String userId = TokenUtil.toUserId(token);
       // 判断是否存在点赞实体
       Boolean isCollect =
           collectEntityService.getIsByUserId(
-              collectEntity.getUserId(), collectEntity.getEntityName(), collectEntity.getDataId());
+              userId, collectEntity.getEntityName(), collectEntity.getDataId());
       if (!isCollect) {
+        collectEntity.setUserId(userId);
         // 创建信息
         boolean save = collectEntityService.save(collectEntity);
         if (save) {
@@ -100,12 +108,13 @@ public class CollectEntityController {
   }
 
   @ApiOperation(value = "取消收藏请求", httpMethod = "DELETE")
-  @DeleteMapping("/collectCancel/{userId}/{entityName}/{dataId}")
+  @DeleteMapping("/collectCancel/{entityName}/{dataId}")
   public CommonResult<Boolean> collectCancel(
-      @Param(value = "用户唯一标识") @PathVariable("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param(value = "收藏的实体") @PathVariable("entityName") String entityName,
       @Param("收藏数据ID") @PathVariable("dataId") String dataId) {
     try {
+      String userId = TokenUtil.toUserId(token);
       // 查询id进行删除
       Integer id = collectEntityService.getIdBy(userId, entityName, dataId);
       if (id != null) {

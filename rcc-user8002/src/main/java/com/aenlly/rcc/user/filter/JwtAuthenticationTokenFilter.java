@@ -1,9 +1,10 @@
-package com.aenlly.rcc.filter;
+package com.aenlly.rcc.user.filter;
 
+import cn.hutool.json.JSONUtil;
+import com.aenlly.rcc.entity.LoginUser;
 import com.aenlly.rcc.utils.JWTUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -14,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * @author Aenlly
@@ -28,7 +28,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
-    String token = request.getHeader("Authorization");
+
+    String token = request.getHeader("token");
 
     if (!StringUtils.hasText(token) || token.equals("null")) {
       filterChain.doFilter(request, response);
@@ -36,14 +37,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     }
 
     Claims claims = JWTUtil.parseJWT(token);
-    String user_id = claims.getSubject();
-    // 设置权限
-    ArrayList<SimpleGrantedAuthority> objects = new ArrayList<>();
-    objects.add(new SimpleGrantedAuthority("user"));
+    String json = claims.getSubject();
+    LoginUser loginUser = JSONUtil.toBean(json, LoginUser.class);
 
     UsernamePasswordAuthenticationToken authenticationToken =
-        new UsernamePasswordAuthenticationToken(user_id, null, objects);
-
+        new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     filterChain.doFilter(request, response);
   }

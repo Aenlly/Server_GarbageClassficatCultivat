@@ -28,7 +28,7 @@ public class UserUploadController {
    * <p>同时使用注解@RequestPart接收，而不是@RequestParam
    */
   @PostMapping(value = "/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public String uloadImage(
+  public String uploadImage(
       @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files) {
     return uploadService.uploadImage(userId, files, UploadPathNameEnum.WASTE_IMAGE_NAME);
   }

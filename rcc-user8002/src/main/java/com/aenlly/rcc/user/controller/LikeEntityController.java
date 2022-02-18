@@ -2,6 +2,7 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.LikeEntity;
 import com.aenlly.rcc.service.ILikeEntityService;
+import com.aenlly.rcc.user.utils.TokenUtil;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,10 +42,11 @@ public class LikeEntityController {
   @ApiOperation(value = "请求判断当前用户是否点赞", httpMethod = "GET")
   @GetMapping("/getIsByUserId")
   public CommonResult<Boolean> getIsByUserId(
-      @Param(value = "用户唯一标识") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param(value = "收藏的实体") String entityName,
       @Param("点赞数据ID") String dataId) {
     try {
+      String userId = TokenUtil.toUserId(token);
       Boolean isLike = likeEntityService.getIsByUserId(userId, entityName, dataId);
       return resultOk(isLike);
     } catch (Exception e) {
@@ -54,13 +56,17 @@ public class LikeEntityController {
 
   @ApiOperation(value = "请求点赞创建", httpMethod = "POST")
   @PostMapping("/createLike")
-  public CommonResult<Boolean> createLike(@Param("点赞接收实体") LikeEntity likeEntity) {
+  public CommonResult<Boolean> createLike(
+      @Param("token") @RequestHeader("token") String token,
+      @Param("点赞接收实体") LikeEntity likeEntity) {
     try {
+      String userId = TokenUtil.toUserId(token);
       // 判断是否存在点赞实体
       Boolean isLike =
           likeEntityService.getIsByUserId(
-              likeEntity.getUserId(), likeEntity.getEntityName(), likeEntity.getDataId());
+              userId, likeEntity.getEntityName(), likeEntity.getDataId());
       if (!isLike) {
+        likeEntity.setUserId(userId);
         // 创建信息
         boolean save = likeEntityService.save(likeEntity);
         if (save) {
@@ -74,12 +80,13 @@ public class LikeEntityController {
   }
 
   @ApiOperation(value = "取消点赞请求", httpMethod = "DELETE")
-  @DeleteMapping("/likeCancel/{userId}/{entityName}/{dataId}")
+  @DeleteMapping("/likeCancel/{entityName}/{dataId}")
   public CommonResult<Boolean> likeCancel(
-      @Param(value = "用户唯一标识") @PathVariable("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param(value = "点赞的实体") @PathVariable("entityName") String entityName,
       @Param("点赞数据ID") @PathVariable("dataId") String dataId) {
     try {
+      String userId = TokenUtil.toUserId(token);
       // 查询id进行删除
       Integer id = likeEntityService.getIdBy(userId, entityName, dataId);
       if (id != null) {

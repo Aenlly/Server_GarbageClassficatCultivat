@@ -33,6 +33,7 @@ public class LoginController {
       @Param("密码") @RequestParam("password") String password) {
     try {
       LoginVo token = adminTableService.adminLogin(username, password);
+      System.out.println(token);
       return resultOk(token);
     } catch (Exception e) {
       return resultError();

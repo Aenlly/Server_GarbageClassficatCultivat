@@ -22,6 +22,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
       FilterChain chain,
       Authentication authentication)
       throws IOException, ServletException {
+
     AuthenticationSuccessHandler.super.onAuthenticationSuccess(
         request, response, chain, authentication);
   }

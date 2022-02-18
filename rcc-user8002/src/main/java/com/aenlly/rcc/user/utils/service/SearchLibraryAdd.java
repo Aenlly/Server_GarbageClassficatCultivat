@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.utils;
+package com.aenlly.rcc.user.utils.service;
 
 /**
  * @author Aenlly

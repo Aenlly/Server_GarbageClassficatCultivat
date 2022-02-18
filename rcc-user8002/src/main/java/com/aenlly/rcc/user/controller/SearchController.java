@@ -3,7 +3,8 @@ package com.aenlly.rcc.user.controller;
 import com.aenlly.rcc.entity.SearchLibrary;
 import com.aenlly.rcc.entity.SearchUser;
 import com.aenlly.rcc.enums.SearchTypeEnum;
-import com.aenlly.rcc.user.utils.ISearchService;
+import com.aenlly.rcc.user.utils.TokenUtil;
+import com.aenlly.rcc.user.utils.service.ISearchService;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +35,10 @@ public class SearchController {
   @ApiOperation(value = "文本搜索垃圾所属分类请求", httpMethod = "GET")
   @GetMapping("/getSearchText")
   public CommonResult<Collection<SearchLibrary>> getSearchText(
+      @Param("token") @RequestHeader("token") String token,
       @Param("垃圾名称") @RequestParam("name") String name,
-      @Param("用户编号") @RequestParam("userId") String userId,
       @Param("搜索类型") @RequestParam("type") SearchTypeEnum typeEnum) {
+    String userId = TokenUtil.toUserId(token);
     Collection<SearchLibrary> list = searchService.searchText(name, userId, typeEnum);
     if (list != null) {
       return resultOk(list);
@@ -71,8 +73,9 @@ public class SearchController {
   @ApiOperation(value = "用户所有搜索记录查询", httpMethod = "GET")
   @GetMapping("/get")
   public CommonResult<List<SearchUser>> getSearchList(
-      @Param("用户编号") @RequestParam("userId") String userId) {
+      @Param("token") @RequestHeader("token") String token) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<SearchUser> list = searchService.getSearchList(userId);
       return resultOk(list);
     } catch (Exception e) {
@@ -84,9 +87,10 @@ public class SearchController {
   @ApiOperation(value = "用户搜索记录条件查询", httpMethod = "GET")
   @GetMapping("/getSearchByName")
   public CommonResult<List<SearchUser>> getSearchByName(
-      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param("搜索记录中的垃圾名称") @RequestParam("name") String name) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<SearchUser> list = searchService.getSearchByName(userId, name);
       return resultOk(list);
     } catch (Exception e) {

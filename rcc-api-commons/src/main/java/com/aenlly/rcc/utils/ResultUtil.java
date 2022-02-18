@@ -25,7 +25,7 @@ public class ResultUtil {
    * @return 公共返回内容
    */
   public static <T> CommonResult<T> resultOk(T t) {
-    return new CommonResult<T>(CodeMessageResultEnum.OK, t);
+    return new CommonResult<>(CodeMessageResultEnum.OK, t);
   }
 
   /**
@@ -37,7 +37,7 @@ public class ResultUtil {
    * @return 公共错误返回内容
    */
   public static <T> CommonResult<T> resultError() {
-    return new CommonResult<T>(CodeMessageResultEnum.ERROR);
+    return new CommonResult<>(CodeMessageResultEnum.ERROR);
   }
 
   /**
@@ -49,7 +49,7 @@ public class ResultUtil {
    * @return 公共错误返回内容
    */
   public static <T> CommonResult<T> resultExceed() {
-    return new CommonResult<T>(CodeMessageResultEnum.EXCEED);
+    return new CommonResult<>(CodeMessageResultEnum.EXCEED);
   }
 
   /**
@@ -63,7 +63,7 @@ public class ResultUtil {
    * @return 公共错误返回内容
    */
   public static <T> CommonResult<T> resultExist() {
-    return new CommonResult<T>(CodeMessageResultEnum.EXIST);
+    return new CommonResult<>(CodeMessageResultEnum.EXIST);
   }
 
   /**
@@ -77,6 +77,10 @@ public class ResultUtil {
    * @return 公共错误返回内容
    */
   public static <T> CommonResult<T> resultNOT_POINT() {
-    return new CommonResult<T>(CodeMessageResultEnum.NOT_POINT);
+    return new CommonResult<>(CodeMessageResultEnum.NOT_POINT);
+  }
+
+  public static CommonResult<String> resultPermission_Not() {
+    return new CommonResult<>(CodeMessageResultEnum.PERMISSION_NOT);
   }
 }

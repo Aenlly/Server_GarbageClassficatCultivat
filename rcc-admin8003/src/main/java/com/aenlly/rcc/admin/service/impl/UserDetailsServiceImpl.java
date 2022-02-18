@@ -1,7 +1,7 @@
 package com.aenlly.rcc.admin.service.impl;
 
 import com.aenlly.rcc.entity.AdminTable;
-import com.aenlly.rcc.entity.Login;
+import com.aenlly.rcc.entity.LoginAdmin;
 import com.aenlly.rcc.enums.AdminLoginEnum;
 import com.aenlly.rcc.mapper.AdminTableMapper;
 import com.aenlly.rcc.utils.wrapper.AdminWrapperUtil;
@@ -40,6 +40,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       }
     }
 
-    return new Login(adminTable);
+    return new LoginAdmin(adminTable);
   }
 }

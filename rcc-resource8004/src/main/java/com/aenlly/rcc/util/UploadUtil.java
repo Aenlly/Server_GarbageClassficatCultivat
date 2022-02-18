@@ -4,6 +4,7 @@ import cn.hutool.core.collection.ListUtil;
 import com.aenlly.rcc.entity.TmpFile;
 import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.service.ITmpFileService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.ByteArrayBuffer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * @projectName RefuseClassificationCultivate
  */
 @Component
+@Slf4j
 public class UploadUtil {
 
   /** 配置数据类 */
@@ -147,7 +149,6 @@ public class UploadUtil {
    */
   public String mergeFile(
       String identifier, String localFolderPath, String databasePath, String fileName) {
-    System.out.println("md5:" + identifier);
     // 新文件名
     String newFileName = UUID.randomUUID() + fileName;
     // 分块保存路径
@@ -166,26 +167,25 @@ public class UploadUtil {
     // 升序排序
     listFile.sort(Comparator.comparing(a -> a.getAbsolutePath().split("-")[1]));
     // 合并文件
-    listFile.stream()
-        .forEach(
-            (filePath) -> {
-              // 利用try -catch-resources进行关闭流
-              try (InputStream in = new FileInputStream(filePath);
-                  OutputStream out = new FileOutputStream(newFile, true);
-                  BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-                  BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out); ) {
-                // 缓冲区
-                ByteArrayBuffer byteArrayBuffer = new ByteArrayBuffer(5242880);
-                int read = 0;
-                // 读取写入
-                while ((read = bufferedInputStream.read(byteArrayBuffer.buffer())) != -1) {
-                  bufferedOutputStream.write(byteArrayBuffer.buffer(), 0, read);
-                }
-                filePath.delete();
-              } catch (Exception e) {
-                throw new NullPointerException();
-              }
-            });
+    listFile.forEach(
+        (filePath) -> {
+          // 利用try -catch-resources进行关闭流
+          try (InputStream in = new FileInputStream(filePath);
+              OutputStream out = new FileOutputStream(newFile, true);
+              BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
+              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(out); ) {
+            // 缓冲区
+            ByteArrayBuffer byteArrayBuffer = new ByteArrayBuffer(5242880);
+            int read = 0;
+            // 读取写入
+            while ((read = bufferedInputStream.read(byteArrayBuffer.buffer())) != -1) {
+              bufferedOutputStream.write(byteArrayBuffer.buffer(), 0, read);
+            }
+            filePath.delete();
+          } catch (Exception e) {
+            throw new NullPointerException();
+          }
+        });
     return newFileName;
   }
 

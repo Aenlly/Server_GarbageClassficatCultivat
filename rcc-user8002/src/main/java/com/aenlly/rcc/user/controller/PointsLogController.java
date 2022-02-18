@@ -2,6 +2,7 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.PointsLog;
 import com.aenlly.rcc.user.service.IPointsLogService;
+import com.aenlly.rcc.user.utils.TokenUtil;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,15 +25,15 @@ import static com.aenlly.rcc.utils.ResultUtil.*;
 @RequestMapping("/points-log")
 public class PointsLogController {
 
-  @Resource
-  IPointsLogService pointsLogService;
+  @Resource IPointsLogService pointsLogService;
 
   @ApiOperation(value = "积分记录请求", httpMethod = "GET")
   @GetMapping("/getByUserIdAndType")
   public CommonResult<List<PointsLog>> getPointsLogByUserIdList(
-      @Param("用户编号") @RequestParam("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param("积分记录类型") @RequestParam("type") Integer type) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<PointsLog> list = pointsLogService.getPointsLogByUserIdList(userId, type);
       return resultOk(list);
     } catch (Exception e) {
@@ -42,10 +43,10 @@ public class PointsLogController {
 
   @ApiOperation(value = "每日签到请求", httpMethod = "PUT")
   @PutMapping("/dailyCheck")
-  public CommonResult<Boolean> dailyCheck(@Param("用户编号") @RequestParam("userId") String userId) {
+  public CommonResult<Boolean> dailyCheck(@Param("token") @RequestHeader("token") String token) {
     try {
+      String userId = TokenUtil.toUserId(token);
       boolean save = pointsLogService.dailyCheck(userId);
-      System.out.println(save);
       if (save) {
         return resultOk(true);
       } else {

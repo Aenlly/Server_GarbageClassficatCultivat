@@ -1,11 +1,12 @@
 package com.aenlly.rcc.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 
@@ -15,29 +16,27 @@ import java.util.Collection;
  * @projectName RefuseClassificationCultivate
  */
 @Data
-@AllArgsConstructor
-public class Login implements UserDetails {
+@Slf4j
+public class LoginUser implements UserDetails {
 
   private static final long serialVersionUID = -3209442352224035346L;
-  private AdminTable adminTable;
+  private String userId;
+
+  private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
+    return AuthorityUtils.commaSeparatedStringToAuthorityList("user");
   }
 
   @Override
   public String getPassword() {
-    return adminTable.getPassword();
+    return passwordEncoder.encode(userId);
   }
 
   @Override
   public String getUsername() {
-    if (StringUtils.isNotBlank(adminTable.getTel())) {
-      return adminTable.getTel();
-    } else {
-      return adminTable.getEmail();
-    }
+    return userId;
   }
 
   @Override
@@ -58,5 +57,9 @@ public class Login implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public LoginUser(String userId) {
+    this.userId = userId;
   }
 }

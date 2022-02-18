@@ -1,6 +1,8 @@
 package com.aenlly.rcc.admin.config;
 
 import com.aenlly.rcc.admin.filter.JwtAuthenticationTokenFilter;
+import com.aenlly.rcc.admin.handler.ResultAccessDeniedHandler;
+import com.aenlly.rcc.admin.handler.ResultAuthenticationEntryPoint;
 import com.aenlly.rcc.admin.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,10 +33,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Resource CorsFilter corsFilter;
 
+  @Resource ResultAccessDeniedHandler resultAccessDeniedHandler;
+
+  @Resource ResultAuthenticationEntryPoint resultAuthenticationEntryPoint;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+    http.exceptionHandling()
+        .accessDeniedHandler(resultAccessDeniedHandler)
+        .authenticationEntryPoint(resultAuthenticationEntryPoint);
     http.csrf()
         .disable()
         //    不通过session获取认证容器

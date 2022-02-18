@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.utils;
+package com.aenlly.rcc.user.utils.service;
 
 import com.aenlly.rcc.entity.SearchLibrary;
 import com.aenlly.rcc.entity.SearchUser;

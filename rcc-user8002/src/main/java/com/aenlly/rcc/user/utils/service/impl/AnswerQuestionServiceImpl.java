@@ -1,4 +1,4 @@
-package com.aenlly.rcc.user.utils.impl;
+package com.aenlly.rcc.user.utils.service.impl;
 
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
@@ -8,11 +8,15 @@ import com.aenlly.rcc.enums.TopicStateEnum;
 import com.aenlly.rcc.service.IAnswerSheetService;
 import com.aenlly.rcc.service.IOptionsTableService;
 import com.aenlly.rcc.service.IPaperTablesService;
-import com.aenlly.rcc.user.service.*;
-import com.aenlly.rcc.user.utils.IAnswerQuestionService;
+import com.aenlly.rcc.user.service.IPointsLogService;
+import com.aenlly.rcc.user.service.IQuestionnaireService;
+import com.aenlly.rcc.user.service.IQuestionnaireTopicsService;
+import com.aenlly.rcc.user.service.ISubjectTableService;
+import com.aenlly.rcc.user.utils.service.IAnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.utils.wrapper.QuizWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +37,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  * @projectName RefuseClassificationCultivate
  */
 @Service
+@Slf4j
 public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
 
   /** 问卷表-服务对象 */
@@ -47,8 +52,7 @@ public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
   @Resource ISubjectTableService subjectTableService;
   /** 选项表-服务对象 */
   @Resource IOptionsTableService optionsTableService;
-  /** 用户表-服务对象 */
-  @Resource IUserService userService;
+
   /** 积分记录表-服务对象 */
   @Resource IPointsLogService pointsLogService;
 
@@ -125,6 +129,7 @@ public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
       // 设置解析信息
       questionnaireTopics.setAnalysis(subjectTable.getAnalysis());
     }
+
     return list;
   }
 

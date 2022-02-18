@@ -26,30 +26,29 @@ public interface IResourceUploadService {
   String uploadImage(
       @RequestPart("imageFile") MultipartFile file,
       @RequestParam("path") UploadPathNameEnum pathNameEnum);
-  
-  
+
   @PostMapping(value = "/userUpload/uploadImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   String uploadImage(
-          @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files);
-  
+      @RequestParam("userId") String userId, @RequestPart("files") MultipartFile files);
+
   /**
    * 小程序上传的类型为MediaType.APPLICATION_OCTET_STREAM_VALUE
    *
    * <p>使用注解@RequestBody 发送小程序分块上传的内容
    */
   @PostMapping(
-          value = "/userUpload/uploadTmpFile",
-          consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+      value = "/userUpload/uploadTmpFile",
+      consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
   String uploadTmpFile(
-          @RequestBody byte[] bytes,
-          @RequestParam("identifier") String identifier,
-          @RequestParam("index") Long index,
-          @RequestParam("chunkSize") Long chunkSize,
-          @RequestParam("fileName") String fileName,
-          @RequestParam("totalChunks") Long totalChunks,
-          @RequestParam("totalSize") Long totalSize,
-          @RequestParam("userId") String userId);
-  
+      @RequestBody byte[] bytes,
+      @RequestParam("identifier") String identifier,
+      @RequestParam("index") Long index,
+      @RequestParam("chunkSize") Long chunkSize,
+      @RequestParam("fileName") String fileName,
+      @RequestParam("totalChunks") Long totalChunks,
+      @RequestParam("totalSize") Long totalSize,
+      @RequestParam("userId") String userId);
+
   /**
    * 调用合并分块请求接口
    *
@@ -59,5 +58,5 @@ public interface IResourceUploadService {
    */
   @GetMapping(value = "/userUpload/mergeTmpFile")
   String mergeTmpFile(
-          @RequestParam("identifier") String identifier, @RequestParam("fileName") String fileName);
+      @RequestParam("identifier") String identifier, @RequestParam("fileName") String fileName);
 }

@@ -3,14 +3,12 @@ package com.aenlly.rcc.user.controller;
 import com.aenlly.rcc.entity.OrderUserView;
 import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.user.service.IOrderUserViewService;
+import com.aenlly.rcc.user.utils.TokenUtil;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,15 +27,15 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/order-user-view")
 public class OrderUserViewController {
 
-  @Resource
-  IOrderUserViewService orderUserViewService;
+  @Resource IOrderUserViewService orderUserViewService;
 
   @ApiOperation(value = "用户请求订单记录", httpMethod = "GET")
-  @GetMapping("/getOrderUserList/{userId}/{state}")
+  @GetMapping("/getOrderUserList/{state}")
   public CommonResult<List<OrderUserView>> getOrderUserList(
-      @Param("用户编号") @PathVariable("userId") String userId,
+      @Param("token") @RequestHeader("token") String token,
       @Param("订单状态") @PathVariable("state") OrderStateEnum state) {
     try {
+      String userId = TokenUtil.toUserId(token);
       List<OrderUserView> list = orderUserViewService.getOrderUserList(userId, state);
       return resultOk(list);
     } catch (Exception e) {

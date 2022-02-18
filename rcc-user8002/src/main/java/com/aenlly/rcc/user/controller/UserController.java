@@ -2,13 +2,14 @@ package com.aenlly.rcc.user.controller;
 
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.user.service.IUserService;
+import com.aenlly.rcc.user.utils.TokenUtil;
 import com.aenlly.rcc.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -54,8 +55,9 @@ public class UserController {
 
   @ApiOperation(value = "用户信息请求", httpMethod = "GET")
   @GetMapping("/getById")
-  public CommonResult<User> getById(@Param("用户编号") @RequestParam("userId") String userId) {
+  public CommonResult<User> getById(@Param("token") @RequestHeader("token") String token) {
     try {
+      String userId = TokenUtil.toUserId(token);
       User user = userService.getById(userId);
       return resultOk(user);
     } catch (Exception e) {

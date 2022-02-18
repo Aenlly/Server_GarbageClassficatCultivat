@@ -4,6 +4,7 @@ import com.aenlly.rcc.entity.WxUploadVideoInfo;
 import com.aenlly.rcc.service.IUploadService;
 import com.aenlly.rcc.util.UploadUtil;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
  * @projectName RefuseClassificationCultivate
  */
 @Service
+@Slf4j
 public class UploadServiceImpl implements IUploadService {
 
   @Resource private UploadUtil uploadUtil;
@@ -70,6 +72,7 @@ public class UploadServiceImpl implements IUploadService {
   @Override
   public String uploadTmpFile(
       byte[] file, WxUploadVideoInfo wxUploadVideoInfo, UploadPathNameEnum uploadPathNameEnum) {
+
     // 上传文件附加路径
     String databasePath =
         String.format(uploadPathNameEnum.getName(), wxUploadVideoInfo.getIdentifier());
@@ -88,21 +91,27 @@ public class UploadServiceImpl implements IUploadService {
    */
   @Override
   public String mergeTmpFile(String identifier, String fileName) {
-    // 当月文件夹
-    String dateFile = uploadUtil.getDateFileName();
-    // 临时路径文件夹
-    String localFolderPath =
-        String.format(UploadPathNameEnum.WASTE_TEMP_FILE_NAME.getName(), identifier);
+    try {
 
-    String userId = uploadUtil.getUserId(localFolderPath);
+      // 当月文件夹
+      String dateFile = uploadUtil.getDateFileName();
+      // 临时路径文件夹
+      String localFolderPath =
+          String.format(UploadPathNameEnum.WASTE_TEMP_FILE_NAME.getName(), identifier);
 
-    // 保存附加路径
-    String databasePath =
-        String.format(UploadPathNameEnum.WASTE_FILE_NAME.getName(), userId, dateFile);
+      String userId = uploadUtil.getUserId(localFolderPath);
 
-    // 合并文件
-    fileName = uploadUtil.mergeFile(identifier, localFolderPath, databasePath, fileName);
-    return uploadUtil.saveOrUpdateDatabase(userId, databasePath, fileName);
+      // 保存附加路径
+      String databasePath =
+          String.format(UploadPathNameEnum.WASTE_FILE_NAME.getName(), userId, dateFile);
+
+      // 合并文件
+      fileName = uploadUtil.mergeFile(identifier, localFolderPath, databasePath, fileName);
+      return uploadUtil.saveOrUpdateDatabase(userId, databasePath, fileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**

@@ -131,10 +131,15 @@ public class WasteTurnTreasureServiceImpl
   @Override
   @Transactional
   public Boolean updateUserWasteInfo(WasteTurnTreasure wasteTurnTreasure) {
-    boolean update = this.updateById(wasteTurnTreasure);
-    if (update) {
-      return tmpFileService.updateBatchTmpInfo(
-          wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
+    try {
+
+      boolean update = this.updateById(wasteTurnTreasure);
+      if (update) {
+        return tmpFileService.updateBatchTmpInfo(
+            wasteTurnTreasure.getVideoUrl(), wasteTurnTreasure.getImgUrl());
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     return false;
   }
