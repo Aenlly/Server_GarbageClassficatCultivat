@@ -9,6 +9,7 @@ import com.aenlly.rcc.user.utils.UpdateUserPointsUtils;
 import com.aenlly.rcc.utils.wrapper.PointsWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import java.util.List;
  * @since 2021-12-16
  */
 @Service
+@Slf4j
 public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog>
     implements IPointsLogService {
 
@@ -54,6 +56,7 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
     Wrapper<PointsLog> wrapper = PointsWrapperUtil.isDailyCheck(userId);
     // 判断是否已签到
     Long count = baseMapper.selectCount(wrapper);
+    log.error(count.toString());
     if (count == 0) {
       return userPointsUtils.dailyCheck(userId);
     }

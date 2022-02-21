@@ -89,8 +89,13 @@ public class UpdateUserPointsUtils {
 
     // 获取用户信息
     User user = userService.getById(userId);
-    // 增加用户答题积分
+    // 增加剩余积分
     user.setRemainingPoints(user.getRemainingPoints() + points);
+    // 增加用户答题积分
+    user.setAnswerPoints(user.getAnswerPoints() + points);
+    // 增加累积积分
+    user.setAccumulativePoints(user.getAccumulativePoints() + points);
+
     // 更新用户信息
     Boolean updateUser = updateUser(user, points);
 

@@ -1,5 +1,14 @@
 server:
   port: 8004
+  ssl:
+    enabled: true
+    #文件
+    key-store: classpath:aenlly.jks
+    #密码,一个是文件密码，一个是密匙密码
+    key-password: xtx6nRj2
+    key-store-password: xtx6nRj2
+    #密匙库类型，tomcat只支持PKCS12和JKS
+    key-store-type: JKS
 eureka:
   client:
     service-url:
@@ -30,8 +39,8 @@ spring:
       #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
       #本地的资源地址file:本地地址
 upload: #上传的路径
-  #  path: C:/aenlly/static #远程路径，下面位本地调试路径
-  path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static
+  path: C:/aenlly/static #远程路径，下面位本地调试路径
+#  path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml

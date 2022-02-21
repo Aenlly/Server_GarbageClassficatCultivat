@@ -41,9 +41,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-    http.exceptionHandling()
-        .accessDeniedHandler(resultAccessDeniedHandler)
-        .authenticationEntryPoint(resultAuthenticationEntryPoint);
     http.csrf()
         .disable()
         //    不通过session获取认证容器
@@ -59,6 +56,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole("admin")
         .anyRequest()
         .authenticated();
+    http.exceptionHandling()
+        .accessDeniedHandler(resultAccessDeniedHandler)
+        .authenticationEntryPoint(resultAuthenticationEntryPoint);
   }
 
   @Override

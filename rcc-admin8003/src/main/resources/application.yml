@@ -3,15 +3,15 @@ server:
   servlet:
     context-path: /api #所有请求都增加该前缀如https://localhost:8080/api
     #配置https
-#  ssl:
-#    enabled: true
-#    #文件
-#    key-store: classpath:aenlly.jks
-#    #密码,一个是文件密码，一个是密匙密码
-#    key-password: xtx6nRj2
-#    key-store-password: xtx6nRj2
-#    #密匙库类型，tomcat只支持PKCS12和JKS
-#    key-store-type: JKS
+  ssl:
+    enabled: true
+    #文件
+    key-store: classpath:aenlly.jks
+    #密码,一个是文件密码，一个是密匙密码
+    key-password: xtx6nRj2
+    key-store-password: xtx6nRj2
+    #密匙库类型，tomcat只支持PKCS12和JKS
+    key-store-type: JKS
 
 eureka:
   client:

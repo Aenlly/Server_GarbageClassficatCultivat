@@ -58,7 +58,7 @@ public class UserController {
   public CommonResult<User> getById(@Param("token") @RequestHeader("token") String token) {
     try {
       String userId = TokenUtil.toUserId(token);
-      User user = userService.getById(userId);
+      User user = userService.getUserById(userId);
       return resultOk(user);
     } catch (Exception e) {
       return resultError();

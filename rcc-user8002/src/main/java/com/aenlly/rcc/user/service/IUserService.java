@@ -3,7 +3,6 @@ package com.aenlly.rcc.user.service;
 import com.aenlly.rcc.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,8 +18,7 @@ public interface IUserService extends IService<User> {
    * @param id 用户id
    * @return 用户信息
    */
-  @Override
-  User getById(Serializable id);
+  User getUserById(String id);
 
   /**
    * 用户服务-积分排行

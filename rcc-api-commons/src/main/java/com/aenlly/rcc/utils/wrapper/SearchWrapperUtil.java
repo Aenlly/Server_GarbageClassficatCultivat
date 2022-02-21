@@ -49,7 +49,7 @@ public class SearchWrapperUtil {
    */
   public static Wrapper<SearchLibrary> getSearchText(char c) {
     QueryWrapper<SearchLibrary> wrapper = new QueryWrapper<>();
-    wrapper.likeRight("name", String.valueOf(c));
+    wrapper.like("name", String.valueOf(c));
     return wrapper;
   }
 
@@ -77,7 +77,7 @@ public class SearchWrapperUtil {
     wrapper
         .select("name", "type")
         .eq("user_id", userId)
-        .likeRight("name", name)
+        .like("name", name)
         .orderBy(true, false, "create_time");
     return wrapper;
   }

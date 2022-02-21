@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Setting {
 
+  // TODO:地址如果是远程，需要更改配置的保存地址
   @Value("${upload.path}")
   private String INIT_PATH_NAME;
 }

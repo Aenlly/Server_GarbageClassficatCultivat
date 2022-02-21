@@ -49,7 +49,7 @@ public class LoginServiceImpl implements ILoginService {
     // 使用临时登录凭证换取微信唯一标识openid
     String user_id = getOpenIdByCode(code);
     // 查询库中是否有该用户
-    User user = userService.getById(user_id);
+    User user = userService.getUserById(user_id);
     // 是否存在该用户
     if (user == null) {
       // 创建用户
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements ILoginService {
       // 判断是否创建成功该用户
       if (b) {
         // 查询用户信息
-        user = userService.getById(user_id);
+        user = userService.getUserById(user_id);
       } else {
         throw new NullPointerException(); // 异常
       }

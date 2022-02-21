@@ -291,7 +291,7 @@ public class SearchServiceImpl implements ISearchService {
         return result.get("keyword", String.class);
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new NullPointerException();
     }
     throw new NullPointerException();
   }

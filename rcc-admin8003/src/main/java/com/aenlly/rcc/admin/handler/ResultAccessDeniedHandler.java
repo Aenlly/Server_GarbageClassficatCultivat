@@ -2,6 +2,7 @@ package com.aenlly.rcc.admin.handler;
 
 import com.aenlly.rcc.utils.ResultUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import java.io.PrintWriter;
  * @create by date 2022/02/18 17:26
  * @projectName RefuseClassificationCultivate
  */
+@Slf4j
 @Component
 public class ResultAccessDeniedHandler implements AccessDeniedHandler {
   @Override

@@ -1,5 +1,6 @@
 package com.aenlly.rcc.admin.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
  * @create by date 2022/02/16 13:38
  * @projectName RefuseClassificationCultivate
  */
+@Slf4j
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
   @Override
   public void onAuthenticationSuccess(
@@ -22,7 +24,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
       FilterChain chain,
       Authentication authentication)
       throws IOException, ServletException {
-
     AuthenticationSuccessHandler.super.onAuthenticationSuccess(
         request, response, chain, authentication);
   }

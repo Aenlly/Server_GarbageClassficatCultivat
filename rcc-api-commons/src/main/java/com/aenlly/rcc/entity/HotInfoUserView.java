@@ -51,6 +51,7 @@ public class HotInfoUserView implements Serializable {
 
   @ApiModelProperty(value = "发布时间")
   @TableField("release_time")
+  @JsonFormat(pattern = "yyyy-MM-dd") // 输出的格式
   private LocalDateTime releaseTime;
 
   @ApiModelProperty(value = "资讯状态，0:待发布、1:已发布、-1已下线")

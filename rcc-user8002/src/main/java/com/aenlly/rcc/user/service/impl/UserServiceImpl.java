@@ -1,15 +1,22 @@
 package com.aenlly.rcc.user.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.json.JSONUtil;
+import com.aenlly.rcc.entity.LoginUser;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.mapper.UserMapper;
 import com.aenlly.rcc.user.service.IUserService;
+import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.wrapper.UserWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,6 +27,9 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+  @Resource AuthenticationManager authenticationManager;
+
   /**
    * 根据id查询用户信息
    *
@@ -27,9 +37,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
    * @return 用户信息
    */
   @Override
-  public User getById(Serializable id) {
+  public User getUserById(String id) {
     Wrapper<User> wrapper = UserWrapperUtil.getUserById(id);
-    return baseMapper.selectOne(wrapper);
+
+    User user = this.getOne(wrapper);
+
+    UsernamePasswordAuthenticationToken authenticationToken =
+        new UsernamePasswordAuthenticationToken(user.getUserId(), user.getUserId());
+    Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+    // 认证未通过
+    if (ObjectUtil.isNull(authenticate)) {
+      throw new NullPointerException();
+    }
+
+    LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
+    String json = JSONUtil.toJsonPrettyStr(loginUser);
+    String token = JWTUtil.createToken(json);
+    user.setUserId(token);
+    return user;
   }
 
   /**
