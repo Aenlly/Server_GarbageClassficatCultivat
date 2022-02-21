@@ -46,6 +46,8 @@ public class UpdateUserPointsUtils {
     boolean b = pointsLogAdd(userId, PointsLogDescEnum.DAILY_CHECK.getPoints());
     if (b) {
       User user = userService.getById(userId);
+      Points points = pointsService.getById(user.getPointsId());
+      user.setPoints(points);
       return updateUser(user, PointsLogDescEnum.DAILY_CHECK.getPoints());
     }
     throw new NullPointerException();
