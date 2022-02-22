@@ -3,8 +3,10 @@ package com.aenlly.rcc.user.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.aenlly.rcc.entity.LoginUser;
+import com.aenlly.rcc.entity.Points;
 import com.aenlly.rcc.entity.User;
 import com.aenlly.rcc.mapper.UserMapper;
+import com.aenlly.rcc.user.service.IPointsService;
 import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.wrapper.UserWrapperUtil;
@@ -30,6 +32,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
   @Resource AuthenticationManager authenticationManager;
 
+  @Resource IPointsService pointsService;
+
   /**
    * 根据id查询用户信息
    *
@@ -41,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     Wrapper<User> wrapper = UserWrapperUtil.getUserById(id);
 
     User user = this.getOne(wrapper);
-
+    // 设置权限
     UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(user.getUserId(), user.getUserId());
     Authentication authenticate = authenticationManager.authenticate(authenticationToken);
@@ -53,6 +57,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
     String json = JSONUtil.toJsonPrettyStr(loginUser);
     String token = JWTUtil.createToken(json);
+    // 设置头衔
+    Points points = pointsService.getById(user.getPointsId());
+    user.setPoints(points);
     user.setUserId(token);
     return user;
   }

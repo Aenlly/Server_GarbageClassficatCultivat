@@ -5,8 +5,10 @@ import com.aenlly.rcc.utils.CommonResult;
 import com.aenlly.rcc.vo.LoginUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -21,6 +23,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
  */
 @RestController
 @Api(tags = "登录管理")
+@Slf4j
 public class LoginController {
 
   @Resource private ILoginService loginService;
@@ -29,8 +32,8 @@ public class LoginController {
   @GetMapping("/login")
   public CommonResult<LoginUserVo> userLogin(
       @Param(value = "用户临时登录凭证") String code,
-      @Param(value = "用户昵称") String nickName,
-      @Param(value = "头像地址") String avatarUrl) {
+      @Param(value = "用户昵称") @RequestParam("nickName") String nickName,
+      @Param(value = "头像地址") @RequestParam("avatarUrl") String avatarUrl) {
     try {
       LoginUserVo user = loginService.userLogin(code, nickName, avatarUrl);
       return resultOk(user);

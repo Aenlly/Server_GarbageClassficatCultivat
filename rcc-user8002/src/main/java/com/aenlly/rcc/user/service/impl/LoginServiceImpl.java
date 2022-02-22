@@ -12,6 +12,7 @@ import com.aenlly.rcc.user.service.IUserService;
 import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.WxParam;
 import com.aenlly.rcc.vo.LoginUserVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
  * @projectName RefuseClassificationCultivate
  */
 @Service
+@Slf4j
 public class LoginServiceImpl implements ILoginService {
   /** 用户表服务对象 */
   @Resource private IUserService userService;
@@ -49,19 +51,18 @@ public class LoginServiceImpl implements ILoginService {
     // 使用临时登录凭证换取微信唯一标识openid
     String user_id = getOpenIdByCode(code);
     // 查询库中是否有该用户
-    User user = userService.getUserById(user_id);
-    // 是否存在该用户
-    if (user == null) {
-      // 创建用户
-      boolean b = create(user_id, nickName, avatarUrl);
-      // 判断是否创建成功该用户
-      if (b) {
-        // 查询用户信息
-        user = userService.getUserById(user_id);
-      } else {
-        throw new NullPointerException(); // 异常
-      }
+    User user = userService.getById(user_id);
+
+    // 创建用户或者更新用户信息
+    boolean b = create(user_id, nickName, avatarUrl);
+    // 判断是否创建成功该用户
+    if (b) {
+      // 查询用户信息
+      user = userService.getUserById(user_id);
+    } else {
+      throw new NullPointerException(); // 异常
     }
+
     // 获得积分头衔
     Points points = pointsService.getById(user.getPointsId());
     // 设置积分头衔对象
@@ -135,6 +136,7 @@ public class LoginServiceImpl implements ILoginService {
     user.setUserId(openId);
     user.setNickName(nickName);
     user.setAvatarUrl(avatarUrl);
-    return userService.save(user);
+    log.error(user.toString());
+    return userService.saveOrUpdate(user);
   }
 }
