@@ -52,15 +52,18 @@ public class LoginServiceImpl implements ILoginService {
     String user_id = getOpenIdByCode(code);
     // 查询库中是否有该用户
     User user = userService.getById(user_id);
-
-    // 创建用户或者更新用户信息
-    boolean b = create(user_id, nickName, avatarUrl);
-    // 判断是否创建成功该用户
-    if (b) {
-      // 查询用户信息
-      user = userService.getUserById(user_id);
-    } else {
-      throw new NullPointerException(); // 异常
+    // 判断是否存在昵称与头像
+    if (avatarUrl != null || nickName != null) {
+      // 创建用户或者更新用户信息
+      boolean b = create(user_id, nickName, avatarUrl);
+      // 判断是否创建成功该用户
+      if (b) {
+        // 查询用户信息
+        user = userService.getUserById(user_id);
+      } else {
+        // 异常
+        throw new NullPointerException();
+      }
     }
 
     // 获得积分头衔

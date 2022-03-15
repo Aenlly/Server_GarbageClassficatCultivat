@@ -43,13 +43,13 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 public class WasteTurnTreasureController {
 
   /** 变废为宝表-服务对象 */
-  @Resource IWasteTurnTreasureService wasteTurnTreasureService;
+  @Resource private IWasteTurnTreasureService wasteTurnTreasureService;
   /** 变废为宝上传服务调用接口 */
-  @Resource IResourceUploadService uploadService;
+  @Resource private IResourceUploadService uploadService;
 
-  @Resource IUserService userService;
+  @Resource private IUserService userService;
 
-  @Resource IAdminTableService adminTableService;
+  @Resource private IAdminTableService adminTableService;
 
   @ApiOperation(value = "用户服务-变废为宝-初始请求-根据标签搜索，获取信息请求", httpMethod = "GET")
   @GetMapping("/getListByTag/{tag}")

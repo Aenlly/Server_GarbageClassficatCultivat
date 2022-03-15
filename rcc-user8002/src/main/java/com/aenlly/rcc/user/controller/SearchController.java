@@ -30,7 +30,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/search")
 public class SearchController {
 
-  @Resource ISearchService searchService;
+  @Resource private ISearchService searchService;
 
   @ApiOperation(value = "文本搜索垃圾所属分类请求", httpMethod = "GET")
   @GetMapping("/getSearchText")
@@ -38,12 +38,13 @@ public class SearchController {
       @Param("token") @RequestHeader("token") String token,
       @Param("垃圾名称") @RequestParam("name") String name,
       @Param("搜索类型") @RequestParam("type") SearchTypeEnum typeEnum) {
-    String userId = TokenUtil.toUserId(token);
-    Collection<SearchLibrary> list = searchService.searchText(name, userId, typeEnum);
-    if (list != null) {
+    try {
+      String userId = TokenUtil.toUserId(token);
+      Collection<SearchLibrary> list = searchService.searchText(name, userId, typeEnum);
       return resultOk(list);
+    } catch (Exception e) {
+      return resultError();
     }
-    return resultError();
   }
 
   @ApiOperation(value = "首页-语音搜索识别请求", httpMethod = "POST")

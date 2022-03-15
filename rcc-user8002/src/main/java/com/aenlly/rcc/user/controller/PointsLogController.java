@@ -25,7 +25,7 @@ import static com.aenlly.rcc.utils.ResultUtil.*;
 @RequestMapping("/points-log")
 public class PointsLogController {
 
-  @Resource IPointsLogService pointsLogService;
+  @Resource private IPointsLogService pointsLogService;
 
   @ApiOperation(value = "积分记录请求", httpMethod = "GET")
   @GetMapping("/getByUserIdAndType")

@@ -27,7 +27,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/order-user-view")
 public class OrderUserViewController {
 
-  @Resource IOrderUserViewService orderUserViewService;
+  @Resource private IOrderUserViewService orderUserViewService;
 
   @ApiOperation(value = "用户请求订单记录", httpMethod = "GET")
   @GetMapping("/getOrderUserList/{state}")

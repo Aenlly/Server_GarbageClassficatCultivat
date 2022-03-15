@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum WxParam {
+  /** 与微信进行交换用户标识符的api接口地址 */
   WX_URL(
       "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"),
   /** 小程序 appId */

@@ -67,7 +67,7 @@ public class SearchServiceImpl implements ISearchService {
       SearchUser searchUser = new SearchUser(name, searchTypeEnum, userId);
       boolean save = searchUserService.save(searchUser);
       if (!save) {
-        return null;
+        throw new NullPointerException();
       }
     }
     // 下列进行搜索，单个查询，然后进行去重
@@ -201,7 +201,6 @@ public class SearchServiceImpl implements ISearchService {
           }
         }
         searchLibraryAdd.searchLibraryAdd(list);
-
         return list;
       }
     }

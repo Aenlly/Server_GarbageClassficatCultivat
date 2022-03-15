@@ -29,8 +29,8 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @Api(tags = "垃圾管理控制器")
 public class GarbageController {
 
-  @Resource IGarbageService garbageService;
-  @Resource IGarbageListService garbageListService;
+  @Resource private IGarbageService garbageService;
+  @Resource private IGarbageListService garbageListService;
 
   @ApiOperation(value = "小程序垃圾类型详情请求", httpMethod = "GET")
   @GetMapping("/getByType")

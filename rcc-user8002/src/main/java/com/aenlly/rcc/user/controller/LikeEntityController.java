@@ -25,7 +25,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/like-entity")
 public class LikeEntityController {
 
-  @Resource ILikeEntityService likeEntityService;
+  @Resource private ILikeEntityService likeEntityService;
 
   @ApiOperation(value = "请求数据点赞量", httpMethod = "GET")
   @GetMapping("/getCountByDataId")

@@ -26,7 +26,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/collect-entity")
 public class CollectEntityController {
 
-  @Resource ICollectEntityService collectEntityService;
+  @Resource private ICollectEntityService collectEntityService;
 
   @ApiOperation(value = "用户收藏-列表请求", httpMethod = "GET")
   @GetMapping("/getByUserId")

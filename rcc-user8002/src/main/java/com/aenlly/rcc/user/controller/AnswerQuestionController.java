@@ -28,7 +28,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/answer-question")
 public class AnswerQuestionController {
 
-  @Resource IAnswerQuestionService answerQuestionService;
+  @Resource private IAnswerQuestionService answerQuestionService;
 
   /**
    * 200：成功请求

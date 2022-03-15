@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/carousel-user-view")
 public class CarouselUserViewController {
 
-  @Resource ICarouselUserViewService carouselUserService;
+  @Resource private ICarouselUserViewService carouselUserService;
 
   @ApiOperation(value = "首页轮播图列表请求", httpMethod = "GET")
   @GetMapping(value = "/get")

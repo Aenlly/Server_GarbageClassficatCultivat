@@ -25,7 +25,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/video-user-view")
 public class VideoUserViewController {
 
-  @Resource IVideoUserViewService videoUserViewService;
+  @Resource private IVideoUserViewService videoUserViewService;
 
   @ApiOperation(value = "查询置顶视频信息", httpMethod = "GET")
   @GetMapping("/getByChekTop")

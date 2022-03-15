@@ -25,8 +25,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/gift-list-view")
 public class GiftListViewController {
 
-  @Resource
-  IGiftListViewService giftListViewService;
+  @Resource private IGiftListViewService giftListViewService;
 
   @ApiOperation(value = "用户积分兑换-信息请求，参数用于条件搜索", httpMethod = "GET")
   @GetMapping("/getUserGiftView")

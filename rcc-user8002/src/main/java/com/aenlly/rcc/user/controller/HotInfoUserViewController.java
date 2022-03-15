@@ -27,8 +27,7 @@ import static com.aenlly.rcc.utils.ResultUtil.resultOk;
 @RequestMapping("/hot-info-user-view")
 public class HotInfoUserViewController {
 
-  @Resource
-  IHotInfoUserViewService hotInfoUserViewService;
+  @Resource private IHotInfoUserViewService hotInfoUserViewService;
 
   @ApiOperation(value = "用户服务-热门资讯-请求", httpMethod = "GET")
   @GetMapping("/get")
