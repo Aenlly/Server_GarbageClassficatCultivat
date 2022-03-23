@@ -261,6 +261,12 @@ public class SearchServiceImpl implements ISearchService {
     return result.split("。")[0];
   }
 
+  /**
+   * 图片识别
+   *
+   * @param picture 图片
+   * @return 识别结果
+   */
   private String transferPictureApi(MultipartFile picture) {
     try {
       // 获取文件内容，转为字节数组
@@ -280,8 +286,8 @@ public class SearchServiceImpl implements ISearchService {
       // 转换结果格式
       JSONObject jsonObject = JSONUtil.parseObj(json);
       // 获得结果集数量
-      Integer result_num = jsonObject.get("result_num", Integer.class);
-      if (result_num > 0) {
+      Integer resultNum = jsonObject.get("result_num", Integer.class);
+      if (resultNum > 0) {
         // 获得结果集
         JSONArray resultList = jsonObject.get("result", JSONArray.class);
         // 取识别第一位

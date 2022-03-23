@@ -3,6 +3,7 @@ package com.aenlly.rcc.utils.wrapper;
 import com.aenlly.rcc.entity.*;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.aenlly.rcc.enums.SubmitStateEnum;
+import com.aenlly.rcc.enums.TopicStateEnum;
 import com.aenlly.rcc.enums.WeekNumberEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -114,6 +115,18 @@ public class QuizWrapperUtil {
   }
 
   /**
+   * 随机组卷批次号，获取未答题数量 获得题目对应表操作对象
+   *
+   * @param randomIndex 随机组卷批次号
+   * @return 查询对象
+   */
+  public static Wrapper<QuestionnaireTopics> getQuestionnaireTopicAnswer(String randomIndex) {
+    QueryWrapper<QuestionnaireTopics> wrapper = new QueryWrapper<>();
+    wrapper.eq("random_batch_index", randomIndex).eq("state", TopicStateEnum.UN_ANSWERED);
+    return wrapper;
+  }
+
+  /**
    * 根据题目编号 获得选项表正确答案操作对象
    *
    * @param topicId 题目编号
@@ -138,7 +151,8 @@ public class QuizWrapperUtil {
         .select("id", "submit_time", "total_score")
         .eq("user_id", userId)
         .eq("belong_questionnaire_name", questionnaireName)
-        .eq("state", SubmitStateEnum.SUBMITTED);
+        .eq("state", SubmitStateEnum.SUBMITTED)
+        .orderByDesc("submit_time");
     return wrapper;
   }
 }

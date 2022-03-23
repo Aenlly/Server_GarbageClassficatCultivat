@@ -39,7 +39,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         throw new NullPointerException();
       }
     }
-
     return new LoginAdmin(adminTable);
   }
 }

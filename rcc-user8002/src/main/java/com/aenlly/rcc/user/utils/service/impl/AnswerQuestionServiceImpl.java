@@ -80,10 +80,19 @@ public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
     long count = paperTablesService.count(paperTablesExist);
     // 判断今日是否进行了答题，存在则返回
     if (count > 0) {
+      // 获得查询当前用户是否存在答卷-操作对象
+      paperTablesExist =
+          QuizWrapperUtil.getPaperTablesExist(
+              userId, one.getId(), one.getWeekNumber().getWeekNumber());
       // 获得答卷信息
       PaperTables paperTables = paperTablesService.getOne(paperTablesExist);
+      // 获取未答题题目操作对象
+      Wrapper<QuestionnaireTopics> questionnaireTopicAnswer =
+          QuizWrapperUtil.getQuestionnaireTopicAnswer(paperTables.getRandomBatchIndex());
+      // 问卷未答题题目数量
+      long notNumber = questionnaireTopicsService.count(questionnaireTopicAnswer);
       // 判断是否存在未答题目
-      if (paperTables.getUnAnsweredAmount() > 0) {
+      if (notNumber > 0) {
         return resultOk(paperTables.getRandomBatchIndex());
       } else {
         // 今日已进行答题，同时未提交时，则执行交卷流程

@@ -83,6 +83,7 @@ public class PointsWrapperUtil {
     if (type != 0) {
       wrapper.eq("type", type);
     }
+    wrapper.orderByDesc("create_time");
     return wrapper;
   }
 

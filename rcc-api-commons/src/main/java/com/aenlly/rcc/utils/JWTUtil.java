@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -16,6 +17,7 @@ import java.util.UUID;
  * @create by date 2022/02/16 14:48
  * @projectName RefuseClassificationCultivate
  */
+@Slf4j
 public class JWTUtil {
 
   /** 过期时间:24小时 */
@@ -127,6 +129,7 @@ public class JWTUtil {
   public static boolean ValidateToken(String token) {
     Claims claims = parseJWT(token);
     Date expiration = claims.getExpiration();
+    log.error("时间："+expiration.before(new Date()));
     return expiration.before(new Date());
   }
 }

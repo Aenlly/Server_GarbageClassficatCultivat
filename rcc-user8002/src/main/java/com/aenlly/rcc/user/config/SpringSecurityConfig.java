@@ -1,6 +1,8 @@
 package com.aenlly.rcc.user.config;
 
 import com.aenlly.rcc.user.filter.JwtAuthenticationTokenFilter;
+import com.aenlly.rcc.user.handler.ResultAccessDeniedHandler;
+import com.aenlly.rcc.user.handler.ResultAuthenticationEntryPoint;
 import com.aenlly.rcc.user.utils.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,11 +29,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   @Resource UserDetailsServiceImpl service;
 
   @Resource JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+  
+  
+  @Resource
+  ResultAccessDeniedHandler resultAccessDeniedHandler;
+  
+  @Resource
+  ResultAuthenticationEntryPoint resultAuthenticationEntryPoint;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
+    
     http.csrf()
         .disable()
         //    不通过session获取认证容器
@@ -64,6 +73,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .hasAnyRole("user")
         .anyRequest()
         .authenticated();
+    
+    http.exceptionHandling()
+            .accessDeniedHandler(resultAccessDeniedHandler)
+            .authenticationEntryPoint(resultAuthenticationEntryPoint);
   }
 
   @Override
