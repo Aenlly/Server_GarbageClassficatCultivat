@@ -2,7 +2,7 @@ package com.aenlly.rcc.controller;
 
 import com.aenlly.rcc.service.IUploadService;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
-import org.apache.ibatis.annotations.Param;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +29,7 @@ public class AdminUploadController {
   @PostMapping("/uploadVideo")
   public String uploadVideo(
       @RequestPart("videoFile") MultipartFile file,
-      @Param("保存的相对的地址") @RequestParam("path") UploadPathNameEnum pathNameEnum) {
+      @ApiParam("保存的相对的地址") @RequestParam("path") UploadPathNameEnum pathNameEnum) {
     return uploadService.uploadVideo(file, pathNameEnum);
   }
 
@@ -43,7 +43,7 @@ public class AdminUploadController {
   @PostMapping("/uploadImage")
   public String uploadImage(
       @RequestPart("imageFile") MultipartFile file,
-      @Param("保存的相对的地址") @RequestParam("path") UploadPathNameEnum pathNameEnum) {
+      @ApiParam("保存的相对的地址") @RequestParam("path") UploadPathNameEnum pathNameEnum) {
     return uploadService.uploadImage(null, file, pathNameEnum);
   }
 }

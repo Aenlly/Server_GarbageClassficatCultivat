@@ -43,7 +43,7 @@ spring:
 #    static-path-pattern: /** #网页访问的路径
 #  web:
 #    resources:
-#      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${upload.path} #mvc配置类二选一，
+#      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/ #mvc配置类二选一，,file:${upload.path}
 #      #项目地址classpath：地址
 #      #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 #      #本地的资源地址file:本地地址
