@@ -38,7 +38,7 @@ public interface IAnswerQuestionService {
    * @param userId 用户编号
    * @param topicId 题目编号
    * @param optionId 所选选项id
-   * @param randomIndex 随机祖居批次号
+   * @param randomIndex 随机组卷批次号
    * @return 正确选项编号
    */
   Long isCorrect(String userId, Long topicId, Long optionId, String randomIndex);

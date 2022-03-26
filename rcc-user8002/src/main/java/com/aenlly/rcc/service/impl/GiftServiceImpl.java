@@ -52,7 +52,8 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 兑换码
    */
   @Override
-  @Transactional
+  @Transactional(
+      rollbackFor = {NullPointerException.class, Exception.class, IndexOutOfBoundsException.class})
   public String convertById(String userId, Long id) {
     Gift gift = baseMapper.selectById(id);
     User user = userService.getById(userId);

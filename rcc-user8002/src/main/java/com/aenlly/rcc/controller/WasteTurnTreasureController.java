@@ -234,7 +234,6 @@ public class WasteTurnTreasureController {
     try {
       String userId = TokenUtil.toUserId(token);
       wasteTurnTreasure.setPromulgatorId(userId);
-      System.out.println(wasteTurnTreasure);
       boolean save = wasteTurnTreasureService.createUserWasteInfo(wasteTurnTreasure);
       if (save) {
         return resultOk(true);

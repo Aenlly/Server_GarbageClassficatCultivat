@@ -15,7 +15,7 @@ eureka:
     #注册中心服务的请求地址
     service-url:
       #当注册中心端口号改变时，该字段必须写
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://127.0.0.1:${server.port}/eureka/
       #其他主机的注册中心的地址，非本机注册中心地址，多个用逗号隔开
     #        defaultZone: http://eurekaserver2:8005/eureka/,http://eurekaserver3:8006/eureka/
     #  instance:

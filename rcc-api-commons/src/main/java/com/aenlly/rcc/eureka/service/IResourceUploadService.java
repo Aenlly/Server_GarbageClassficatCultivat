@@ -14,7 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @projectName RefuseClassificationCultivate
  */
 @Component
-@FeignClient(value = "resource", fallback = ResourceUploadServiceImpl.class) // 服务名称
+@FeignClient(
+    value = "resource",
+    url = "https://127.0.0.1:8004/",
+    fallback = ResourceUploadServiceImpl.class) // 服务名称
 public interface IResourceUploadService {
 
   @PostMapping(value = "/adminUpload/uploadVideo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

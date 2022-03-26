@@ -6,12 +6,8 @@ import com.aenlly.rcc.enums.PointsLogDescEnum;
 import com.aenlly.rcc.enums.SubmitStateEnum;
 import com.aenlly.rcc.enums.TopicStateEnum;
 import com.aenlly.rcc.service.*;
-import com.aenlly.rcc.service.IPointsLogService;
-import com.aenlly.rcc.service.IQuestionnaireService;
-import com.aenlly.rcc.service.IQuestionnaireTopicsService;
-import com.aenlly.rcc.service.ISubjectTableService;
-import com.aenlly.rcc.utils.service.IAnswerQuestionService;
 import com.aenlly.rcc.utils.CommonResult;
+import com.aenlly.rcc.utils.service.IAnswerQuestionService;
 import com.aenlly.rcc.utils.wrapper.QuizWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -148,7 +144,7 @@ public class AnswerQuestionServiceImpl implements IAnswerQuestionService {
    * @param userId 用户编号
    * @param topicId 题目编号
    * @param optionId 所选选项id
-   * @param randomIndex 随机祖居批次号
+   * @param randomIndex 随机组卷批次号
    * @return 正确选项编号
    */
   @Override
