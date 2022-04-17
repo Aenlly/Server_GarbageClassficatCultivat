@@ -6,6 +6,7 @@ import com.aenlly.rcc.mapper.TmpFileMapper;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class TmpFileServiceImpl extends ServiceImpl<TmpFileMapper, TmpFile>
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean updateBatchTmpInfo(String... fileUrl) {
     Collection<TmpFile> tmpFiles = new ArrayList<>();
     for (String path : fileUrl) {

@@ -37,7 +37,7 @@ public class SpringBootCorsConfig {
   @Bean
   public CorsFilter corsFilter() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", buildCorsConfig());
+    source.registerCorsConfiguration("/*", buildCorsConfig());
     return new CorsFilter(source);
   }
 }

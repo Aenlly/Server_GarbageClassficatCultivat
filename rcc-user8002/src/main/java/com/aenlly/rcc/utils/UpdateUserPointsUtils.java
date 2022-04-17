@@ -9,6 +9,7 @@ import com.aenlly.rcc.service.IPointsLogService;
 import com.aenlly.rcc.service.IPointsService;
 import com.aenlly.rcc.service.IUserService;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -33,13 +34,13 @@ public class UpdateUserPointsUtils {
   @Resource private IPointsService pointsService;
 
   /**
-   * 签到获取获取判断
-   *
-   * @param userId 用户编号
-   * @return 是否成功
+   签到获取获取判断
+
+   @param userId 用户编号
+   @return 是否成功
    */
-  @Transactional
-  public Boolean dailyCheck(String userId) {
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {NullPointerException.class})
+  public boolean dailyCheck(String userId) {
     // 设置积分记录描述
     pointsLog.setLogDesc(PointsLogDescEnum.DAILY_CHECK.getValue());
 

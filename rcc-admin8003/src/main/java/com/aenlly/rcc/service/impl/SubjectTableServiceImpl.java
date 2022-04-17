@@ -1,13 +1,13 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.ISubjectTableService;
-import com.aenlly.rcc.utils.ExcelFileUtil;
 import com.aenlly.rcc.entity.OptionsTable;
 import com.aenlly.rcc.entity.SubjectTable;
 import com.aenlly.rcc.enums.CorrectlyOrNotEnum;
 import com.aenlly.rcc.execl.QuizSubjectExecl;
 import com.aenlly.rcc.mapper.SubjectTableMapper;
 import com.aenlly.rcc.service.IOptionsTableService;
+import com.aenlly.rcc.service.ISubjectTableService;
+import com.aenlly.rcc.utils.ExcelFileUtil;
 import com.aenlly.rcc.utils.wrapper.SubjectTableWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -69,6 +71,7 @@ public class SubjectTableServiceImpl extends ServiceImpl<SubjectTableMapper, Sub
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean uploadExcelFile(MultipartFile file, Long belongId) {
     List<QuizSubjectExecl> list = ExcelFileUtil.importExcelFile(file, QuizSubjectExecl.class);
     // 遍历导入数据库中

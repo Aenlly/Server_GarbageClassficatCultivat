@@ -2,6 +2,7 @@ package com.aenlly.rcc.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties({"password"})
 @ApiModel(value = "AdminTable对象", description = "管理员表")
 public class AdminTable implements Serializable {
 

@@ -31,7 +31,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     String token = request.getHeader("token");
 
-    if (!StringUtils.hasText(token) || token.equals("null") || JWTUtil.ValidateToken(token)) {
+    if (!StringUtils.hasText(token) || "null".equals(token) || JWTUtil.ValidateToken(token)) {
       filterChain.doFilter(request, response);
       return;
     }

@@ -8,6 +8,7 @@ import com.aenlly.rcc.utils.wrapper.OptionsTableWrapperUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class OptionsTableServiceImpl extends ServiceImpl<OptionsTableMapper, Opt
    * @return 是否成功，true成功，false代表选项超出数量，异常代表失败
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(OptionsTable entity) {
     // 获取数量
     List<OptionsTable> list = this.getList(entity.getBelongTopicId());
@@ -62,7 +64,7 @@ public class OptionsTableServiceImpl extends ServiceImpl<OptionsTableMapper, Opt
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean updateOffOrOnById(OptionsTable entity) {
     if (entity.getCorrectlyOrNot() != CorrectlyOrNotEnum.CPRRECTLY) {
       return this.updateById(entity);

@@ -41,10 +41,11 @@ public class VideoController {
       @ApiParam("查询类型") @RequestParam("queryType") QueryVideoTypeEnum queryType,
       @ApiParam("查询内容") @RequestParam("text") String text) {
     try {
-      IPage<VideoVo> list = service.getList(new Page<>(current, size), queryType, text);
-      return resultOk(list);
+        IPage<VideoVo> list = service.getList(new Page<>(current, size), queryType, text);
+        return resultOk(list);
     } catch (Exception e) {
-      return resultError();
+        e.printStackTrace();
+        return resultError();
     }
   }
 

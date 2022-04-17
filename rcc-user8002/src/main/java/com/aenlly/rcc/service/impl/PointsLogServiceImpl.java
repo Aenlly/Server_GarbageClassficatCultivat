@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -51,7 +52,7 @@ public class PointsLogServiceImpl extends ServiceImpl<PointsLogMapper, PointsLog
    * @return 是否签到成功
    */
   @Override
-  @Transactional // 事务回滚
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {NullPointerException.class}) // 事务回滚
   public boolean dailyCheck(String userId) {
     Wrapper<PointsLog> wrapper = PointsWrapperUtil.isDailyCheck(userId);
     // 判断是否已签到

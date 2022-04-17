@@ -2,11 +2,11 @@ package com.aenlly.rcc.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.aenlly.rcc.service.IAdminTableService;
 import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.entity.LoginAdmin;
 import com.aenlly.rcc.enums.AdminLoginEnum;
 import com.aenlly.rcc.mapper.AdminTableMapper;
+import com.aenlly.rcc.service.IAdminTableService;
 import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.wrapper.AdminWrapperUtil;
 import com.aenlly.rcc.vo.LoginVo;
@@ -17,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -69,6 +71,7 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean changePwd(Long id, String password) {
     String encode = passwordEncoder.encode(password);
     AdminTable entity = new AdminTable();
@@ -84,6 +87,7 @@ public class AdminTableServiceImpl extends ServiceImpl<AdminTableMapper, AdminTa
    * @return 成功200，手机号重复100，邮箱重复300
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Integer update(AdminTable entity) {
     QueryWrapper<AdminTable> telWrapper =
         AdminWrapperUtil.adminLogin(entity.getTel(), AdminLoginEnum.TEL);

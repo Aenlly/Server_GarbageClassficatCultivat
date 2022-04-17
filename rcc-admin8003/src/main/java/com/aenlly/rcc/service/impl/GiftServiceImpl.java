@@ -1,13 +1,13 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.IGiftInfoService;
-import com.aenlly.rcc.service.IGiftListViewService;
-import com.aenlly.rcc.service.IGiftService;
 import com.aenlly.rcc.entity.Gift;
 import com.aenlly.rcc.entity.GiftInfo;
 import com.aenlly.rcc.entity.GiftListView;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.GiftMapper;
+import com.aenlly.rcc.service.IGiftInfoService;
+import com.aenlly.rcc.service.IGiftListViewService;
+import com.aenlly.rcc.service.IGiftService;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.utils.enums.QueryGiftTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,6 +66,7 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.GIFT_IMAGE_NAME);
   }
@@ -76,7 +78,7 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(GiftListView entity) {
 
     Gift gift = setGift(entity);
@@ -105,6 +107,7 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(GiftListView entity) {
     Gift gift = setGift(entity);
 
@@ -124,7 +127,7 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean addNumber(Long id, Long number) {
     GiftInfo giftInfo = new GiftInfo();
     giftInfo.setGiftId(id);
@@ -145,7 +148,7 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean cutNumber(Long id, Long number) {
     GiftListView gift = giftListViewService.getById(id);
     if (gift.getNumber() < number) {

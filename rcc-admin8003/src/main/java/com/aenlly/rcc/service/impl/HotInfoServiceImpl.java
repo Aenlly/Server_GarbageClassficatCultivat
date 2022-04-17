@@ -1,10 +1,10 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.IHotInfoService;
 import com.aenlly.rcc.entity.HotInfo;
 import com.aenlly.rcc.enums.HotInfoStateEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.HotInfoMapper;
+import com.aenlly.rcc.service.IHotInfoService;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.utils.enums.QueryHotInfoTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -59,6 +61,7 @@ public class HotInfoServiceImpl extends ServiceImpl<HotInfoMapper, HotInfo>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean updateByIdCheck(Long id, HotInfoStateEnum state) {
     Wrapper<HotInfo> wrapper = HotInfoWrapperUtil.updateStateById(id, state);
     return this.update(wrapper);
@@ -71,6 +74,7 @@ public class HotInfoServiceImpl extends ServiceImpl<HotInfoMapper, HotInfo>
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.HOT_INFO_IMAGE_NAME);
   }
@@ -82,6 +86,7 @@ public class HotInfoServiceImpl extends ServiceImpl<HotInfoMapper, HotInfo>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(HotInfo entity) {
     boolean save = this.save(entity);
     if (save) {
@@ -97,6 +102,7 @@ public class HotInfoServiceImpl extends ServiceImpl<HotInfoMapper, HotInfo>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(HotInfo entity) {
     boolean b = this.updateById(entity);
     if (b) {

@@ -1,10 +1,10 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.ICarouselService;
 import com.aenlly.rcc.entity.Carousel;
 import com.aenlly.rcc.enums.CarouselShowFlagEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.CarouselMapper;
+import com.aenlly.rcc.service.ICarouselService;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.CarouselWrapperUtil;
@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -54,6 +56,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, ArrayIndexOutOfBoundsException.class, RuntimeException.class})
   public Boolean putOnline(Long id, CarouselShowFlagEnum online) {
     Wrapper<Carousel> wrapper;
     // 如果是进行置顶操作的，那么需要多执行一步
@@ -77,6 +80,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean putOffline(Long id, CarouselShowFlagEnum offline) {
     Wrapper<Carousel> wrapper = CarouselWrapperUtil.updateByIdPutState(id, offline);
     return baseMapper.update(null, wrapper) > 0;
@@ -89,6 +93,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel>
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.CAROUSEL_IMAGE_NAME);
   }
@@ -100,6 +105,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(Carousel entity) {
     int insert = baseMapper.insert(entity);
     if (insert > 0) {
@@ -115,6 +121,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselMapper, Carousel>
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(Carousel entity) {
     int insert = baseMapper.updateById(entity);
     if (insert > 0) {

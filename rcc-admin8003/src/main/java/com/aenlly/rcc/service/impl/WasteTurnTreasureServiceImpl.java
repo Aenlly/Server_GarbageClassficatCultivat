@@ -1,7 +1,6 @@
 package com.aenlly.rcc.service.impl;
 
 import cn.hutool.json.JSONUtil;
-import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.entity.AdminTable;
 import com.aenlly.rcc.entity.WasteTurnTreasure;
 import com.aenlly.rcc.enums.AuditEnum;
@@ -10,6 +9,7 @@ import com.aenlly.rcc.enums.WasteTagEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.WasteTurnTreasureMapper;
 import com.aenlly.rcc.service.ITmpFileService;
+import com.aenlly.rcc.service.IWasteTurnTreasureService;
 import com.aenlly.rcc.utils.JWTUtil;
 import com.aenlly.rcc.utils.enums.QueryWasteTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
@@ -21,6 +21,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -78,6 +80,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean updateByIdRevise(Long id, AuditEnum audit) {
     Wrapper<WasteTurnTreasure> wrapper = WasteTurnTreasureWrapperUtil.updateByIdPutAudit(id, audit);
     return this.update(wrapper);
@@ -90,6 +93,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 远程视频存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadVideo(MultipartFile file) {
     return uploadService.uploadVideo(file, UploadPathNameEnum.WASTE_ADMIN_FILE_NAME);
   }
@@ -101,6 +105,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.WASTE_ADMIN_IMAGE_NAME);
   }
@@ -112,6 +117,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(WasteTurnTreasure entity) {
     Claims claims = JWTUtil.parseJWT(entity.getPromulgatorId());
     String json = claims.getSubject();
@@ -133,6 +139,7 @@ public class WasteTurnTreasureServiceImpl
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(WasteTurnTreasure entity) {
     boolean b = this.updateById(entity);
     if (b) {

@@ -27,19 +27,35 @@ import javax.annotation.Resource;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  /** 自定义登录逻辑 */
-  @Resource UserDetailsServiceImpl service;
+  /**
+   自定义登录逻辑
+   */
+  @Resource
+  UserDetailsServiceImpl service;
 
   @Resource
   JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
-  @Resource CorsFilter corsFilter;
+  @Resource
+  CorsFilter corsFilter;
 
   @Resource
   ResultAccessDeniedHandler resultAccessDeniedHandler;
 
   @Resource
   ResultAuthenticationEntryPoint resultAuthenticationEntryPoint;
+
+  /**
+   放行静态资源
+
+   @param web
+   @throws Exception
+   */
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring()
+       .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/swagger-resources/**", "/configuration", "/security", "/swagger-ui.html", "/webjars/**", "/druid/**");
+  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
@@ -53,7 +69,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .authorizeRequests()
         //    使登录接口能进行访问,不能写/api/login，因为api是全局index的配置
-        .antMatchers("/login","/swagger-ui/**")
+        .antMatchers("/login", "/swagger-ui/**", "/druid/**")
         .anonymous()
         // 除上面之外的所有请求，都需要进行鉴权
         .antMatchers("/*")
@@ -64,26 +80,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .accessDeniedHandler(resultAccessDeniedHandler)
         .authenticationEntryPoint(resultAuthenticationEntryPoint);
   }
-  
-  /**
-   放行静态资源
-   @param web
-   @throws Exception
-   */
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources","/swagger-resources/**",
-            "/configuration","/security", "/swagger-ui.html", "/webjars/**");
-  }
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(service).passwordEncoder(getPasswordEncoder());
   }
-  
+
   /**
-   加密算法
-   @return
+   * 加密算法
+   *
+   * @return
    */
   @Bean
   public PasswordEncoder getPasswordEncoder() {

@@ -1,9 +1,9 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.IOrdersService;
 import com.aenlly.rcc.entity.Orders;
 import com.aenlly.rcc.enums.OrderStateEnum;
 import com.aenlly.rcc.mapper.OrdersMapper;
+import com.aenlly.rcc.service.IOrdersService;
 import com.aenlly.rcc.utils.enums.QueryOrderTypeEnum;
 import com.aenlly.rcc.utils.wrapper.OrdersWrapperUtil;
 import com.aenlly.rcc.vo.OrderVo;
@@ -12,6 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 订单记录表 服务实现类
@@ -44,6 +46,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean writeOff(Long id) {
     Wrapper<Orders> wrapper = OrdersWrapperUtil.getWriteOff(id);
     return baseMapper.update(null, wrapper) > 0;

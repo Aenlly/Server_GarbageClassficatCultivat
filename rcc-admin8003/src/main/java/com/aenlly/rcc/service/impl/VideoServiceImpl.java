@@ -1,11 +1,11 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.IVideoService;
 import com.aenlly.rcc.entity.Video;
 import com.aenlly.rcc.enums.VideoCheckEnum;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.VideoMapper;
 import com.aenlly.rcc.service.ITmpFileService;
+import com.aenlly.rcc.service.IVideoService;
 import com.aenlly.rcc.utils.enums.QueryVideoTypeEnum;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.VideoWrapperUtil;
@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,6 +58,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, RuntimeException.class})
   public Boolean updateByIdCheck(Long id, VideoCheckEnum videoCheckEnum) {
     Wrapper<Video> wrapper;
     // 如果是进行置顶操作的，那么需要多执行一步
@@ -78,6 +80,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 远程视频存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, RuntimeException.class})
   public String uploadVideo(MultipartFile file) {
     return uploadService.uploadVideo(file, UploadPathNameEnum.VIDEO_VIDEO_NAME);
   }
@@ -89,6 +92,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.VIDEO_IMAGE_NAME);
   }
@@ -100,7 +104,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 是否成功
    */
   @Override
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(Video entity) {
     if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);
@@ -119,6 +123,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(Video entity) {
     if (entity.getVideoCheck().equals(VideoCheckEnum.TOP)) {
       Wrapper<Video> wrapper = VideoWrapperUtil.updateVideoByCheck(VideoCheckEnum.TOP);

@@ -1,9 +1,9 @@
 package com.aenlly.rcc.service.impl;
 
-import com.aenlly.rcc.service.IGarbageListService;
 import com.aenlly.rcc.entity.GarbageList;
 import com.aenlly.rcc.eureka.service.IResourceUploadService;
 import com.aenlly.rcc.mapper.GarbageListMapper;
+import com.aenlly.rcc.service.IGarbageListService;
 import com.aenlly.rcc.service.ITmpFileService;
 import com.aenlly.rcc.utils.enums.UploadPathNameEnum;
 import com.aenlly.rcc.utils.wrapper.GarbageListWrapperUtil;
@@ -12,6 +12,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -53,6 +55,7 @@ public class GarbageListServiceImpl extends ServiceImpl<GarbageListMapper, Garba
    * @return 远程图片存储地址
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public String uploadImage(MultipartFile file) {
     return uploadService.uploadImage(file, UploadPathNameEnum.GARBAGE_IMAGE_NAME);
   }
@@ -64,6 +67,7 @@ public class GarbageListServiceImpl extends ServiceImpl<GarbageListMapper, Garba
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean create(GarbageList entity) {
     int insert = baseMapper.insert(entity);
     if (insert > 0) {
@@ -79,6 +83,7 @@ public class GarbageListServiceImpl extends ServiceImpl<GarbageListMapper, Garba
    * @return 是否成功
    */
   @Override
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {UnsupportedOperationException.class, NullPointerException.class, RuntimeException.class})
   public Boolean update(GarbageList entity) {
     int insert = baseMapper.updateById(entity);
     if (insert > 0) {
