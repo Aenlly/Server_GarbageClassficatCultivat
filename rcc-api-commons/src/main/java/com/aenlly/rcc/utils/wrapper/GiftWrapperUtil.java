@@ -1,11 +1,15 @@
 package com.aenlly.rcc.utils.wrapper;
 
+import com.aenlly.rcc.entity.Gift;
 import com.aenlly.rcc.entity.GiftInfo;
 import com.aenlly.rcc.entity.GiftListView;
 import com.aenlly.rcc.enums.GiftStateEnum;
 import com.aenlly.rcc.utils.enums.QueryGiftTypeEnum;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+
+import java.io.Serializable;
 
 /**
  * 礼品信息表实体封装操作对象获取工具类
@@ -64,10 +68,25 @@ public class GiftWrapperUtil {
    */
   public static Wrapper<GiftListView> getUserGiftList(String name, Integer type) {
     QueryWrapper<GiftListView> wrapper = new QueryWrapper<>();
-    wrapper.select("gift_id", "gift_name", "img_url", "point", "price").like("gift_name", name);
+    wrapper.select("gift_id", "gift_name", "img_url", "point", "price")
+           .like("gift_name", name);
     if (type != -1) {
       wrapper.eq("type_id", type);
     }
     return wrapper;
   }
+
+  /**
+   根据id，创建增加浏览量操作对象
+
+   @param id 礼品编号
+   @return 操作对象
+   */
+  public static Wrapper<Gift> increasePageviews(Serializable id) {
+    UpdateWrapper<Gift> wrapper = new UpdateWrapper<>();
+    wrapper.eq("gift_id", id)
+           .setSql(true, "browse_count=browse_count+1");
+    return wrapper;
+  }
+
 }

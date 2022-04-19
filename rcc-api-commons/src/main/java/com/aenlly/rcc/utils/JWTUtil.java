@@ -23,8 +23,10 @@ public class JWTUtil {
   /** 过期时间:24小时 */
   private static final Long JWT_TTL = 24 * 60 * 60 * 1000L;
 
-  /** 密匙 */
-  private static final String JWT_Key = "Aenlly";
+  /**
+   密匙
+   */
+  private static final String JWT_KEY = "Aenlly";
 
   /**
    * 获取uuid
@@ -41,7 +43,8 @@ public class JWTUtil {
    * @return 对称密匙
    */
   private static SecretKey getEncryptKey() {
-    byte[] decode = Base64.getDecoder().decode(JWTUtil.JWT_Key);
+    byte[] decode = Base64.getDecoder()
+                          .decode(JWTUtil.JWT_KEY);
     return new SecretKeySpec(decode, 0, decode.length, "AES");
   }
 

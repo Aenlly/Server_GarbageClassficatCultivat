@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 
 /**
  * 礼品信息表 服务实现类
@@ -82,5 +83,18 @@ public class GiftServiceImpl extends ServiceImpl<GiftMapper, Gift> implements IG
       throw new NullPointerException();
     }
     return code;
+  }
+
+  /**
+   增加浏览量
+
+   @param id 礼品id
+   @return 是否成功
+   */
+  @Override
+  @Transactional
+  public Boolean increasePageviews(Serializable id) {
+    Wrapper<Gift> wrapper = GiftWrapperUtil.increasePageviews(id);
+    return this.update(wrapper);
   }
 }

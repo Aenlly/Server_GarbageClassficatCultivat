@@ -21,4 +21,5 @@ public interface IGiftListViewService extends IService<GiftListView> {
    * @return 礼品列表
    */
   List<GiftListView> getUserGiftList(String name, Integer type);
+
 }
