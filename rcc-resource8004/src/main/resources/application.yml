@@ -1,12 +1,14 @@
 server:
   port: 8004
+  servlet:
+    context-path: /resource-api #所有请求都增加该前缀如https://localhost:8080/api
   ssl:
     enabled: true
     #文件
-    key-store: classpath:aenlly.jks
+    key-store: classpath:aenlly.top.jks
     #密码,一个是文件密码，一个是密匙密码
-    key-password: xtx6nRj2
-    key-store-password: xtx6nRj2
+    key-password: alzliqhg
+    key-store-password: alzliqhg
     #密匙库类型，tomcat只支持PKCS12和JKS
     key-store-type: JKS
 eureka:
@@ -39,8 +41,8 @@ spring:
       #默认开放classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
       #本地的资源地址file:本地地址
 upload: #上传的路径
-#  path: C:/aenlly/static #远程路径，下面位本地调试路径
-  path: /usr/rcc/static #虚拟机路径
+  path: C:/aenlly/static #远程路径，下面位本地调试路径
+  #  path: /usr/rcc/static #虚拟机路径
 #  path: D:/OneDrive - Wiriex Anixe University/ProjectFile/Java/RefuseClassificationCultivate/RefuseClassificationCultivate/rcc-resource8004/static
 
 mybatis-plus:

@@ -1,13 +1,15 @@
 server:
   port: 8002
+  servlet:
+    context-path: /user-api #所有请求都增加该前缀如https://localhost:8080/user-api
   #配置https
   ssl:
     enabled: true
     #文件
-    key-store: classpath:aenlly.jks
+    key-store: classpath:aenlly.top.jks
     #密码,一个是文件密码，一个是密匙密码
-    key-password: xtx6nRj2
-    key-store-password: xtx6nRj2
+    key-password: alzliqhg
+    key-store-password: alzliqhg
     #密匙库类型，tomcat只支持PKCS12和JKS
     key-store-type: JKS
 
